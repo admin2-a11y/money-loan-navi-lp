@@ -1504,6 +1504,12 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
 .v4-cta-wrap { padding: 4px 14px 14px; text-align: center; }
 .v4-cta-wrap--after-head { padding-top: 14px; }
 .v4-cta-wrap--after-review { padding-top: 2px; padding-bottom: 20px; }
+.v4-review-box > .v4-cta-wrap--after-review {
+  margin-top: 14px;
+  padding: 16px 0 2px;
+  border-top: 1px solid #dbe8e2;
+}
+.v4-review-box > .v4-cta-wrap--after-review .v4-countdown { margin-top: 0; }
 .v4-countdown {
   display: flex;
   align-items: center;
@@ -1666,6 +1672,7 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-cta-wrap { padding: 0 10px 11px; }
   .v4-cta-wrap--after-head { padding-top: 12px; }
   .v4-cta-wrap--after-review { padding-top: 2px; padding-bottom: 16px; }
+  .v4-review-box > .v4-cta-wrap--after-review { margin-top: 12px; padding: 14px 0 1px; }
   .v4-countdown { gap: 4px 7px; margin-bottom: 10px; font-size: 12px; }
   .v4-countdown i { min-width: 26px; padding: 3px 4px; font-size: 13px; }
   .v4-cta-bubble { min-height: 42px; padding: 7px 10px; font-size: 15px; font-weight: 900; }
