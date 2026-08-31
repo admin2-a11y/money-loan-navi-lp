@@ -1,0 +1,7 @@
+[data-recent-lender-card]{margin:0 0 24px}
+[data-recent-lender-card] .v4-result-cards{width:100%;max-width:none;margin:0;padding:0}
+[data-recent-lender-card] .v4-lender-list{display:block}
+[data-recent-lender-card] .v4-lender-card{margin:0}
+[data-recent-lender-card] .v4-lender-name{margin:0}
+[data-recent-lender-card] a{text-decoration:none}
+@media(max-width:600px){[data-recent-lender-card]{margin-right:-8px;margin-left:-8px}}

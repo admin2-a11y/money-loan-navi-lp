@@ -1,0 +1,63 @@
+/* Keep the copied questionnaire UI contained at narrow widths. */
+.cq-modal__panel {
+  overflow-x: hidden;
+}
+
+.cq-step,
+.cq-step h2,
+.cq-options,
+.cq-option,
+.cq-option > span,
+.cq-step__actions {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cq-step h2 {
+  white-space: normal;
+}
+
+.cq-option > span {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
+.cq-option-note {
+  flex: 0 0 calc(100% - 32px);
+  margin: -4px 0 0 32px;
+  white-space: normal;
+}
+
+@media (max-width: 359px) {
+  .cq-progress {
+    padding-inline: 18px;
+  }
+
+  .cq-step {
+    padding-inline: 16px;
+  }
+
+  .cq-step h2 {
+    font-size: 17px;
+  }
+
+  .cq-option > span {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .cq-step__actions {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: 8px;
+  }
+
+  .cq-back {
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 12px;
+  }
+
+  .cq-next {
+    font-size: 15px;
+  }
+}

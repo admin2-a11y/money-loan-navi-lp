@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>公式サイトへ移動します｜マネーローンナビ</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#1d2d3e;font-family:"Yu Gothic",Meiryo,sans-serif}.box{width:min(560px,calc(100% - 30px));margin:60px auto;padding:30px;border-radius:14px;background:#fff;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.12)}img{max-width:320px;width:100%;height:auto}.spinner{width:44px;height:44px;margin:auto;border:5px solid #dceaf5;border-top-color:#0878db;border-radius:50%;animation:spin .8s linear infinite}a{display:inline-block;margin-top:16px;padding:12px 24px;border-radius:24px;background:#ff6c18;color:#fff;font-weight:700;text-decoration:none}@keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body><main class="box"><div class="spinner" aria-hidden="true"></div><h1 data-status>移動先を確認しています</h1><div data-banner></div><a data-link href="./index.html">診断ページへ戻る</a></main>
+<script>
+(() => {
+  "use strict";
+  const offers = Object.freeze({
+    acom:{url:"https://whatsmyasp.com/3k701mem558983c8/cl/?bId=09c6577e",banner:"banner_acom2.jpg",label:"アコム"},
+    promise:{url:"https://whatsmyasp.com/3k701mem558983c8/cl/?bId=r56c91bf",banner:"banner_promise.jpg",label:"プロミス"},
+    mobit:{url:"https://whatsmyasp.com/3k701mem558983c8/cl/?bId=6dcl109c",banner:"banner_mobit.jpg",label:"SMBCモビット"},
+    aiful:{url:"https://whatsmyasp.com/3k701mem558983c8/cl/?bId=3ef9fcfc",banner:"banner_aiful-9min.webp",label:"アイフル"}
+  });
+  const allowed = new Set(["utm_source","utm_medium","utm_campaign","utm_term","utm_content","utm_id","utm_source_platform","utm_creative_format","utm_marketing_tactic","gclid","dclid","wbraid","gbraid","fbclid","msclkid","yclid","ttclid","srsltid"]);
+  const params = new URLSearchParams(location.search);
+  const offer = offers[params.get("item")];
+  const status = document.querySelector("[data-status]");
+  const link = document.querySelector("[data-link]");
+  if (!offer) { status.textContent="移動先を確認できませんでした"; return; }
+  const destination = new URL(offer.url);
+  params.forEach((value,key) => { if (allowed.has(key)) destination.searchParams.set(key,value); });
+  status.textContent=`${offer.label}の公式サイトへ移動します`;
+  document.querySelector("[data-banner]").innerHTML=`<img src="./assets/lenders/${offer.banner}" alt="${offer.label}公式サイトへ">`;
+  link.href=destination.href; link.textContent="移動しない場合はこちら"; link.rel="sponsored noopener";
+  setTimeout(() => location.assign(destination.href),1400);
+})();
+</script></body></html>
