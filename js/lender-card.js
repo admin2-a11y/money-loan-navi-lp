@@ -568,13 +568,13 @@
     if (summarySection && summaryLead && summaryMatch && lenderTitlebar && lenderCatch && lenderHead && ctaSet) {
       const productBlock = document.createElement("div");
       productBlock.className = "v4-diagnosis-summary__product";
-      summaryLead.after(productBlock);
+      summaryMatch.after(productBlock);
       productBlock.append(lenderTitlebar, lenderCatch, lenderHead);
 
       const actionBlock = document.createElement("div");
       actionBlock.className = "v4-diagnosis-summary__action";
       actionBlock.append(ctaSet);
-      summaryMatch.after(actionBlock);
+      productBlock.after(actionBlock);
 
       if (pointsBanner) {
         pointsBanner.classList.add("v4-diagnosis-summary__points");
