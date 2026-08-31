@@ -1875,6 +1875,65 @@ body.result-v2 .v4-result-cards {
   .v4-review-more summary {
     transform: translateX(-33px);
   }
+
+  .v4-diagnosis-summary__answer-tags > span {
+    padding-inline: 5px;
+    font-size: 8.7px;
+    letter-spacing: -0.015em;
+  }
+
+  .v4-diagnosis-summary__match-summary {
+    grid-template-columns: minmax(0, 1fr) 42px;
+    gap: 4px;
+    font-size: 17px;
+  }
+
+  .v4-diagnosis-summary__match-visual { width: 42px; height: 42px; }
+}
+
+/* Scale diagnosis typography for wide phones such as iPhone Pro Max models. */
+@media (min-width: 390px) and (max-width: 600px) {
+  .v4-diagnosis-summary__match { padding: 13px 9px 14px; }
+  .v4-diagnosis-summary__match dl { gap: 12px; padding: 11px 8px 12px; }
+  .v4-diagnosis-summary__match dl > div { gap: 11px 9px; padding: 16px; }
+
+  .v4-diagnosis-summary__match-eyebrow { gap: 6px; font-size: 15px; }
+  .v4-diagnosis-summary__match-eyebrow b {
+    min-width: 34px;
+    height: 27px;
+    padding-inline: 7px;
+    font-size: 14px;
+  }
+  .v4-diagnosis-summary__match-eyebrow em { width: 23px; height: 23px; font-size: 13px; }
+
+  .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level {
+    min-width: 100px;
+    padding: 9px 12px;
+  }
+  .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level > span { font-size: 18px; }
+  .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level strong { font-size: 14px; }
+
+  .v4-diagnosis-summary__match-answer { gap: 5px; }
+  .v4-diagnosis-summary__answer-label { font-size: 12px; }
+  .v4-diagnosis-summary__answer-tags { gap: 6px; }
+  .v4-diagnosis-summary__answer-tags > span { padding: 5px 9px; font-size: 11.5px; }
+
+  .v4-diagnosis-summary__match-summary {
+    grid-template-columns: minmax(0, 1fr) 82px;
+    gap: 11px;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+  .v4-diagnosis-summary__match-visual { width: 82px; height: 82px; }
+  .v4-diagnosis-summary__match-comment p { font-size: 14.5px; line-height: 1.68; }
+  .v4-diagnosis-summary__match-comment small { font-size: 9.5px; }
+  .v4-diagnosis-summary__score-note { padding: 10px 13px 11px; font-size: 9.5px; }
+
+  .v4-diagnosis-summary__product .v4-lender-name { font-size: 20px; }
+  .v4-diagnosis-summary__product .v4-lender-catch { font-size: 15.5px; }
+  .v4-diagnosis-summary__product .v4-specs dt { font-size: 10.5px; }
+  .v4-diagnosis-summary__product .v4-specs dd { font-size: 13px; }
+  .v4-diagnosis-summary__action .v4-cta-bubble { font-size: 14px; }
 }
 
 /* Lock both disclosure controls to the same compact button geometry. */
