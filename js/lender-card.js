@@ -497,6 +497,10 @@
               </div>
               ${additionalReviewsMarkup(lender)}
             </section>
+            <div class="v4-cta-wrap v4-cta-wrap--after-review">
+              <span class="v4-cta-bubble">${lender.cta}</span>
+              <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">詳しくはこちら</a>
+            </div>
             <p class="v4-lender-note">【PR】Sponsored by ${lender.group}<br>${lender.note}</p>
           </article>`).join("")}
       </div>

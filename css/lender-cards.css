@@ -627,19 +627,22 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   margin-bottom: 10px;
   padding: 8px 16px;
   border: 2px solid var(--v4-cta);
-  background: #fffaf3;
-  color: #005d3d;
+  background: var(--v4-cta);
+  color: #fff;
   font-size: 15px;
-  box-shadow: 0 3px 8px rgba(171, 69, 23, .12);
+  box-shadow: 0 4px 10px rgba(171, 69, 23, .2);
 }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-cta-bubble::after {
   display: block;
   border-color: var(--v4-cta);
-  background: #fffaf3;
+  background: var(--v4-cta);
 }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-cta {
+  min-height: 62px;
   border: 1px solid #df4b1c;
   box-shadow: 0 5px 0 var(--v4-cta-shadow);
+  font-size: clamp(20px, 5.4vw, 24px);
+  font-weight: 900;
   animation: v4-cta-push 1.4s ease-in-out infinite;
 }
 .v4-result-cards[data-v4-result-theme="mobit"] > .v4-diagnosis-summary__action { margin: 0 8px 18px; border: 1px solid #d9e5df; border-radius: 10px; box-shadow: 0 3px 9px rgba(8, 83, 64, .09); }
@@ -1482,6 +1485,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
 
 .v4-cta-wrap { padding: 4px 14px 14px; text-align: center; }
 .v4-cta-wrap--after-head { padding-top: 14px; }
+.v4-cta-wrap--after-review { padding-top: 2px; padding-bottom: 20px; }
 .v4-countdown {
   display: flex;
   align-items: center;
@@ -1641,6 +1645,7 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-review-more[open] .v4-review-bubble::before { left: -8px; }
   .v4-cta-wrap { padding: 0 10px 11px; }
   .v4-cta-wrap--after-head { padding-top: 12px; }
+  .v4-cta-wrap--after-review { padding-top: 2px; padding-bottom: 16px; }
   .v4-countdown { gap: 4px 7px; margin-bottom: 10px; font-size: 12px; }
   .v4-countdown i { min-width: 26px; padding: 3px 4px; font-size: 13px; }
   .v4-cta-bubble { min-height: 42px; padding: 7px 10px; font-size: 15px; font-weight: 900; }
