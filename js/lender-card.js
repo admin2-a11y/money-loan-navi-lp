@@ -319,8 +319,12 @@
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
       <div class="v4-diagnosis-summary__match-comment"><p>${dimension.comment}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
     </div>`).join("");
+    const diagnosisCtaMarkup = `<div class="v4-diagnosis-summary__hero-action">
+      <a class="v4-more-reviews-dialog__cta v4-diagnosis-summary__hero-cta" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener">${lender.name}の詳細はこちら</a>
+    </div>`;
     return `<section class="v4-diagnosis-summary" aria-label="あなたの診断結果">
       ${matchBannerMarkup}
+      ${diagnosisCtaMarkup}
       <div class="v4-diagnosis-summary__match">
         <div class="v4-diagnosis-summary__match-panel">
           <dl>${dimensionMarkup}</dl>
