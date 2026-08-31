@@ -351,8 +351,8 @@
     if (!isFirstTimeMobit(lender)) return "";
     return `<figure class="v4-first-time-mobit-banner">
       <picture>
-        <source type="image/webp" srcset="./assets/lenders/mobit-first-points-480.webp 480w, ./assets/lenders/mobit-first-points-768.webp 768w" sizes="(max-width: 600px) calc(100vw - 36px), 460px">
-        <img src="./assets/lenders/mobit-first-points-768.png" width="768" height="845" alt="はじめての方が使いやすい3つのポイント。原則電話連絡・郵送物なし、申込みから最短15分で審査完了、振込は最短3分" loading="lazy" decoding="async">
+        <source type="image/jpeg" srcset="./assets/lenders/mobit-first-points-v2-480.jpg 480w, ./assets/lenders/mobit-first-points-v2-768.jpg 768w" sizes="(max-width: 600px) calc(100vw - 36px), 460px">
+        <img src="./assets/lenders/mobit-first-points-v2-768.jpg" width="768" height="846" alt="SMBCモビット3つのおすすめポイント。原則電話連絡・郵送物なし、申込みから最短15分で審査完了、振込は最短3分" loading="lazy" decoding="async">
       </picture>
     </figure>`;
   };
