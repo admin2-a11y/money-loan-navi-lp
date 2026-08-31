@@ -5113,8 +5113,10 @@ window.CQ_PAGE_CONFIG = {
 
         function initResultEnhancements(page, saved, offer, ctaUrl, priority) {
             var usage = saved && saved.state && saved.state.usage === 'experienced' ? 'experienced' : 'first_time';
-            runResultEnhancement(page, 'experience_guide', function() {
-                renderExperienceGuide(page, usage, offer);
+            runResultEnhancement(page, 'remove_legacy_experience_guide', function() {
+                $all('[data-cq-experience-guide]', page).forEach(function(section) {
+                    section.remove();
+                });
             });
             runResultEnhancement(page, 'accordion_controls', function() {
                 prepareAccordionControls(page);
@@ -7493,7 +7495,7 @@ if (hasFunnel === "true") {
     })();
 
 </script>
-<link rel="stylesheet" href="./css/lender-cards.css?v=20260831-77">
-<script src="./js/lender-card.js?v=20260831-77"></script>
+<link rel="stylesheet" href="./css/lender-cards.css?v=20260831-79">
+<script src="./js/lender-card.js?v=20260831-79"></script>
 <link rel="stylesheet" href="./css/survey-ui-fixes.css">
 </body></html>

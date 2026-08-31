@@ -358,6 +358,73 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
 .v4-diagnosis-summary__match-banner picture,
 .v4-diagnosis-summary__match-banner img { display: block; width: 100%; }
 .v4-diagnosis-summary__match-banner img { height: auto; }
+.v4-diagnosis-summary__unified-hero {
+  display: grid;
+  justify-items: center;
+  gap: 9px;
+  padding: 20px 16px 18px;
+  border-bottom: 1px solid var(--v4-brand-line);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--v4-brand-soft) 82%, #fff) 0%, #fff 58%, color-mix(in srgb, var(--v4-brand-soft) 72%, #fff) 100%);
+  color: var(--v4-brand-text);
+  text-align: center;
+}
+.v4-diagnosis-summary__unified-hero > span {
+  display: inline-flex;
+  padding: 5px 13px 6px;
+  border-radius: 999px;
+  background: var(--v4-brand-dark);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  line-height: 1.2;
+}
+.v4-diagnosis-summary__unified-hero > strong {
+  color: #172d27;
+  font-size: clamp(27px, 7vw, 38px);
+  font-weight: 950;
+  letter-spacing: -.035em;
+  line-height: 1.22;
+}
+.v4-diagnosis-summary__unified-hero > strong b {
+  background: linear-gradient(transparent 62%, color-mix(in srgb, var(--v4-brand) 34%, #fff) 62%);
+  color: var(--v4-brand-dark);
+  font-size: 1.08em;
+  font-weight: 950;
+}
+.v4-diagnosis-summary__unified-hero > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+}
+.v4-diagnosis-summary__unified-hero > p small {
+  color: var(--v4-brand-text);
+  font-size: 12px;
+  font-weight: 800;
+}
+.v4-diagnosis-summary__unified-hero > p em {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 13px;
+  border: 1px solid var(--v4-brand-line);
+  border-radius: 999px;
+  background: var(--v4-brand-soft);
+  color: var(--v4-brand-dark);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1.2;
+}
+.v4-diagnosis-summary__unified-hero > p em.is-very-high {
+  border-color: #ffcf55;
+  background: #f05a31;
+  box-shadow: 0 3px 8px rgba(126, 37, 13, .28);
+  color: #fff;
+}
 .v4-diagnosis-summary__match-brand-banner {
   display: flex;
   flex-wrap: wrap;

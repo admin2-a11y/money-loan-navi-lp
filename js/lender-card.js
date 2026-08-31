@@ -246,13 +246,6 @@
     const comments = diagnosisComments(lender);
     const summaries = diagnosisSummaries(lender);
     const levels = diagnosisLevels(lender);
-    const recommendationMarkup = lender.key === "mobit"
-      ? ""
-      : `<div class="v4-diagnosis-summary__brand-hero" role="img" aria-label="あなたには${lender.name}がダントツでおすすめ！">
-          <span>あなたには</span>
-          <strong>${lender.name}</strong><b>が</b>
-          <em>ダントツでおすすめ！</em>
-        </div>`;
     const answerMarkup = (labels) => {
       const answers = reasons.filter((reason) => labels.includes(reason.label));
       if (!answers.length) return "";
@@ -273,13 +266,11 @@
             <img src="./assets/lenders/mobit-diagnosis-recommendation.png" width="1448" height="1086" alt="あなたの診断結果。SMBCモビットがおすすめ。SMBCモビットとの相性は非常に高い" decoding="async" fetchpriority="high">
           </picture>
         </figure>`
-      : `<div class="v4-diagnosis-summary__match-brand-banner" role="img" aria-label="あなたの診断結果">
-          <span>あなたの</span><strong>診断結果</strong>
+      : `<div class="v4-diagnosis-summary__unified-hero" role="img" aria-label="あなたの診断結果。${lender.name}がおすすめ。${lender.name}との相性は${matchLevel}">
+          <span>あなたの診断結果</span>
+          <strong><b>${lender.name}</b>がおすすめ！</strong>
+          <p><small>${lender.name}との相性</small><em class="${matchLevelClass.trim()}">${matchLevelIcon}${matchLevel}</em></p>
         </div>`;
-    const matchContentMarkup = lender.key === "mobit" ? "" : `<div class="v4-diagnosis-summary__match-content">
-      <h3>あなたと<strong>${lender.name}</strong>との相性</h3>
-      <strong class="${matchLevelClass.trim()}">${matchLevelIcon}${matchLevel}</strong>
-    </div>`;
     const dimensionIconMarkup = (kind) => {
       const icons = {
         usage: `<svg viewBox="0 0 72 72" role="presentation" focusable="false">
@@ -320,20 +311,10 @@
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
       <div class="v4-diagnosis-summary__match-comment"><p>${dimension.comment}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
     </div>`).join("");
-    const summaryLeadMarkup = lender.key === "mobit"
-      ? matchBannerMarkup
-      : `<div class="v4-diagnosis-summary__head">
-          <div class="v4-diagnosis-summary__award"><span aria-hidden="true">✓</span><h2 id="v4-diagnosis-title">診断結果</h2></div>
-          ${recommendationMarkup}
-        </div>`;
-    const panelLeadMarkup = lender.key === "mobit" ? "" : matchBannerMarkup;
-    const summaryLabel = lender.key === "mobit" ? 'aria-label="あなたの診断結果"' : 'aria-labelledby="v4-diagnosis-title"';
-    return `<section class="v4-diagnosis-summary" ${summaryLabel}>
-      ${summaryLeadMarkup}
+    return `<section class="v4-diagnosis-summary" aria-label="あなたの診断結果">
+      ${matchBannerMarkup}
       <div class="v4-diagnosis-summary__match">
         <div class="v4-diagnosis-summary__match-panel">
-          ${panelLeadMarkup}
-          ${matchContentMarkup}
           <dl>${dimensionMarkup}</dl>
           <p class="v4-diagnosis-summary__score-note">※アンケート回答と当サイトの診断条件をもとにした相性の目安です。</p>
         </div>
@@ -346,7 +327,6 @@
     const ringClass = ringSpecLabels.has(label) ? " class=\"v4-spec-ring\"" : "";
     return `<div${ringClass}><dt>${label}</dt><dd>${value}</dd></div>`;
   }).join("");
-  const pointMarkup = (points) => points.map(([title, body]) => `<li><strong>${title}</strong><span>${body}</span></li>`).join("");
   const isFirstTimeMobit = (lender) => isFirstTimeUser && lender.key === "mobit";
   const reviewTopBannerMarkup = (lender) => {
     if (isFirstTimeMobit(lender)) return `<figure class="v4-first-time-mobit-top-banner">
@@ -369,12 +349,7 @@
     </figure>`;
   };
   const recommendationMarkup = (lender) => {
-    const firstTimeBanner = firstTimeMobitBannerMarkup(lender);
-    if (firstTimeBanner) return firstTimeBanner;
-    return `<section class="v4-recommend" aria-label="ここがオススメ">
-      <h4 class="v4-recommend-title"><span class="v4-check-badge">CHECK</span><span>ここがオススメ</span></h4>
-      <ul class="v4-points">${pointMarkup(lender.points)}</ul>
-    </section>`;
+    return firstTimeMobitBannerMarkup(lender);
   };
   const cardLeadMarkup = (lender) => {
     return `<div class="v4-lender-titlebar">
@@ -555,17 +530,17 @@
     reviewsDialog.addEventListener("close", () => reviewsTrigger.focus());
   }
 
-  if (isFirstTimeMobit(rankedLenders[0])) {
+  {
+    const primaryLender = rankedLenders[0];
     const summarySection = mount.querySelector(".v4-diagnosis-summary");
-    const summaryLead = summarySection?.querySelector(":scope > .v4-diagnosis-summary__match-banner");
     const summaryMatch = mount.querySelector(".v4-diagnosis-summary__match");
-    const primaryCard = mount.querySelector('.v4-lender-card[data-v4-lender="mobit"]');
+    const primaryCard = mount.querySelector(`.v4-lender-card[data-v4-lender="${primaryLender.key}"]`);
     const lenderTitlebar = primaryCard?.querySelector(".v4-lender-titlebar");
     const lenderCatch = primaryCard?.querySelector(".v4-lender-catch");
     const lenderHead = primaryCard?.querySelector(".v4-lender-head");
     const ctaSet = primaryCard?.querySelector(".v4-cta-wrap");
     const pointsBanner = primaryCard?.querySelector(".v4-first-time-mobit-banner");
-    if (summarySection && summaryLead && summaryMatch && lenderTitlebar && lenderCatch && lenderHead && ctaSet) {
+    if (summarySection && summaryMatch && lenderTitlebar && lenderCatch && lenderHead && ctaSet) {
       const productBlock = document.createElement("div");
       productBlock.className = "v4-diagnosis-summary__product";
       summaryMatch.after(productBlock);
@@ -581,11 +556,6 @@
         summarySection.after(pointsBanner);
       }
     }
-  } else if (rankedLenders[0]?.key === "mobit") {
-    const primaryCard = mount.querySelector('.v4-lender-card[data-v4-lender="mobit"]');
-    const recommendation = primaryCard?.querySelector(".v4-recommend");
-    const ctaSet = primaryCard?.querySelector(".v4-cta-wrap");
-    if (recommendation && ctaSet) recommendation.after(ctaSet);
   }
 
   const lenderList = mount.querySelector(".v4-lender-list");
