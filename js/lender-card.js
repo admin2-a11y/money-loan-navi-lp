@@ -247,12 +247,7 @@
     const summaries = diagnosisSummaries(lender);
     const levels = diagnosisLevels(lender);
     const recommendationMarkup = lender.key === "mobit"
-      ? `<figure class="v4-diagnosis-summary__hero-banner">
-          <picture>
-            <source type="image/webp" srcset="./assets/lenders/mobit-dantotsu-banner-480.webp 480w, ./assets/lenders/mobit-dantotsu-banner-768.webp 768w" sizes="(max-width: 600px) calc(100vw - 44px), 464px">
-            <img src="./assets/lenders/mobit-dantotsu-banner-768.png" width="768" height="257" alt="あなたにはSMBCモビットがダントツでおすすめ！" decoding="async" fetchpriority="high">
-          </picture>
-        </figure>`
+      ? ""
       : `<div class="v4-diagnosis-summary__brand-hero" role="img" aria-label="あなたには${lender.name}がダントツでおすすめ！">
           <span>あなたには</span>
           <strong>${lender.name}</strong><b>が</b>
@@ -325,14 +320,19 @@
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
       <div class="v4-diagnosis-summary__match-comment"><p>${dimension.comment}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
     </div>`).join("");
-    return `<section class="v4-diagnosis-summary" aria-labelledby="v4-diagnosis-title">
-      <div class="v4-diagnosis-summary__head">
-        <div class="v4-diagnosis-summary__award"><span aria-hidden="true">✓</span><h2 id="v4-diagnosis-title">診断結果</h2></div>
-        ${recommendationMarkup}
-      </div>
+    const summaryLeadMarkup = lender.key === "mobit"
+      ? matchBannerMarkup
+      : `<div class="v4-diagnosis-summary__head">
+          <div class="v4-diagnosis-summary__award"><span aria-hidden="true">✓</span><h2 id="v4-diagnosis-title">診断結果</h2></div>
+          ${recommendationMarkup}
+        </div>`;
+    const panelLeadMarkup = lender.key === "mobit" ? "" : matchBannerMarkup;
+    const summaryLabel = lender.key === "mobit" ? 'aria-label="あなたの診断結果"' : 'aria-labelledby="v4-diagnosis-title"';
+    return `<section class="v4-diagnosis-summary" ${summaryLabel}>
+      ${summaryLeadMarkup}
       <div class="v4-diagnosis-summary__match">
         <div class="v4-diagnosis-summary__match-panel">
-          ${matchBannerMarkup}
+          ${panelLeadMarkup}
           ${matchContentMarkup}
           <dl>${dimensionMarkup}</dl>
           <p class="v4-diagnosis-summary__score-note">※アンケート回答と当サイトの診断条件をもとにした相性の目安です。</p>
@@ -557,7 +557,7 @@
 
   if (isFirstTimeMobit(rankedLenders[0])) {
     const summarySection = mount.querySelector(".v4-diagnosis-summary");
-    const summaryHead = mount.querySelector(".v4-diagnosis-summary__head");
+    const summaryLead = summarySection?.querySelector(":scope > .v4-diagnosis-summary__match-banner");
     const summaryMatch = mount.querySelector(".v4-diagnosis-summary__match");
     const primaryCard = mount.querySelector('.v4-lender-card[data-v4-lender="mobit"]');
     const lenderTitlebar = primaryCard?.querySelector(".v4-lender-titlebar");
@@ -565,16 +565,16 @@
     const lenderHead = primaryCard?.querySelector(".v4-lender-head");
     const ctaSet = primaryCard?.querySelector(".v4-cta-wrap");
     const pointsBanner = primaryCard?.querySelector(".v4-first-time-mobit-banner");
-    if (summarySection && summaryHead && summaryMatch && lenderTitlebar && lenderCatch && lenderHead && ctaSet) {
+    if (summarySection && summaryLead && summaryMatch && lenderTitlebar && lenderCatch && lenderHead && ctaSet) {
       const productBlock = document.createElement("div");
       productBlock.className = "v4-diagnosis-summary__product";
-      summaryHead.after(productBlock);
+      summaryLead.after(productBlock);
       productBlock.append(lenderTitlebar, lenderCatch, lenderHead);
 
       const actionBlock = document.createElement("div");
       actionBlock.className = "v4-diagnosis-summary__action";
       actionBlock.append(ctaSet);
-      productBlock.append(actionBlock);
+      summaryMatch.after(actionBlock);
 
       if (pointsBanner) {
         pointsBanner.classList.add("v4-diagnosis-summary__points");
