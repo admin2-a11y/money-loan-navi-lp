@@ -466,7 +466,6 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
 .v4-diagnosis-summary__match-eyebrow { display: inline-flex; align-items: center; gap: 5px; color: var(--v4-brand-dark, #006b46); font-size: 13.5px; font-weight: 800; letter-spacing: .01em; line-height: 1.2; white-space: nowrap; }
 .v4-diagnosis-summary__match-eyebrow b { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 23px; padding-inline: 6px; border-radius: 6px; background: var(--v4-brand-dark, #006b46); color: #fff; font-size: 12px; font-weight: 950; letter-spacing: .03em; }
 .v4-diagnosis-summary__match-eyebrow i { color: #3f6258; font-style: normal; font-weight: 800; letter-spacing: 0; }
-.v4-diagnosis-summary__match-eyebrow em { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 1px solid color-mix(in srgb, var(--v4-icon-accent, #c9a000) 62%, #fff); border-radius: 50%; background: color-mix(in srgb, var(--v4-icon-accent, #c9a000) 12%, #fff); color: #8a6d00; font-size: 12px; font-style: normal; font-weight: 950; }
 .v4-diagnosis-summary__match dd { display: flex; align-items: baseline; justify-content: flex-end; gap: 2px; margin: 0; color: #087154; font-weight: 900; line-height: 1; }
 .v4-diagnosis-summary__match dd strong { font-size: 22px; }
 .v4-diagnosis-summary__match dd small { color: #607c73; font-size: 9px; letter-spacing: 0; }
@@ -1974,7 +1973,6 @@ body.result-v2 .v4-result-cards {
     padding-inline: 7px;
     font-size: 14px;
   }
-  .v4-diagnosis-summary__match-eyebrow em { width: 23px; height: 23px; font-size: 13px; }
 
   .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level {
     min-width: 0;
