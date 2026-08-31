@@ -272,6 +272,14 @@
           <p><small>${lender.name}との相性</small><em class="${matchLevelClass.trim()}">${matchLevelIcon}${matchLevel}</em></p>
         </div>`;
     const dimensionIconMarkup = (kind) => {
+      const generatedIllustrations = lender.key === "mobit" ? {
+        ...(isFirstTimeUser ? { usage: "diagnosis-illustration-q1-v1.png" } : {}),
+        amount: "diagnosis-illustration-q2-v1.png",
+        ...(selectedPriorityKey() === "privacy" ? { priority: "diagnosis-illustration-q3-privacy-v1.png" } : {})
+      } : {};
+      if (generatedIllustrations[kind]) {
+        return `<span class="v4-diagnosis-summary__match-visual is-${kind} is-generated" aria-hidden="true"><img src="./assets/lenders/${generatedIllustrations[kind]}" width="320" height="320" alt="" loading="lazy" decoding="async"></span>`;
+      }
       const icons = {
         usage: `<svg viewBox="0 0 72 72" role="presentation" focusable="false">
           <circle class="v4-diagnosis-summary__visual-bg" cx="36" cy="36" r="33"></circle>

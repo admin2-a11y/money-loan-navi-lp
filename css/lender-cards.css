@@ -2116,6 +2116,37 @@ body.result-v2 .v4-result-cards {
   .v4-more-reviews__item p { font-size: 12.5px; }
 }
 
+/* Rich diagnosis illustrations stay legible without overtaking the result copy. */
+.v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
+  grid-template-columns: minmax(0, 1fr) clamp(76px, 22vw, 96px);
+  gap: 9px;
+}
+.v4-diagnosis-summary__match-visual.is-generated {
+  width: clamp(76px, 22vw, 96px);
+  height: clamp(76px, 22vw, 96px);
+  opacity: 1;
+}
+.v4-diagnosis-summary__match-visual.is-generated img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 350px) {
+  .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
+    grid-template-columns: minmax(0, 1fr) 64px;
+    gap: 7px;
+  }
+  .v4-diagnosis-summary__match-visual.is-generated { width: 64px; height: 64px; }
+}
+
+@media (min-width: 390px) and (max-width: 410px) {
+  .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
+    font-size: 21px;
+  }
+}
+
 @media (min-width: 768px) {
   html body.beginner {
     zoom: 1 !important;
