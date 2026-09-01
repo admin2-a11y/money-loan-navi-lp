@@ -547,7 +547,7 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   background: #edf5f1;
 }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-panel {
-  border: 0;
+  border: 1px solid #3a936f;
   border-radius: 8px;
   box-shadow: none;
 }
@@ -585,7 +585,7 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   animation: none;
 }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match dl {
-  border-color: #c5ddd3;
+  border-top: 0;
   background: #edf5f1;
   gap: 10px;
   padding: 9px 6px 10px;
@@ -1760,7 +1760,7 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-diagnosis-summary__match-summary { font-size: 18px; }
   .v4-diagnosis-summary__match dd strong { font-size: 19px; }
   .v4-diagnosis-summary__answer-tags > span { padding: 4px 7px; font-size: 9px; }
-  .v4-diagnosis-summary__score-note { font-size: 8px; }
+  .v4-diagnosis-summary__score-note { font-size: 9.5px; }
   .v4-result-cards { margin-top: 5px; }
   .v4-result-heading { margin-bottom: 7px; padding: 7px 10px; font-size: 18px; }
   .v4-lender-titlebar { gap: 8px; padding: 7px 10px 6px; }
