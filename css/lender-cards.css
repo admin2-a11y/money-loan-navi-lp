@@ -959,7 +959,9 @@ body.beginner .v4-spec-ring dd {
   line-height: 0;
 }
 .v4-first-time-mobit-banner.v4-diagnosis-summary__points {
-  margin: 0 8px 18px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 18px;
   padding: 8px;
   border: 2px solid #087154;
   border-radius: 12px;
