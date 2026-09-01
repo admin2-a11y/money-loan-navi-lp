@@ -312,9 +312,12 @@
       };
       return `<span class="v4-diagnosis-summary__match-visual is-${kind}" aria-hidden="true">${icons[kind] || ""}</span>`;
     };
-    const diagnosisCommentMarkup = (comment) => lender.key === "mobit"
-      ? comment.replaceAll("SMBCモビット", '<span class="v4-diagnosis-summary__brand-name">SMBCモビット</span>')
-      : comment;
+    const diagnosisCommentMarkup = (comment) => {
+      const brandMarkup = lender.key === "mobit"
+        ? comment.replaceAll("SMBCモビット", '<span class="v4-diagnosis-summary__brand-name">SMBCモビット</span>')
+        : comment;
+      return brandMarkup.replaceAll("スマホから", '<span class="v4-diagnosis-summary__nowrap">スマホから</span>');
+    };
     const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}">
       <dt><span class="v4-diagnosis-summary__match-eyebrow"><b>Q${index + 1}</b><i>${dimension.category}</i></span></dt>
       <dd class="v4-diagnosis-summary__level${dimension.level === "非常に高い" ? " is-very-high" : ""}" aria-label="${dimension.title}は${dimension.level}"><span aria-hidden="true">◎</span><strong>${dimension.level}</strong></dd>
