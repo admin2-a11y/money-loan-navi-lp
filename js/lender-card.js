@@ -496,9 +496,8 @@
             <section class="v4-review-box" aria-label="利用者の口コミ">
               ${reviewTopBannerMarkup(lender)}
               <div class="v4-review-layout">
-                <figure class="v4-review-avatar is-${lender.reviewPosition || "default"}">${reviewImageMarkup(lender)}<figcaption>${reviewProfileMarkup(lender)}</figcaption></figure>
+                <figure class="v4-review-avatar is-${lender.reviewPosition || "default"}">${reviewImageMarkup(lender)}<figcaption>${reviewProfileMarkup(lender)}<span class="v4-review-avatar-fact">借入額：${lender.reviewAmount}</span><span class="v4-review-avatar-fact">借入までの時間：${lender.reviewTime}</span></figcaption></figure>
                 <div class="v4-review-copy">
-                  <div class="v4-review-facts"><span>借入額：${lender.reviewAmount}</span><span>借入までの時間：${lender.reviewTime}</span></div>
                   <div class="v4-review v4-review-bubble"><p class="v4-review-text">${lender.review}</p><small>※一例であり、結果を保証するものではありません。</small></div>
                 </div>
               </div>
