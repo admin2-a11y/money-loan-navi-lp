@@ -349,7 +349,12 @@
               <small>公式サイトで詳細を確認</small>
             </div>
           </div>
-          <a class="v4-diagnosis-summary__details-jump" href="#v4-diagnosis-details" data-scroll-ignore><i aria-hidden="true"></i><strong>診断結果の詳細はこちら</strong><i aria-hidden="true"></i></a>
+          <a class="v4-diagnosis-summary__details-jump" href="#v4-diagnosis-details" data-scroll-ignore>
+            <b class="v4-diagnosis-summary__details-rays is-left" aria-hidden="true"><span></span><span></span><span></span></b>
+            <span class="v4-diagnosis-summary__details-main"><i aria-hidden="true"></i><strong>診断結果の詳細を見る</strong><i aria-hidden="true"></i></span>
+            <small>あなたの回答に基づいた詳細な結果をご確認いただけます</small>
+            <b class="v4-diagnosis-summary__details-rays is-right" aria-hidden="true"><span></span><span></span><span></span></b>
+          </a>
         </div>`
       : `<div class="v4-diagnosis-summary__hero-action">
           <a class="v4-more-reviews-dialog__cta v4-diagnosis-summary__hero-cta" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener">${lender.name}の詳細はこちら</a>
