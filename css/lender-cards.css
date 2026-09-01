@@ -642,6 +642,20 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   background: #fff;
 }
 
+/* Diagnosis report tone: neutral text, green reserved for brand and status cues. */
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary { color: #2b2b2b; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match dt,
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-eyebrow i { color: #222; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__answer-label,
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-comment small,
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__score-note { color: #666; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-content h3,
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-summary,
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-summary > .v4-diagnosis-summary__match-catch { color: #171717; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-content h3 > strong,
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-summary strong { color: #111; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-comment { color: #2b2b2b; }
+
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-cta {
   min-height: 62px;
   border: 1px solid #df4b1c;
