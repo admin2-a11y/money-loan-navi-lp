@@ -702,10 +702,6 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   padding: 14px;
 }
 
-.v4-result-cards[data-v4-result-theme="mobit"] .v4-lender-head {
-  grid-template-columns: minmax(0, 1fr);
-}
-
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-lender-banner {
   width: min(100%, 300px);
   margin-inline: auto;
@@ -1862,6 +1858,7 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-lender-titlebar { gap: 8px; padding: 7px 10px 6px; }
   .v4-lender-catch { padding: 6px 10px; font-size: 14px; }
   .v4-lender-head { grid-template-columns: 48% minmax(0, 1fr); gap: 7px; padding: 8px; }
+  .v4-result-cards[data-v4-result-theme="mobit"] .v4-lender-head { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .v4-lender-rank { font-size: 10px; }
   .v4-lender-name { font-size: 18px; }
   .v4-lender-group { display: flex; align-items: center; min-height: 14px; margin-bottom: 5px; font-size: 10.5px; font-weight: 800; line-height: 1.3; }
