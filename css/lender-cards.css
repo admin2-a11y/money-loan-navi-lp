@@ -2342,6 +2342,8 @@ body.result-v2 .v4-result-cards {
   line-height: 1.4;
   text-align: left;
 }
+.v4-more-reviews__profile > span { display: block; }
+.v4-result-cards .v4-more-reviews__profile { color: #333 !important; }
 .v4-more-reviews__rating {
   gap: 1px;
   margin-top: 3px;
@@ -2416,10 +2418,21 @@ body.result-v2 .v4-result-cards {
     gap: 12px;
   }
   .v4-more-reviews__person {
-    width: 118px;
-    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 118px minmax(0, 1fr);
+    grid-template-areas:
+      "image profile"
+      "image rating"
+      "image facts";
+    column-gap: 11px;
+    align-items: start;
+    width: 100%;
+    margin-inline: 0;
   }
-  .v4-more-reviews__item img { width: 118px; height: 118px; }
+  .v4-more-reviews__item img { grid-area: image; width: 118px; height: 118px; }
+  .v4-more-reviews__profile { grid-area: profile; margin: 0 1px; }
+  .v4-more-reviews__rating { grid-area: rating; margin-top: 5px; }
+  .v4-more-reviews__facts { grid-area: facts; }
   .v4-more-reviews__content::before {
     top: -8px;
     left: 50%;
