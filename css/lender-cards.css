@@ -1764,7 +1764,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
 @media (prefers-reduced-motion: reduce) {
   .v4-countdown.is-next-morning strong { animation: none; }
 }
-.v4-cta { display: flex; position: relative; top: 0; align-items: center; justify-content: center; min-height: 58px; padding: 10px 16px; border-radius: 7px; background: var(--v4-cta); box-shadow: 0 6px 0 var(--v4-cta-shadow); color: #fff !important; font-size: clamp(16px, 3.5vw, 21px); font-weight: 800; line-height: 1.35; text-decoration: none !important; touch-action: manipulation; cursor: pointer; animation: v4-cta-push 1.4s ease-in-out infinite; transition: top 0.08s, box-shadow 0.08s, transform 0.08s, background-color 0.2s; }
+.v4-cta { display: flex; position: relative; top: 0; align-items: center; justify-content: center; min-height: 58px; padding: 10px 16px; border-radius: 7px; background: var(--v4-cta); box-shadow: 0 6px 0 var(--v4-cta-shadow); color: #fff !important; font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", YuGothic, "Noto Sans JP", sans-serif; font-size: clamp(16px, 3.5vw, 21px); font-weight: 800; line-height: 1.35; text-decoration: none !important; touch-action: manipulation; cursor: pointer; animation: v4-cta-push 1.4s ease-in-out infinite; transition: top 0.08s, box-shadow 0.08s, transform 0.08s, background-color 0.2s; }
 .v4-cta::after { content: "›"; margin-left: 10px; font-size: 25px; }
 .v4-cta-official {
   display: flex;
