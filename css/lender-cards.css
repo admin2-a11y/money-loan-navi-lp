@@ -1625,7 +1625,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   color: #24496d;
 }
 
-.v4-cta-wrap { padding: 4px 14px 14px; text-align: center; }
+.v4-cta-wrap { padding: 4px 14px 14px; font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", YuGothic, "Noto Sans JP", sans-serif; text-align: center; }
 .v4-cta-wrap--after-head { padding-top: 14px; }
 .v4-cta-wrap--after-review { padding-top: 2px; padding-bottom: 20px; }
 .v4-review-box > .v4-cta-wrap--after-review {
@@ -1770,6 +1770,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 4px;
   min-height: 44px;
   margin: 7px 0 0;
   color: var(--v4-brand-dark);
@@ -1888,7 +1889,7 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-cta-assurance { gap: 9px; padding: 8px 10px; }
   .v4-cta-assurance > svg { width: 33px; height: 38px; }
   .v4-cta-assurance strong { font-size: 16px; }
-  .v4-cta-assurance small { font-size: 11.5px; }
+  .v4-cta-assurance small { font-size: 11px; }
   .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i,
   .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i:last-child { min-width: 29px; margin-inline: 2px; padding-inline: 4px; font-size: 18px; }
   .v4-cta-official { margin-top: 6px; font-size: 11.5px; }
