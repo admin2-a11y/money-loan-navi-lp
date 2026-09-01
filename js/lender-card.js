@@ -316,7 +316,12 @@
       const brandMarkup = lender.key === "mobit"
         ? comment.replaceAll("SMBCモビット", '<span class="v4-diagnosis-summary__brand-name">SMBCモビット</span>')
         : comment;
-      return brandMarkup.replaceAll("スマホから", '<span class="v4-diagnosis-summary__nowrap">スマホから</span>');
+      const trustMarkup = lender.key === "mobit"
+        ? brandMarkup
+          .replaceAll("WEB完結", '<span class="v4-diagnosis-summary__trust-keyword v4-diagnosis-summary__trust-keyword--nowrap">WEB完結</span>')
+          .replaceAll("原則、電話連絡・郵送物なし", '<span class="v4-diagnosis-summary__trust-condition">原則、<span class="v4-diagnosis-summary__trust-keyword">電話連絡・郵送物なし</span></span>')
+        : brandMarkup;
+      return trustMarkup.replaceAll("スマホから", '<span class="v4-diagnosis-summary__nowrap">スマホから</span>');
     };
     const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}">
       <dt><span class="v4-diagnosis-summary__match-eyebrow"><b>Q${index + 1}</b><i>${dimension.category}</i></span></dt>
@@ -325,13 +330,34 @@
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
       <div class="v4-diagnosis-summary__match-comment"><p>${diagnosisCommentMarkup(dimension.comment)}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
     </div>`).join("");
-    const diagnosisCtaMarkup = `<div class="v4-diagnosis-summary__hero-action">
-      <a class="v4-more-reviews-dialog__cta v4-diagnosis-summary__hero-cta" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener">${lender.name}の詳細はこちら</a>
-    </div>`;
+    const diagnosisCtaMarkup = lender.key === "mobit"
+      ? `<div class="v4-diagnosis-summary__hero-action v4-diagnosis-summary__hero-action--compact">
+          <div class="v4-diagnosis-summary__compact-cta">
+            <div class="v4-diagnosis-summary__compact-cue">
+              <svg class="v4-diagnosis-summary__compact-icon" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+                <rect x="10" y="8" width="36" height="50" rx="5"></rect>
+                <path d="M22 8V5h12v3M19 20l3 3 5-6M19 32l3 3 5-6M19 44l3 3 5-6M31 20h8M31 32h8M31 44h5"></path>
+                <circle cx="48" cy="47" r="13"></circle>
+                <path class="v4-diagnosis-summary__compact-icon-handle" d="m57 57 9 9"></path>
+                <path class="v4-diagnosis-summary__compact-icon-spark" d="m58 7 1.6 4.5 4.4 1.6-4.4 1.6-1.6 4.5-1.6-4.5-4.4-1.6 4.4-1.6Z"></path>
+                <circle class="v4-diagnosis-summary__compact-icon-spark" cx="66" cy="24" r="1.7"></circle>
+              </svg>
+              <strong><span>診断結果から</span><span>あなたにおすすめ</span></strong>
+            </div>
+            <div class="v4-diagnosis-summary__compact-action">
+              <a class="v4-diagnosis-summary__compact-link" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener" aria-label="広告リンクを経由してSMBCモビット公式サイトへ移動します"><span>SMBCモビットを</span><span>チェック <b aria-hidden="true">›</b></span></a>
+              <small>公式サイトで詳細を確認</small>
+            </div>
+          </div>
+          <a class="v4-diagnosis-summary__details-jump" href="#v4-diagnosis-details" data-scroll-ignore><i aria-hidden="true"></i><strong>診断結果の詳細はこちら</strong><i aria-hidden="true"></i></a>
+        </div>`
+      : `<div class="v4-diagnosis-summary__hero-action">
+          <a class="v4-more-reviews-dialog__cta v4-diagnosis-summary__hero-cta" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener">${lender.name}の詳細はこちら</a>
+        </div>`;
     return `<section class="v4-diagnosis-summary" aria-label="あなたの診断結果">
       ${matchBannerMarkup}
       ${diagnosisCtaMarkup}
-      <div class="v4-diagnosis-summary__match">
+      <div class="v4-diagnosis-summary__match"${lender.key === "mobit" ? ' id="v4-diagnosis-details"' : ""}>
         <div class="v4-diagnosis-summary__match-panel">
           <dl>${dimensionMarkup}</dl>
           <p class="v4-diagnosis-summary__score-note">※アンケート回答と当サイトの診断条件をもとにした相性の目安です。</p>
@@ -610,6 +636,18 @@
       image.height = 160;
     });
   });
+
+  const diagnosisDetailsJump = mount.querySelector(".v4-diagnosis-summary__details-jump");
+  if (diagnosisDetailsJump) {
+    diagnosisDetailsJump.addEventListener("click", (event) => {
+      const target = mount.querySelector(diagnosisDetailsJump.hash);
+      if (!target) return;
+      event.preventDefault();
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+      window.history.pushState(null, "", diagnosisDetailsJump.hash);
+    });
+  }
 
   const reviewsDialog = mount.querySelector(".v4-more-reviews-dialog");
   const reviewsTrigger = mount.querySelector(".v4-more-reviews-trigger");
