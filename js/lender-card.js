@@ -490,18 +490,19 @@
     const titleId = `v4-${lender.key}-reviews-title`;
     const items = reviews.map((review, index) => {
       const detail = reviewDetails[index] || { amount: "10万円", time: "1時間以内", rating: 4 };
+      const amountLabel = detail.amount.endsWith("未満") ? detail.amount : `${detail.amount}未満`;
       const ratingWidth = `${detail.rating / 5 * 100}%`;
       return `<article class="v4-more-reviews__item">
       <div class="v4-more-reviews__person">
         <img src="./assets/lenders/reviews/${review.image}" width="160" height="160" alt="${review.profile}のイメージイラスト" loading="lazy" decoding="async" fetchpriority="low">
         <h5>${review.profile}</h5>
         <span class="v4-more-reviews__rating" aria-label="5点満点中${detail.rating}点"><span aria-hidden="true" style="--v4-review-rating-width:${ratingWidth}">★★★★★</span><b>${detail.rating}</b></span>
+        <dl class="v4-more-reviews__facts">
+          <div><dt>借入額：</dt><dd>${amountLabel}</dd></div>
+          <div><dt>借入までの時間：</dt><dd>${detail.time}</dd></div>
+        </dl>
       </div>
       <div class="v4-more-reviews__content">
-        <dl class="v4-more-reviews__facts">
-          <div><dt>借入額</dt><dd>${detail.amount}</dd></div>
-          <div><dt>借入までの時間</dt><dd>${detail.time}</dd></div>
-        </dl>
         <p>${review.text}</p>
       </div>
     </article>`;
