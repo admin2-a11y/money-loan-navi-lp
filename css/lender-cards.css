@@ -1892,11 +1892,14 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-cta-assurance small { font-size: 11px; }
   .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i,
   .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i:last-child { min-width: 29px; margin-inline: 2px; padding-inline: 4px; font-size: 18px; }
-  .v4-cta-official { margin-top: 6px; font-size: 11.5px; }
-  .v4-cta-sub-link { font-size: 11.5px; }
+  .v4-cta-official { margin-top: 6px; font-size: 11px; }
+  .v4-cta-sub-link { font-size: 11px; }
 }
 
 @media (max-width: 350px) {
+  .v4-cta-official,
+  .v4-cta-sub-link { font-size: 9.5px; }
+
   .v4-more-reviews-dialog__floating-action .v4-more-reviews-dialog__cta,
   .v4-diagnosis-summary__hero-cta {
     min-width: 0;

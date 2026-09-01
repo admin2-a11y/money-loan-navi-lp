@@ -555,7 +555,7 @@
     <p><strong>申込はスマホでかんたん</strong><small>WEB完結申込なら原則、電話連絡・郵送物なし</small></p>
   </div>` : "";
   const officialLpMarkup = (lender) => lender.key === "mobit"
-    ? `<p class="v4-cta-official"><span>公式LP →</span><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">SMBCモビットの公式LP</a></p>`
+    ? `<p class="v4-cta-official"><span>SMBCモビットの公式LP：</span><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">https://www.mobit.ne.jp/</a></p>`
     : `<p class="v4-cta-official"><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">公式LPはこちら</a></p>`;
 
   mount.innerHTML = `
