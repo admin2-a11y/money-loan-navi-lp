@@ -1126,6 +1126,22 @@ body.beginner .v4-spec-ring dd {
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
+.v4-review-avatar-fact__label,
+.v4-review-avatar-fact__value {
+  display: block;
+}
+.v4-review-avatar-fact__label {
+  color: #53645d;
+  font-size: .95em;
+  white-space: nowrap;
+}
+.v4-review-avatar-fact__value {
+  color: #24352e;
+  font-size: 1em;
+  line-height: 1.4;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
 .v4-review-copy { min-width: 0; }
 .v4-review-facts {
   display: grid;
