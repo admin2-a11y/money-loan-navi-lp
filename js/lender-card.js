@@ -562,8 +562,8 @@
             </div>
             <div class="v4-cta-wrap v4-cta-wrap--after-head">
               <div class="v4-countdown" data-v4-countdown aria-live="polite"><span>本日中に借りるなら</span><b>残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b></div>
-              <span class="v4-cta-bubble">${lender.cta}</span>
-              <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">詳しくはこちら</a>
+              <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.cta}</a>
+              <a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">公式LPはこちら</a>
             </div>
             ${recommendationMarkup(lender)}
             <section class="v4-review-box" aria-label="利用者の口コミ">
@@ -577,8 +577,8 @@
               ${additionalReviewsMarkup(lender)}
               <div class="v4-cta-wrap v4-cta-wrap--after-review">
                 <div class="v4-countdown" data-v4-countdown aria-live="polite"><span>本日中に借りるなら</span><b>残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b></div>
-                <span class="v4-cta-bubble">${lender.cta}</span>
-                <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">詳しくはこちら</a>
+                <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.cta}</a>
+                <a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">公式LPはこちら</a>
               </div>
             </section>
             <p class="v4-lender-note">【PR】Sponsored by ${lender.group}<br>${lender.note}</p>
