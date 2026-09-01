@@ -702,6 +702,15 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   padding: 14px;
 }
 
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-lender-head {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-lender-banner {
+  width: min(100%, 300px);
+  margin-inline: auto;
+}
+
 .v4-lender-banner { align-self: start; margin-top: 0; }
 .v4-lender-banner img {
   display: block;
