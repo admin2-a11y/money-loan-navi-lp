@@ -442,15 +442,70 @@
     promise: promiseAdditionalReviews,
     aiful: aifulAdditionalReviews
   };
+  const additionalReviewDetailsByLender = {
+    mobit: [
+      { amount: "30万円", time: "30分以内", rating: 5 },
+      { amount: "10万円", time: "20分以内", rating: 4.5 },
+      { amount: "20万円", time: "40分以内", rating: 5 },
+      { amount: "10万円", time: "30分以内", rating: 4.5 },
+      { amount: "20万円", time: "50分以内", rating: 4 },
+      { amount: "40万円", time: "40分以内", rating: 5 },
+      { amount: "50万円", time: "1時間以内", rating: 4.5 },
+      { amount: "10万円", time: "20分以内", rating: 5 },
+      { amount: "30万円", time: "50分以内", rating: 4 },
+      { amount: "20万円", time: "30分以内", rating: 4.5 },
+      { amount: "10万円", time: "40分以内", rating: 5 }
+    ],
+    promise: [
+      { amount: "10万円", time: "20分以内", rating: 5 },
+      { amount: "20万円", time: "20分以内", rating: 4.5 },
+      { amount: "30万円", time: "30分以内", rating: 5 },
+      { amount: "20万円", time: "30分以内", rating: 4.5 },
+      { amount: "10万円", time: "40分以内", rating: 4 },
+      { amount: "20万円", time: "50分以内", rating: 4.5 },
+      { amount: "50万円", time: "1時間以内", rating: 5 },
+      { amount: "10万円", time: "40分以内", rating: 4 },
+      { amount: "20万円", time: "30分以内", rating: 4.5 },
+      { amount: "40万円", time: "30分以内", rating: 5 },
+      { amount: "50万円", time: "1時間以内", rating: 4.5 }
+    ],
+    aiful: [
+      { amount: "40万円", time: "20分以内", rating: 5 },
+      { amount: "30万円", time: "30分以内", rating: 4.5 },
+      { amount: "50万円", time: "40分以内", rating: 5 },
+      { amount: "30万円", time: "30分以内", rating: 4.5 },
+      { amount: "20万円", time: "20分以内", rating: 5 },
+      { amount: "20万円", time: "40分以内", rating: 4 },
+      { amount: "10万円", time: "30分以内", rating: 4.5 },
+      { amount: "20万円", time: "50分以内", rating: 4.5 },
+      { amount: "40万円", time: "1時間以内", rating: 5 },
+      { amount: "30万円", time: "30分以内", rating: 5 }
+    ]
+  };
   const additionalReviewsMarkup = (lender) => {
     const reviews = additionalReviewsByLender[lender.key];
     if (!reviews) return "";
+    const reviewDetails = additionalReviewDetailsByLender[lender.key] || [];
     const dialogId = `v4-${lender.key}-reviews-dialog`;
     const titleId = `v4-${lender.key}-reviews-title`;
-    const items = reviews.map((review) => `<article class="v4-more-reviews__item">
-      <img src="./assets/lenders/reviews/${review.image}" width="160" height="160" alt="${review.profile}のイメージイラスト" loading="lazy" decoding="async" fetchpriority="low">
-      <div><h5>${review.profile}</h5><p>${review.text}</p></div>
-    </article>`).join("");
+    const items = reviews.map((review, index) => {
+      const detail = reviewDetails[index] || { amount: "10万円", time: "1時間以内", rating: 4 };
+      const ratingWidth = `${detail.rating / 5 * 100}%`;
+      return `<article class="v4-more-reviews__item">
+      <div class="v4-more-reviews__person">
+        <img src="./assets/lenders/reviews/${review.image}" width="160" height="160" alt="${review.profile}のイメージイラスト" loading="lazy" decoding="async" fetchpriority="low">
+        <h5>${review.profile}</h5>
+        <span class="v4-more-reviews__rating" aria-label="5点満点中${detail.rating}点"><span aria-hidden="true" style="--v4-review-rating-width:${ratingWidth}">★★★★★</span><b>${detail.rating}</b></span>
+      </div>
+      <div class="v4-more-reviews__content">
+        <dl class="v4-more-reviews__facts">
+          <div><dt>借入額</dt><dd>${detail.amount}</dd></div>
+          <div><dt>借入までの時間</dt><dd>${detail.time}</dd></div>
+        </dl>
+        <p>${review.text}</p>
+      </div>
+    </article>`;
+    }).join("");
     return `<div class="v4-more-reviews-wrap">
       <button class="v4-more-reviews-trigger" type="button" aria-haspopup="dialog" aria-controls="${dialogId}"><span>もっと口コミを見る</span><i aria-hidden="true">→</i></button>
       <dialog class="v4-more-reviews-dialog" id="${dialogId}" aria-labelledby="${titleId}">
