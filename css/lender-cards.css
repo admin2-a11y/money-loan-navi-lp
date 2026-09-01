@@ -1676,7 +1676,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #063e2e;
+  color: #111;
   font-size: 12.5px;
   font-weight: 900;
   line-height: 1.2;
@@ -1714,7 +1714,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   padding: 9px 14px;
   border-radius: 8px;
   background: #f0f4f1;
-  color: #063e2e;
+  color: #111;
   text-align: left;
 }
 .v4-cta-assurance > svg { flex: 0 0 auto; width: 37px; height: 43px; }
@@ -1779,6 +1779,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   line-height: 1.4;
   white-space: nowrap;
 }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-cta-official > span { color: #111; }
 .v4-cta-sub-link {
   display: inline-flex;
   align-items: center;
