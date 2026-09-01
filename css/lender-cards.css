@@ -1142,7 +1142,11 @@ body.beginner .v4-spec-ring dd {
   overflow-wrap: normal;
   word-break: keep-all;
 }
-.v4-review-copy { min-width: 0; }
+.v4-review-copy {
+  display: flex;
+  align-self: stretch;
+  min-width: 0;
+}
 .v4-review-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1162,7 +1166,17 @@ body.beginner .v4-spec-ring dd {
   overflow-wrap: anywhere;
 }
 .v4-review-bubble { position: relative; border: 1px solid #71b036; }
-.v4-review-copy > .v4-review-bubble { margin-top: 0; }
+.v4-review-copy > .v4-review-bubble {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 0;
+}
+.v4-review-copy > .v4-review-bubble small {
+  margin-top: auto;
+  padding-top: 8px;
+}
 .v4-review-bubble::before { content: ""; position: absolute; top: 24px; left: -8px; width: 13px; height: 13px; border-left: 1px solid #71b036; border-bottom: 1px solid #71b036; background: inherit; transform: rotate(45deg); }
 .v4-review-more { min-width: 0; text-align: left; }
 .v4-review-more summary {
@@ -2118,7 +2132,11 @@ body.result-v2 .v4-result-cards {
   gap: 11px;
 }
 .v4-review-avatar,
-.v4-review-box:not(:has(.v4-review-more[open])) .v4-review-avatar { width: 100px; }
+.v4-review-box:not(:has(.v4-review-more[open])) .v4-review-avatar {
+  align-self: stretch;
+  width: 100px;
+  height: auto;
+}
 .v4-review-avatar img,
 .v4-review-box:not(:has(.v4-review-more[open])) .v4-review-avatar img { width: 100px; height: 100px; }
 .v4-review-avatar figcaption,
