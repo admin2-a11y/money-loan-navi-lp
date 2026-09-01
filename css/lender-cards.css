@@ -2329,6 +2329,105 @@ body.result-v2 .v4-result-cards {
   .v4-more-reviews__item p { font-size: 12.5px; }
 }
 
+/* Match additional-review typography and information hierarchy to the primary review card. */
+.v4-more-reviews__item {
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 11px;
+}
+.v4-more-reviews__item img { width: 100px; height: 100px; }
+.v4-more-reviews__item h5 {
+  color: #333;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: left;
+}
+.v4-more-reviews__rating {
+  gap: 1px;
+  margin-top: 3px;
+  color: #f2b400;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.4;
+  text-align: left;
+}
+.v4-more-reviews__rating > span {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+.v4-more-reviews__rating b {
+  color: #161616;
+  font-size: 11px;
+}
+.v4-more-reviews__facts {
+  margin-top: 0;
+  border-top: 0;
+}
+.v4-more-reviews__facts > div {
+  margin-top: 5px;
+  padding: 5px 1px 0;
+  border-top: 1px solid #d8e6df;
+  border-bottom: 0;
+}
+.v4-more-reviews__facts dt {
+  color: #53645d;
+  font-size: 10.45px;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: left;
+}
+.v4-more-reviews__facts dd {
+  margin-top: 0;
+  color: #24352e;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.4;
+  text-align: left;
+}
+.v4-more-reviews__item p {
+  color: #1b1b18;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+@media (max-width: 600px) {
+  .v4-more-reviews__item {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 11px;
+  }
+  .v4-more-reviews__item img { width: 100px; height: 100px; }
+  .v4-more-reviews__content { padding: 12px 13px; }
+  .v4-more-reviews__item p { font-size: 14.5px; font-weight: 700; line-height: 1.68; }
+}
+
+@media (min-width: 390px) and (max-width: 600px) {
+  .v4-more-reviews__item {
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 13px;
+  }
+  .v4-more-reviews__item img { width: 108px; height: 108px; }
+  .v4-more-reviews__item p { font-size: 15.5px; }
+}
+
+@media (max-width: 350px) {
+  .v4-more-reviews__item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .v4-more-reviews__person {
+    width: 118px;
+    margin-inline: auto;
+  }
+  .v4-more-reviews__item img { width: 118px; height: 118px; }
+  .v4-more-reviews__content::before {
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(135deg);
+  }
+  .v4-more-reviews__item p { font-size: 13.5px; }
+}
+
 /* Rich diagnosis illustrations stay legible without overtaking the result copy. */
 .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
   grid-template-columns: minmax(0, 1fr) clamp(76px, 22vw, 96px);
