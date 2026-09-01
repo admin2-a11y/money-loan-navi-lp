@@ -645,9 +645,10 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-cta {
   min-height: 62px;
   border: 1px solid #df4b1c;
+  border-radius: 999px;
   box-shadow: 0 5px 0 var(--v4-cta-shadow);
   font-size: clamp(22px, 6vw, 26px);
-  font-weight: 900;
+  font-weight: 950;
   animation: v4-cta-push 1.4s ease-in-out infinite;
 }
 .v4-result-cards[data-v4-result-theme="mobit"] > .v4-diagnosis-summary__action { margin: 0 8px 18px; border: 1px solid #d9e5df; border-radius: 10px; box-shadow: 0 3px 9px rgba(8, 83, 64, .09); }
@@ -1650,23 +1651,58 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
 .v4-countdown i { display: inline-block; min-width: 30px; margin: 0 2px; padding: 4px 5px; border-radius: 4px; background: #171717; color: #fff342; font-size: 15px; font-style: normal; font-variant-numeric: tabular-nums; }
 .v4-countdown i:last-child { background: #ec172c; }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown {
-  margin-bottom: 12px;
-  padding: 8px 10px;
-  border: 1px solid #c5ddd3;
-  border-radius: 8px;
-  background: #edf5f1;
-  color: #173c33;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 3px;
+  margin-bottom: 13px;
+  padding: 7px 8px 8px;
+  border: 2px solid #006b46;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: inset 0 0 0 2px #e4f0eb, 0 2px 6px rgba(0, 79, 52, .12);
+  color: #063e2e;
 }
-.v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown > span { color: #087154; }
-.v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown b { color: #173c33; font-weight: 800; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown > span {
+  color: #d92f20;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .03em;
+  line-height: 1.25;
+}
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown > span::before { content: "＼"; margin-right: 5px; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown > span::after { content: "／"; margin-left: 5px; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #063e2e;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.v4-countdown__clock {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i,
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i:last-child {
-  min-width: 25px;
-  padding: 1px 2px;
+  min-width: 26px;
+  margin-inline: 1px;
+  padding: 0 1px;
   background: transparent;
-  color: #087154;
-  font-size: 16px;
-  font-weight: 900;
+  color: #005d3d;
+  font-size: 19px;
+  font-weight: 950;
+  letter-spacing: .04em;
 }
 .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown.is-next-morning strong {
   border: 1px solid #b9d7ca;
@@ -1709,13 +1745,31 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
 }
 .v4-cta { display: flex; position: relative; top: 0; align-items: center; justify-content: center; min-height: 58px; padding: 10px 16px; border-radius: 7px; background: var(--v4-cta); box-shadow: 0 6px 0 var(--v4-cta-shadow); color: #fff !important; font-size: clamp(16px, 3.5vw, 21px); font-weight: 800; line-height: 1.35; text-decoration: none !important; touch-action: manipulation; cursor: pointer; animation: v4-cta-push 1.4s ease-in-out infinite; transition: top 0.08s, box-shadow 0.08s, transform 0.08s, background-color 0.2s; }
 .v4-cta::after { content: "›"; margin-left: 10px; font-size: 25px; }
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-cta::before {
+  content: "☝";
+  position: absolute;
+  right: 9px;
+  bottom: -7px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  font-size: 20px;
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(112, 36, 10, .35));
+  transform: rotate(-18deg);
+  transform-origin: center;
+  animation: v4-cta-finger-tap 1.4s ease-in-out infinite;
+}
 .v4-cta-sub-link {
   display: flex;
   align-items: center;
   box-sizing: border-box;
   width: fit-content;
   min-height: 44px;
-  margin: 11px 0 0 auto;
+  margin: 18px 0 0 auto;
   padding: 0 2px;
   color: var(--v4-brand-dark) !important;
   font-size: 12px;
@@ -1723,23 +1777,7 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   line-height: 1.4;
   text-decoration: underline !important;
   text-underline-offset: 3px;
-}
-
-@media (min-width: 351px) and (max-width: 396px) {
-  .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown {
-    flex-wrap: nowrap;
-    gap: 4px;
-    padding-inline: 6px;
-    font-size: 11px;
-  }
-  .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown > span,
-  .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown b { white-space: nowrap; }
-  .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i,
-  .v4-result-cards[data-v4-result-theme="mobit"] .v4-countdown i:last-child {
-    min-width: 21px;
-    margin-inline: 1px;
-    font-size: 14px;
-  }
+  white-space: nowrap;
 }
 .v4-cta:hover,
 .v4-cta:focus-visible,
@@ -1751,8 +1789,14 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   14% { top: 3px; box-shadow: 0 0 0 var(--v4-cta-shadow); }
 }
 
+@keyframes v4-cta-finger-tap {
+  0%, 28%, 100% { transform: translateY(0) rotate(-18deg); }
+  14% { transform: translateY(-7px) rotate(-18deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .v4-cta { animation: none; }
+  .v4-result-cards[data-v4-result-theme="mobit"] .v4-cta::before { animation: none; }
   .v4-diagnosis-summary__match-content > strong.is-very-high,
   .v4-diagnosis-summary__match-flame { animation: none; }
 }
@@ -1833,7 +1877,7 @@ body.result-v2 .osusume_btn_area { display: none !important; }
   .v4-countdown { gap: 4px 7px; margin-bottom: 10px; font-size: 12px; }
   .v4-countdown i { min-width: 26px; padding: 3px 4px; font-size: 13px; }
   .v4-cta { min-height: 50px; padding: 7px 12px; font-size: 16px; }
-  .v4-cta-sub-link { margin-top: 9px; font-size: 11.5px; }
+  .v4-cta-sub-link { margin-top: 18px; font-size: 11.5px; }
 }
 
 @media (max-width: 350px) {

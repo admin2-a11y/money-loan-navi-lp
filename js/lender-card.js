@@ -547,6 +547,11 @@
 
   const finalPickMarkup = "";
 
+  const countdownClockMarkup = '<svg class="v4-countdown__clock" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"></circle><path d="M8 4.5V8l2.5 1.5"></path></svg>';
+  const countdownMarkup = () => `<div class="v4-countdown" data-v4-countdown aria-live="polite"><span>本日中に借りるなら</span><b>${countdownClockMarkup}残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b></div>`;
+  const officialLpLabel = (lender) => lender.key === "mobit" ? "公式LP：https://www.mobit.ne.jp" : "公式LPはこちら";
+  const officialLpAccessibleLabel = (lender) => `広告リンクを経由して${lender.name}公式サイトへ移動します`;
+
   mount.innerHTML = `
     <section class="v4-result-cards" data-v4-result-theme="${rankedLenders[0].key}" aria-label="カードローン診断結果">
       ${diagnosisSummaryMarkup(rankedLenders[0])}
@@ -561,9 +566,9 @@
               </div>
             </div>
             <div class="v4-cta-wrap v4-cta-wrap--after-head">
-              <div class="v4-countdown" data-v4-countdown aria-live="polite"><span>本日中に借りるなら</span><b>残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b></div>
+              ${countdownMarkup()}
               <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.cta}</a>
-              <a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">公式LPはこちら</a>
+              <a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">${officialLpLabel(lender)}</a>
             </div>
             ${recommendationMarkup(lender)}
             <section class="v4-review-box" aria-label="利用者の口コミ">
@@ -576,9 +581,9 @@
               </div>
               ${additionalReviewsMarkup(lender)}
               <div class="v4-cta-wrap v4-cta-wrap--after-review">
-                <div class="v4-countdown" data-v4-countdown aria-live="polite"><span>本日中に借りるなら</span><b>残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b></div>
+                ${countdownMarkup()}
                 <a class="v4-cta" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.cta}</a>
-                <a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">公式LPはこちら</a>
+                <a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">${officialLpLabel(lender)}</a>
               </div>
             </section>
             <p class="v4-lender-note">【PR】Sponsored by ${lender.group}<br>${lender.note}</p>
@@ -669,7 +674,7 @@
   }
   const pad = (value) => String(value).padStart(2, "0");
   const countdowns = Array.from(document.querySelectorAll("[data-v4-countdown]"));
-  const activeCountdownMarkup = '<span>本日中に借りるなら</span><b>残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b>';
+  const activeCountdownMarkup = `<span>本日中に借りるなら</span><b>${countdownClockMarkup}残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b>`;
   const nextMorningMarkup = '<span>いま申込で</span><b><strong>最短10時</strong>に借入完了も！</b>';
   const setCountdownPart = (countdown, selector, value) => {
     const element = countdown.querySelector(selector);
