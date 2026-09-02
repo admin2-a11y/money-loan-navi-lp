@@ -143,23 +143,24 @@
   // explicitly asks to change the locked diagnosis wording.
   const lockedMobitDiagnosisCopy = Object.freeze({
     usage: Object.freeze({
-      firstTime: "カードローンがはじめてでSMBCモビットを申し込み･利用したことがないあなた。スマホから借入までWEB完結できるSMBCモビットがおすすめ。",
+      firstTime: "SMBCモビットは、WEB完結申込なら申込から借入までスマホで進められます。カードローンがはじめてのあなたにもおすすめです。",
       experiencedUnused: "まだSMBCモビットを申し込み･利用をしたことがないあなた。他社借入中でもスマホから借入までWEB完結できるSMBCモビットがおすすめ。",
       experiencedUsed: "すでにSMBCモビットを利用したことがあるあなたには、これまでの利用経験を踏まえて再度検討しやすいです。"
     }),
     amount: Object.freeze({
       "1_10": "1～10万円程度の少額借入を希望しているあなたには、少額でも利用を検討しやすいSMBCモビットがおすすめです。",
       "10_30": "10～30万円程度の借入を希望しているあなたには、急な出費などの資金ニーズにも利用を検討しやすいSMBCモビットがおすすめです。",
-      "30_50": "30～50万円程度の借入を希望しているあなたには、ある程度まとまった資金が必要な場合にも検討しやすいSMBCモビットがおすすめです。",
+      "30_50": "SMBCモビットは、30～50万円程度の借入を希望するあなたにも検討しやすいサービスです。実際の利用限度額は審査により決定されます。",
       over_50: "50万円以上の借入を希望しているあなたには、借入限度額は最大800万円のSMBCモビットがおすすめです。"
     }),
     priority: Object.freeze({
       speed: "借入までのスピードを重視しているあなたには、スマホからWEBで手続きを進められ、最短15分で審査が完了するSMBCモビットがおすすめ。",
       approval_anxiety: "審査への不安をできるだけ減らしたいあなたには、10秒簡易審査で事前確認できるSMBCモビットがおすすめです。",
-      privacy: "原則、電話連絡・郵送物なしのSMBCモビットがおすすめです。",
+      privacy: "SMBCモビットは、WEB完結申込なら原則、電話連絡・郵送物なし。周囲への配慮を重視する方にも検討しやすいサービスです。",
       cost: "毎月の返済負担を抑えながら返していきたいあなたには、借入残高に応じて月々1,000円から返済できるSMBCモビットがおすすめです。"
     }),
-    repaymentNote: "※返済額は最終借入後残高等により異なります。"
+    repaymentNote: "※返済額は最終借入後残高等により異なります。",
+    privacyNote: "※WEB完結申込の場合。審査の状況により、ご連絡を差し上げる場合があります。"
   });
 
   const diagnosisReasons = (lender) => {
@@ -167,7 +168,7 @@
     const usedValues = selectedUsedValues();
     if (isFirstTimeUser) {
       reasons.push({ label: "利用経験", text: "カードローンの利用ははじめて", tagText: lender.key === "mobit" ? "利用経験：カードローンの利用ははじめて" : "はじめて" });
-      reasons.push({ label: "利用状況", text: lender.key === "mobit" ? "SMBCモビットを申し込み・利用したことがない" : `${lender.name}を利用したことがない`, tagText: lender.key === "mobit" ? "利用状況：SMBCモビットを申し込み・利用したことがない" : `${lender.name}未利用` });
+      if (lender.key !== "mobit") reasons.push({ label: "利用状況", text: `${lender.name}を利用したことがない`, tagText: `${lender.name}未利用` });
     } else {
       const usedNames = selectedUsedLenderNames(usedValues);
       reasons.push({ label: "利用経験", text: "カードローンの利用経験あり", tagText: "利用経験あり" });
@@ -246,6 +247,8 @@
       priority: (lender.key === "mobit" ? lockedMobitDiagnosisCopy.priority : genericPriorityComments)[priorityKey] || "",
       priorityNote: lender.key === "mobit" && priorityKey === "cost"
         ? lockedMobitDiagnosisCopy.repaymentNote
+        : lender.key === "mobit" && priorityKey === "privacy"
+          ? lockedMobitDiagnosisCopy.privacyNote
         : lender.key === "aiful" && priorityKey === "speed"
           ? "※1 申込手続き完了時点から計測した最短時間であり、申込時間や審査状況などにより異なります。"
           : ""
@@ -434,9 +437,9 @@
         : brandMarkup;
       return trustMarkup.replaceAll("スマホから", '<span class="v4-diagnosis-summary__nowrap">スマホから</span>');
     };
-    const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}">
+    const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}" id="v4-diagnosis-${dimension.kind}">
       <dt><span class="v4-diagnosis-summary__match-eyebrow"><b>Q${index + 1}</b><i>${dimension.category}</i></span></dt>
-      <dd class="v4-diagnosis-summary__level${dimension.level === "非常に高い" ? " is-very-high" : ""}" aria-label="${dimension.title}は${dimension.level}"><span aria-hidden="true">◎</span><strong>${dimension.level}</strong></dd>
+      <dd class="v4-diagnosis-summary__level${dimension.level === "非常に高い" ? " is-very-high" : ""}" aria-label="${dimension.title}は${dimension.level}"><small class="v4-diagnosis-summary__level-label" aria-hidden="true">相性：</small><span aria-hidden="true">◎</span><strong>${dimension.level}</strong></dd>
       ${answerMarkup(dimension.labels)}
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
       <div class="v4-diagnosis-summary__match-comment"><p>${diagnosisCommentMarkup(dimension.comment)}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
@@ -495,31 +498,24 @@
       <strong>${lender.name}</strong><span>を利用された方の口コミ！</span>
     </div>`;
   };
-  const firstTimeMobitBannerMarkup = (lender) => {
-    if (!isFirstTimeMobit(lender)) return "";
-    return `<figure class="v4-first-time-mobit-banner">
-      <picture>
-        <source type="image/jpeg" srcset="./assets/lenders/mobit-first-points-v2-480.jpg 480w, ./assets/lenders/mobit-first-points-v2-768.jpg 768w" sizes="(max-width: 600px) calc(100vw - 36px), 460px">
-        <img src="./assets/lenders/mobit-first-points-v2-768.jpg" width="768" height="846" alt="SMBCモビット3つのおすすめポイント。原則電話連絡・郵送物なし、申込みから最短15分で審査完了、振込は最短3分" loading="lazy" decoding="async">
-      </picture>
-    </figure>`;
-  };
   const recommendationImageByLender = {
+    mobit: { file: "mobit-recommendation-points.svg", width: 768, height: 1080, vector: true },
     promise: { file: "promise-recommendation-points", width: 1024, height: 1536 },
     aiful: { file: "aiful-recommendation-points", width: 1024, height: 1536 },
     acom: { file: "acom-recommendation-points", width: 1195, height: 1316 }
   };
   const recommendationMarkup = (lender) => {
-    const mobitBanner = firstTimeMobitBannerMarkup(lender);
-    if (mobitBanner) return mobitBanner;
     const recommendationImage = recommendationImageByLender[lender.key];
     if (recommendationImage) {
       const accessiblePoints = lender.points.map(([title, text]) => `<li><strong>${title}</strong> ${text}</li>`).join("");
-      return `<figure class="v4-recommend-image" aria-label="${lender.name}の4つのおすすめポイント">
-        <picture>
+      const imageMarkup = recommendationImage.vector
+        ? `<img src="./assets/lenders/${recommendationImage.file}" width="${recommendationImage.width}" height="${recommendationImage.height}" alt="${lender.name}の4つのおすすめポイント" loading="lazy" decoding="async">`
+        : `<picture>
           <source type="image/webp" srcset="./assets/lenders/${recommendationImage.file}-480.webp 480w, ./assets/lenders/${recommendationImage.file}-768.webp 768w" sizes="(max-width: 600px) calc(100vw - 28px), 520px">
           <img src="./assets/lenders/${recommendationImage.file}.png" width="${recommendationImage.width}" height="${recommendationImage.height}" alt="${lender.name}の4つのおすすめポイント" loading="lazy" decoding="async">
-        </picture>
+        </picture>`;
+      return `<figure class="v4-recommend-image" aria-label="${lender.name}の4つのおすすめポイント">
+        ${imageMarkup}
         <figcaption class="v4-sr-only"><ol>${accessiblePoints}</ol></figcaption>
       </figure>`;
     }
@@ -658,6 +654,7 @@
           ${incomeMarkup}
         </h5>`;
   };
+  const personOnlyReviewImage = (image) => image.replace(/-160\.webp$/, "-person-v2.png");
   const additionalReviewsMarkup = (lender) => {
     const reviews = additionalReviewsByLender[lender.key];
     if (!reviews) return "";
@@ -670,7 +667,7 @@
       const ratingWidth = `${detail.rating / 5 * 100}%`;
       return `<article class="v4-more-reviews__item">
       <div class="v4-more-reviews__person">
-        <img src="./assets/lenders/reviews/${review.image}" width="160" height="160" alt="${review.profile}のイメージイラスト" loading="lazy" decoding="async" fetchpriority="low">
+        <img src="./assets/lenders/reviews/${personOnlyReviewImage(review.image)}" width="160" height="160" alt="${review.profile}のイメージイラスト" loading="lazy" decoding="async" fetchpriority="low">
         ${additionalReviewProfileMarkup(review.profile)}
         <span class="v4-more-reviews__rating" aria-label="5点満点中${detail.rating}点"><span aria-hidden="true" style="--v4-review-rating-width:${ratingWidth}">★★★★★</span><b>${detail.rating}</b></span>
         <dl class="v4-more-reviews__facts">

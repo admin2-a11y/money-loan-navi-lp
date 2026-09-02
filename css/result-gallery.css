@@ -1,0 +1,240 @@
+:root {
+  color-scheme: light;
+  font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.result-gallery-page {
+  min-width: 0;
+  margin: 0;
+  background: #edf4f1;
+  color: #17211d;
+}
+
+.result-gallery-header {
+  padding: 34px max(18px, calc((100vw - 1440px) / 2)) 28px;
+  background: linear-gradient(145deg, #064a35 0%, #087154 72%, #0a8060 100%);
+  color: #fff;
+}
+.result-gallery-header__eyebrow {
+  margin: 0 0 7px;
+  color: #c9f1df;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+.result-gallery-header h1 {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: 1.2;
+}
+.result-gallery-header > p:not(.result-gallery-header__eyebrow) {
+  max-width: 720px;
+  margin: 12px 0 0;
+  color: #e8f7f0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.result-gallery-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 9px 16px;
+  background: rgba(6, 74, 53, .96);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .14);
+  backdrop-filter: blur(8px);
+}
+.result-gallery-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.result-gallery-nav a:hover,
+.result-gallery-nav a:focus-visible { background: rgba(255, 255, 255, .22); }
+
+.result-gallery {
+  width: min(100%, 1480px);
+  margin: 0 auto;
+  padding: 22px 16px 56px;
+}
+.result-gallery-lender {
+  scroll-margin-top: 74px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  border: 1px solid var(--gallery-line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 7px 24px rgba(23, 46, 37, .08);
+}
+.result-gallery-lender__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--gallery-line);
+  background: var(--gallery-soft);
+}
+.result-gallery-lender__header h2 {
+  margin: 0;
+  color: var(--gallery-dark);
+  font-size: clamp(22px, 3vw, 30px);
+}
+.result-gallery-lender__header span {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: var(--gallery-main);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+}
+.result-gallery-group { padding: 20px; }
+.result-gallery-group + .result-gallery-group { border-top: 1px solid #e1e9e5; }
+.result-gallery-group__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 13px;
+}
+.result-gallery-group__heading h3 { margin: 0; font-size: 19px; }
+.result-gallery-group__heading p { margin: 0; color: #65716c; font-size: 12px; }
+.result-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 286px), 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+.result-gallery-card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 11px;
+  background: transparent;
+}
+.result-gallery-card__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 46px;
+  padding: 9px 11px;
+  border-bottom: 1px solid #dce5e1;
+  background: #fff;
+}
+.result-gallery-card__label strong { font-size: 13px; line-height: 1.35; }
+.result-gallery-card__label a {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: var(--gallery-soft);
+  color: var(--gallery-dark);
+  font-size: 12px;
+  font-weight: 800;
+  text-underline-offset: 2px;
+}
+.result-gallery-card__preview { min-height: 260px; }
+.result-gallery-card__loading,
+.result-gallery-card__error {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+  padding: 20px;
+  color: #68736e;
+  font-size: 12px;
+  text-align: center;
+}
+.result-gallery-card__error { color: #a5000d; }
+
+.result-gallery-card .v4-result-cards { width: 100%; max-width: none; margin: 0; }
+.result-gallery-card .v4-diagnosis-summary__match { height: 100%; padding: 0; border: 0; background: transparent; }
+.result-gallery-card .v4-diagnosis-summary__match-panel { height: 100%; box-shadow: none; }
+.result-gallery-card .v4-diagnosis-summary__match-panel > dl { height: 100%; }
+.result-gallery-card .v4-diagnosis-summary__match-item { height: 100%; border-bottom: 0; }
+.result-gallery-card .v4-diagnosis-summary__match-summary { font-size: 18px; }
+.result-gallery-card .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
+  grid-template-columns: minmax(0, 1fr) 78px;
+}
+.result-gallery-card .v4-diagnosis-summary__match-visual.is-generated { width: 78px; height: 78px; }
+
+.result-gallery-status {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 20;
+  margin: 0;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: #063f2f;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.result-gallery-status[hidden] { display: none; }
+.result-gallery-loader {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  width: 390px;
+  height: 900px;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .result-gallery-header { padding-top: 25px; }
+  .result-gallery-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .result-gallery-nav a { text-align: center; }
+  .result-gallery-lender { scroll-margin-top: 126px; }
+  .result-gallery { padding-inline: 3px; }
+  .result-gallery-lender { border-radius: 13px; }
+  .result-gallery-lender__header { padding: 14px 10px; }
+  .result-gallery-group { padding: 14px 2px; }
+  .result-gallery-group__heading { display: block; }
+  .result-gallery-group__heading p { margin-top: 3px; }
+  .result-gallery-grid { grid-template-columns: 1fr; gap: 10px; }
+  .result-gallery-card__preview { min-height: 0; }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .result-gallery-group.is-usage .result-gallery-card:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - 14px) / 2);
+  }
+}
+
+@media (max-width: 350px) {
+  .result-gallery-card .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
+    grid-template-columns: minmax(0, 1fr) 58px;
+  }
+  .result-gallery-card .v4-diagnosis-summary__match-visual.is-generated { width: 58px; height: 58px; }
+}
+
+@media (min-width: 901px) and (max-width: 1399px) {
+  .result-gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .result-gallery-group:is(.is-amount, .is-priority) .result-gallery-card:last-child {
+    grid-column: 2;
+  }
+}

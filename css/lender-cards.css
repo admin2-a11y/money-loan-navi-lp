@@ -758,6 +758,7 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
   line-height: 1.2;
 }
 .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level > span { color: #e0a900; font-size: 16px; line-height: 1; }
+.v4-diagnosis-summary__match dd.v4-diagnosis-summary__level .v4-diagnosis-summary__level-label { color: inherit; font-size: 10px; font-weight: 850; letter-spacing: 0; white-space: nowrap; }
 .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level strong { font-size: 12px; white-space: nowrap; }
 .v4-diagnosis-summary__match dd.v4-diagnosis-summary__level.is-very-high { border-color: #f2bd56; background: #fff5d8; color: #c64522; }
 .v4-diagnosis-summary__match-summary { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) clamp(66px, 19vw, 78px); align-items: center; gap: 9px; margin: 0; color: #184d40; font-size: 18px; font-weight: 850; letter-spacing: .01em; line-height: 1.38; }
@@ -3074,3 +3075,9 @@ body.result-v2 .v4-result-cards {
     max-width: none !important;
   }
 }
+
+/* The question cards carry the hierarchy; remove duplicate frames around them. */
+.v4-result-cards .v4-diagnosis-summary { border-width: 0; }
+.v4-result-cards .v4-diagnosis-summary__match { border-bottom: 0; }
+.v4-result-cards[data-v4-result-theme] .v4-diagnosis-summary__match-panel { border: 0; box-shadow: none; }
+.v4-result-cards .v4-diagnosis-summary__match-banner { border-bottom: 0; }

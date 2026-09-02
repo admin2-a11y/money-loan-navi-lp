@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="1080" viewBox="0 0 768 1080" role="img" aria-labelledby="title desc">
+  <title id="title">SMBCモビットの4つのおすすめポイント</title>
+  <desc id="desc">最短15分の審査、最短3分の振込、原則電話連絡・郵送物なし、返済でVポイントが貯まる・使えることを紹介します。</desc>
+  <defs>
+    <linearGradient id="header" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00633f"/>
+      <stop offset="1" stop-color="#00925d"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eff9f3"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#004a32" flood-opacity=".12"/>
+    </filter>
+    <style>
+      text { font-family: "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif; }
+      .row-title { font-size: 35px; font-weight: 900; fill: #09241c; }
+      .row-copy { font-size: 22px; font-weight: 700; fill: #253b34; }
+      .accent { fill: #007a4d; }
+      .number { font-size: 52px; font-weight: 900; fill: #fff; text-anchor: middle; dominant-baseline: middle; }
+      .icon { fill: none; stroke: #007a4d; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="768" height="1080" rx="28" fill="url(#bg)"/>
+  <path d="M0 28A28 28 0 0 1 28 0h712a28 28 0 0 1 28 28v190H0z" fill="url(#header)"/>
+  <path d="M42 54h684" stroke="#ffdc36" stroke-width="7" stroke-linecap="round" opacity=".95"/>
+  <text x="384" y="116" fill="#fff" font-size="34" font-weight="800" text-anchor="middle">SMBCモビット</text>
+  <text x="384" y="178" fill="#fff" font-size="52" font-weight="900" text-anchor="middle"><tspan fill="#ffdc36">4つ</tspan><tspan>のおすすめポイント</tspan></text>
+
+  <g transform="translate(24 240)" filter="url(#shadow)">
+    <rect width="720" height="180" rx="22" fill="#fff" stroke="#cde7da" stroke-width="2"/>
+    <circle cx="72" cy="90" r="48" fill="#007a4d"/><text class="number" x="72" y="94">1</text>
+    <text class="row-title" x="138" y="68">お申込みから<tspan class="accent">最短15分</tspan>で審査完了！</text>
+    <text class="row-copy" x="138" y="111">お申し込みから最短15分で審査するから</text>
+    <text class="row-copy" x="138" y="145">急な出費にも即対応！</text>
+    <g class="icon" transform="translate(624 59)"><circle cx="30" cy="30" r="28"/><path d="M30 12v20l14 9M22 1h16"/></g>
+  </g>
+
+  <g transform="translate(24 438)" filter="url(#shadow)">
+    <rect width="720" height="180" rx="22" fill="#fff" stroke="#cde7da" stroke-width="2"/>
+    <circle cx="72" cy="90" r="48" fill="#007a4d"/><text class="number" x="72" y="94">2</text>
+    <text class="row-title" x="138" y="72">振込は<tspan class="accent">最短3分</tspan></text>
+    <text class="row-copy" x="138" y="116">ご契約後、最短3分で口座へ</text>
+    <text class="row-copy" x="138" y="150">振り込まれる！</text>
+    <g class="icon" transform="translate(607 55)"><path d="M6 27h78L45 4zM14 31v39M34 31v39M56 31v39M76 31v39M6 74h78"/><circle cx="73" cy="11" r="10" fill="#ffdc36" stroke="none"/><path d="M73 5v12M68 8h10M68 14h10" stroke-width="3"/></g>
+  </g>
+
+  <g transform="translate(24 636)" filter="url(#shadow)">
+    <rect width="720" height="180" rx="22" fill="#fff" stroke="#cde7da" stroke-width="2"/>
+    <circle cx="72" cy="90" r="48" fill="#007a4d"/><text class="number" x="72" y="94">3</text>
+    <text class="row-title" x="138" y="67">原則<tspan class="accent">電話連絡・郵送物なし</tspan></text>
+    <text class="row-copy" x="138" y="111">面倒な電話連絡や郵送物はないから</text>
+    <text class="row-copy" x="138" y="145">誰にもバレなくて安心！</text>
+    <g class="icon" transform="translate(625 54)"><path d="M10 5h42l9 12v55H10zM52 5v14h10M20 32h30M20 46h30"/><path d="M4 75 69 10" stroke="#f0644b"/></g>
+  </g>
+
+  <g transform="translate(24 834)" filter="url(#shadow)">
+    <rect width="720" height="180" rx="22" fill="#fff" stroke="#cde7da" stroke-width="2"/>
+    <circle cx="72" cy="90" r="48" fill="#007a4d"/><text class="number" x="72" y="94">4</text>
+    <text class="row-title" x="138" y="68">返済で<tspan class="accent">Vポイント</tspan>が貯まる・使える</text>
+    <text class="row-copy" x="138" y="113">返済の利息分でVポイントが貯まるから</text>
+    <text class="row-copy" x="138" y="147">お得！</text>
+    <g transform="translate(625 54)"><circle cx="34" cy="34" r="31" fill="#ffdc36"/><text x="34" y="47" fill="#007a4d" font-size="39" font-weight="900" text-anchor="middle">V</text><path class="icon" d="M9 70h51"/></g>
+  </g>
+  <text x="384" y="1050" fill="#48645b" font-size="16" font-weight="600" text-anchor="middle">※お申込時間や審査状況などにより異なる場合があります。</text>
+</svg>
