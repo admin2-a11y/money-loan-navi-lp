@@ -202,8 +202,8 @@
     } else if (isFirstTimeUser) {
       const firstTimeCopy = {
         acom: `スマホで申込から契約まで進められ、初回契約日の翌日から30日間金利0円の<strong>アコム</strong>は、はじめての方にも検討しやすい候補です。`,
-        promise: `申込から契約まで<strong>WEB完結</strong>で進められ、初回借入の翌日から30日間無利息の<strong>プロミス</strong>は、はじめての方にも検討しやすい候補です。`,
-        aiful: `スマホで申込から借入まで進められ、はじめての方は契約日の翌日から最大30日間利息0円の<strong>アイフル</strong>は、初めての借入にも検討しやすい候補です。`
+        promise: `プロミスは申込から借入までスマホで進められます。WEB完結で手続きしやすいため、カードローンがはじめてのあなたにもおすすめです。`,
+        aiful: `アイフルは申込から借入までスマホで進められます。WEB完結で手続きしやすいため、カードローンがはじめてのあなたにもおすすめです。`
       };
       usage = firstTimeCopy[lender.key] || `<strong>WEB</strong>で進めやすく、初めて借入を検討する方にも${lender.name}は候補になります。`;
     } else if (!hasUsedSelectedLender) {
@@ -212,9 +212,15 @@
       usage = `これまでの利用経験を踏まえ、${lender.name}を再度比較・検討しやすい結果です。`;
     }
     const amountRange = { "1_10": "1～10万円程度の少額借入", "10_30": "10～30万円程度の借入", "30_50": "30～50万円程度の借入", over_50: "50万円以上の借入" };
+    const focusedAmountCopy = {
+      promise: `プロミスは、あなたが希望する30～50万円程度の借入にも検討しやすいサービスです。実際の利用限度額は審査により決定されます。`,
+      aiful: `アイフルは、あなたが希望する30～50万円程度の借入にも検討しやすいサービスです。実際の利用限度額は審査により決定されます。`
+    };
     const amount = lender.key === "mobit"
       ? lockedMobitDiagnosisCopy.amount[amountKey]
-      : amountRange[amountKey] ? `<strong>${amountRange[amountKey]}</strong>の希望額に合わせて、${lender.name}を比較・検討できます。` : "";
+      : amountKey === "30_50" && focusedAmountCopy[lender.key]
+        ? focusedAmountCopy[lender.key]
+        : amountRange[amountKey] ? `<strong>${amountRange[amountKey]}</strong>の希望額に合わせて、${lender.name}を比較・検討できます。` : "";
     const lenderPriorityComments = {
       acom: {
         speed: `融資まで最短20分。急ぎの借入を検討する方にも<strong>アコム</strong>は候補になります。`,
@@ -225,13 +231,13 @@
       promise: {
         speed: `Webなら最短3分で融資可能な<strong>プロミス</strong>は、借入までのスピードを重視する方におすすめです。`,
         approval_anxiety: `1秒パパッと診断で申込前の目安を確認できる<strong>プロミス</strong>がおすすめです。`,
-        privacy: `申込から契約までWEB完結。Web完結なら郵送物なしの<strong>プロミス</strong>がおすすめです。`,
+        privacy: `プロミスは、Web完結なら原則、電話での在籍確認・郵送物なし。周囲への配慮を重視する方にも検討しやすいサービスです。`,
         cost: `はじめての方は初回借入の翌日から30日間無利息。短期間の利用も検討しやすい<strong>プロミス</strong>がおすすめです。`
       },
       aiful: {
         speed: `申込みから融資まで最短9分※1の<strong>アイフル</strong>は、借入までのスピードを重視する方におすすめです。`,
         approval_anxiety: `1秒診断で申込前の目安を確認できる<strong>アイフル</strong>がおすすめです。`,
-        privacy: `原則、勤務先への電話連絡なしでWeb完結できる<strong>アイフル</strong>がおすすめです。`,
+        privacy: `アイフルは、WEB完結なら原則、電話・郵送物なし。周囲への配慮を重視する方にも検討しやすいサービスです。`,
         cost: `はじめての方なら最大30日間利息0円。短期間の利用も検討しやすい<strong>アイフル</strong>がおすすめです。`
       }
     };
@@ -249,6 +255,10 @@
         ? lockedMobitDiagnosisCopy.repaymentNote
         : lender.key === "mobit" && priorityKey === "privacy"
           ? lockedMobitDiagnosisCopy.privacyNote
+        : lender.key === "promise" && priorityKey === "privacy"
+          ? "※Web・アプリで申込み、「郵送書類の受取で本人確認」を選択しない場合。審査状況により電話連絡が必要になる場合がありますが、お客さまの同意なく電話をすることは原則ありません。"
+        : lender.key === "aiful" && priorityKey === "privacy"
+          ? "※一部、電話でのやりとりや、本人確認方法などにより郵送物が発生する場合があります。"
         : lender.key === "aiful" && priorityKey === "speed"
           ? "※1 申込手続き完了時点から計測した最短時間であり、申込時間や審査状況などにより異なります。"
           : ""
