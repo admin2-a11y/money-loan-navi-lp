@@ -30,34 +30,53 @@
       note: "※お申込の曜日、時間帯によっては翌日以降の取扱となる場合があります。※原則電話連絡なし。（WEB完結申込の場合）※口座への入金が完了する日時は金融機関によって異なります。※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
     },
     {
-      key: "acom", name: "アコム", group: "三菱UFJフィナンシャル・グループ", banner: "banner_acom2.jpg", width: 300, height: 250,
-      catch: "はじめてなら30日間金利0円", cta: "はじめての方はこちらから申し込む",
+      key: "acom", name: "アコム", group: "三菱UFJフィナンシャル・グループ", banner: "banner_acom-zaikaku100-red.jpg", width: 300, height: 250,
+      catch: "はじめてなら30日間金利0円", cta: "アコムの詳細はこちら",
       specs: [["融資時間", "最短20分"], ["実質年率", "2.4％～17.9％"], ["利用限度額", "最大800万円"], ["無利息期間", "契約日の翌日から30日間"], ["利用方法", "振込・コンビニATM"]],
-      points: [["はじめてなら金利0円期間あり！", "アコムを初めて利用する人は30日間金利0円！"], ["審査結果が最短20分でわかる！", "21時までに申し込めば当日中に口座に振込！土日祝も24時間申込可能。"], ["周りにバレずに借りられる！", "面倒な電話連絡や郵送物はないから誰にもバレなくて安心！"], ["三菱UFJフィナンシャル・グループで安心！", "知名度やグループ会社による安心感があります。"]],
+      points: [["はじめてなら30日間金利0円", "アコムを初めて契約する方は、契約日の翌日から30日間金利0円です。"], ["融資まで最短20分", "Webから24時間申し込め、急ぎの借入にも対応しています。"], ["スマホで申込から契約まで完結", "カードレスを選択でき、来店せずに手続きを進められます。"], ["利用限度額は最大800万円", "希望額と返済計画を確認しながら検討できます。"]],
       reviewProfile: "職業：バイト<br>年齢：25歳", reviewIncome: "350万円", reviewRating: 5, reviewAmount: "100万～300万円未満", reviewTime: "1時間以内", review: "金利0円期間に魅力を感じ申し込みました。カードローンは初めてでしたが審査もスムーズでした。スマホで完結できるので電話連絡や郵送物もなく周りにバレずに借入でき本当に助かりました。", reviewImage: "review-acom-v2.png", reviewImageWidth: 213, reviewImageHeight: 196, reviewPosition: "acom", reviewImageAlt: "口コミ利用者",
       note: "※アコムを初めて契約する方が無利息期間の対象です。※お申込時間や審査状況によりご希望に添えない場合があります。※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
     },
     {
-      key: "promise", name: "プロミス", group: "SMBCコンシューマーファイナンス株式会社",
-      catch: "Webなら最短3分で融資可能", cta: "1秒パパッと診断を試す",
+      key: "promise", name: "プロミス", group: "SMBCコンシューマーファイナンス株式会社", banner: "banner_promise.jpg", width: 320, height: 250,
+      catch: "Webなら最短3分で融資可能", cta: "プロミスの詳細はこちら",
       specs: [["融資時間", "最短3分"], ["実質年率", "2.5％～18.0％"], ["利用限度額", "最大800万円"], ["無利息期間", "初回借入の翌日から30日間"], ["事前診断", "1秒パパッと診断"]],
-      points: [["即日可能！最短3分で審査完了！", "21時までの申込みで即日融資可能！"], ["30日間無利息もありお得に借りれる！", "初回借入の翌日から30日間、条件を満たす方は無利息で利用できます。"], ["1秒パパっと診断", "借り入れ可能かすぐチェックできる！"]],
+      points: [["Webなら最短3分で融資可能", "申込から借入までWebで進められ、急ぎのときにも検討しやすいサービスです。"], ["初回借入の翌日から30日間無利息", "メールアドレス登録とWeb明細利用の登録をした、はじめて利用する方が対象です。"], ["申込から契約までWeb完結", "来店せずスマホで手続きを進められ、Web完結なら郵送物もありません。"], ["1秒パパッと診断", "年齢・年収・他社借入金額を入力して、申込前の目安を確認できます。"]],
       reviewProfile: "職業：会社員<br>年齢：33歳", reviewIncome: "300万円", reviewRating: 5, reviewAmount: "50万円未満", reviewTime: "1時間以内", review: "スマホで完結できるので審査から借入までがとにかく早い。誰にもバレずに借りることが出来ました。返済も月1000円からで良いのも助かってます。", reviewImage: "review-promise-v2.png", reviewImageWidth: 194, reviewImageHeight: 190, reviewPosition: "promise", reviewImageAlt: "口コミ利用者",
       note: "※無利息期間の適用にはメールアドレス登録とWeb明細利用の登録が必要です。※お申込時間や審査状況によりご希望に添えない場合があります。※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
     },
     {
       key: "aiful", name: "アイフル", group: "アイフル株式会社", banner: "banner_aiful-9min.webp", width: 300, height: 250,
-      catch: "最短9分※1融資・1秒で事前診断", cta: "1秒診断で借り入れ可能か確認する",
+      catch: "最短9分※1融資・1秒で事前診断", cta: "アイフルの詳細はこちら",
       specs: [["融資時間", "最短9分※1"], ["実質年率", "3.0％～18.0％"], ["利用限度額", "最大800万円"], ["無利息期間", "初めての方なら最大30日間"], ["事前診断", "1秒診断"]],
-      points: [["今日借りられる！申込みから融資まで最短9分※1", "Webから24時間365日申し込み可！すぐ振り込みしてもらえる！"], ["無利息で借りられる期間あり！", "はじめてなら最大30日間利息0円。"], ["原則、勤務先への電話連絡なし", "申込みから借入・返済までWebで完結できるので家族や職場にバレない。"], ["1秒診断で借入可能性を確認", "年齢・年収・他社借入金額などから簡易的に確認できます。"]],
+      points: [["申込みから融資まで最短9分※1", "Webから24時間365日申し込め、急ぎの借入にも対応しています。"], ["はじめての方なら最大30日間利息0円", "アイフルを初めて契約する方が対象で、契約日の翌日から最大30日間です。"], ["原則、勤務先への電話連絡なし", "申込から借入までWebで進められ、来店せず手続きできます。"], ["1秒診断で借入可能性を確認", "年齢・年収・他社借入金額などから簡易的に確認できます。"]],
       reviewProfile: "職業：会社員<br>年齢：54歳", reviewIncome: "390万円", reviewRating: 5, reviewAmount: "100万～300万円未満", reviewTime: "1時間以内", review: "急な出費があり、初めてカードローンを利用しました。短期間で返済する予定だったため、30日間の無利息サービスを利用できた点に満足しています。", reviewImage: "review-aiful-v2.png", reviewImageWidth: 181, reviewImageHeight: 192, reviewPosition: "aiful", reviewImageAlt: "口コミ利用者",
-      note: "※1お申込時間や審査状況によりご希望に添えない場合があります。※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
+      note: "※1 申込手続き完了時点から計測した最短時間であり、申込時間や審査状況などにより異なります。※無利息期間はアイフルを初めて利用する方が対象で、契約日の翌日から最大30日間です。※原則として電話による在籍確認は行いませんが、審査状況により実施する場合があります。※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
     }
   ];
 
   const resultOfferMap = { sm: "mobit", pr: "promise", ac: "acom", ai: "aiful" };
   const resultParams = new URLSearchParams(window.location.search);
   const selectedKey = resultOfferMap[resultParams.get("result_offer")] || "mobit";
+  const pageThemeByLender = {
+    mobit: { main: "#007a4d", dark: "#005d3d", soft: "#e5f2ec", line: "#3a936f", text: "#064a35" },
+    promise: { main: "#004098", dark: "#002f73", soft: "#f3f7ff", line: "#b8cbea", text: "#17345f" },
+    aiful: { main: "#d71920", dark: "#971217", soft: "#fff1f1", line: "#eaa6a9", text: "#5b171a" },
+    acom: { main: "#e60012", dark: "#a5000d", soft: "#fff3f4", line: "#efb5ba", text: "#5a171c" }
+  };
+  const selectedPageTheme = pageThemeByLender[selectedKey];
+  const applySelectedPageTheme = () => {
+    if (!selectedPageTheme) return;
+    const pageRoot = document.documentElement;
+    pageRoot.style.setProperty("--cq-offer", selectedPageTheme.main);
+    pageRoot.style.setProperty("--cq-offer-dark", selectedPageTheme.dark);
+    pageRoot.style.setProperty("--cq-offer-soft", selectedPageTheme.soft);
+    pageRoot.style.setProperty("--cq-offer-line", selectedPageTheme.line);
+    pageRoot.style.setProperty("--cq-offer-text", selectedPageTheme.text);
+  };
+  applySelectedPageTheme();
+  document.addEventListener("DOMContentLoaded", applySelectedPageTheme);
+  window.addEventListener("pageshow", applySelectedPageTheme);
   const isFirstTimeUser = resultParams.get("cq_usage") === "first_time" || resultParams.get("param1") === "new";
   const lendersByKey = new Map(lenders.map((lender) => [lender.key, lender]));
   const rankedLenders = [lendersByKey.get(selectedKey)].filter(Boolean);
@@ -180,7 +199,12 @@
         usage = lockedMobitDiagnosisCopy.usage.experiencedUsed;
       }
     } else if (isFirstTimeUser) {
-      usage = `<strong>WEB</strong>で進めやすく、初めて借入を検討する方にも${lender.name}は候補になります。`;
+      const firstTimeCopy = {
+        acom: `スマホで申込から契約まで進められ、初回契約日の翌日から30日間金利0円の<strong>アコム</strong>は、はじめての方にも検討しやすい候補です。`,
+        promise: `申込から契約まで<strong>WEB完結</strong>で進められ、初回借入の翌日から30日間無利息の<strong>プロミス</strong>は、はじめての方にも検討しやすい候補です。`,
+        aiful: `スマホで申込から借入まで進められ、はじめての方は契約日の翌日から最大30日間利息0円の<strong>アイフル</strong>は、初めての借入にも検討しやすい候補です。`
+      };
+      usage = firstTimeCopy[lender.key] || `<strong>WEB</strong>で進めやすく、初めて借入を検討する方にも${lender.name}は候補になります。`;
     } else if (!hasUsedSelectedLender) {
       usage = `未利用のサービスとして比較に加えやすく、${lender.name}を新しい候補として検討できます。`;
     } else {
@@ -190,17 +214,41 @@
     const amount = lender.key === "mobit"
       ? lockedMobitDiagnosisCopy.amount[amountKey]
       : amountRange[amountKey] ? `<strong>${amountRange[amountKey]}</strong>の希望額に合わせて、${lender.name}を比較・検討できます。` : "";
-    const genericPriorityComments = {
+    const lenderPriorityComments = {
+      acom: {
+        speed: `融資まで最短20分。急ぎの借入を検討する方にも<strong>アコム</strong>は候補になります。`,
+        approval_anxiety: `3秒診断で借入可能かの目安を確認でき、申込前の不安を減らしたい方にも<strong>アコム</strong>は候補になります。`,
+        privacy: `スマホで申込から契約まで進められ、カードレスも選択できる<strong>アコム</strong>は、周囲への配慮を重視する方にも候補になります。`,
+        cost: `はじめて契約する方は契約日の翌日から30日間金利0円。短期間の利用も検討しやすい<strong>アコム</strong>がおすすめです。`
+      },
+      promise: {
+        speed: `Webなら最短3分で融資可能な<strong>プロミス</strong>は、借入までのスピードを重視する方におすすめです。`,
+        approval_anxiety: `1秒パパッと診断で申込前の目安を確認できる<strong>プロミス</strong>がおすすめです。`,
+        privacy: `申込から契約までWEB完結。Web完結なら郵送物なしの<strong>プロミス</strong>がおすすめです。`,
+        cost: `はじめての方は初回借入の翌日から30日間無利息。短期間の利用も検討しやすい<strong>プロミス</strong>がおすすめです。`
+      },
+      aiful: {
+        speed: `申込みから融資まで最短9分※1の<strong>アイフル</strong>は、借入までのスピードを重視する方におすすめです。`,
+        approval_anxiety: `1秒診断で申込前の目安を確認できる<strong>アイフル</strong>がおすすめです。`,
+        privacy: `原則、勤務先への電話連絡なしでWeb完結できる<strong>アイフル</strong>がおすすめです。`,
+        cost: `はじめての方なら最大30日間利息0円。短期間の利用も検討しやすい<strong>アイフル</strong>がおすすめです。`
+      }
+    };
+    const genericPriorityComments = lenderPriorityComments[lender.key] || {
       speed: `<strong>WEB</strong>で手続きを進められ、スピードを重視する方にも${lender.name}は候補になります。`,
       approval_anxiety: `事前診断や申込案内を確認でき、申込み前の不安を減らしたい方にも${lender.name}は候補になります。`,
-      privacy: `<strong>WEB</strong>で進められ、周囲に知られにくい形を重視する方にも${lender.name}は候補になります。`,
+      privacy: `<strong>WEB</strong>で進められ、周囲への配慮を重視する方にも${lender.name}は候補になります。`,
       cost: `返済計画を確認しながら、毎月の負担を抑えたい方にも${lender.name}は候補になります。`
     };
     return {
       usage,
       amount,
       priority: (lender.key === "mobit" ? lockedMobitDiagnosisCopy.priority : genericPriorityComments)[priorityKey] || "",
-      priorityNote: priorityKey === "cost" ? lockedMobitDiagnosisCopy.repaymentNote : ""
+      priorityNote: lender.key === "mobit" && priorityKey === "cost"
+        ? lockedMobitDiagnosisCopy.repaymentNote
+        : lender.key === "aiful" && priorityKey === "speed"
+          ? "※1 申込手続き完了時点から計測した最短時間であり、申込時間や審査状況などにより異なります。"
+          : ""
     };
   };
   const diagnosisSummaries = (lender) => {
@@ -259,6 +307,24 @@
     const matchLevel = levels.overall;
     const matchLevelClass = matchLevel === "非常に高い" ? " is-very-high" : "";
     const matchLevelIcon = matchLevel === "非常に高い" ? '<span class="v4-diagnosis-summary__match-flame" aria-hidden="true">🔥</span>' : "";
+    const diagnosisHeroAssets = {
+      promise: {
+        src: "./assets/lenders/promise-diagnosis-recommendation.png",
+        srcset: "./assets/lenders/promise-diagnosis-recommendation-480.webp 480w, ./assets/lenders/promise-diagnosis-recommendation-768.webp 768w",
+        alt: "あなたの診断結果。プロミスがおすすめ。プロミスとの相性は非常に高い"
+      },
+      aiful: {
+        src: "./assets/lenders/aiful-diagnosis-recommendation.png",
+        srcset: "./assets/lenders/aiful-diagnosis-recommendation-480.webp 480w, ./assets/lenders/aiful-diagnosis-recommendation-768.webp 768w",
+        alt: "あなたの診断結果。アイフルがおすすめ。アイフルとの相性は非常に高い"
+      },
+      acom: {
+        src: "./assets/lenders/acom-diagnosis-recommendation.png",
+        srcset: "./assets/lenders/acom-diagnosis-recommendation-480.webp 480w, ./assets/lenders/acom-diagnosis-recommendation-768.webp 768w",
+        alt: "あなたの診断結果。アコムがおすすめ。アコムとの相性は非常に高い"
+      }
+    };
+    const diagnosisHeroAsset = diagnosisHeroAssets[lender.key];
     const matchBannerMarkup = lender.key === "mobit"
       ? `<figure class="v4-diagnosis-summary__match-banner">
           <picture>
@@ -266,17 +332,64 @@
             <img src="./assets/lenders/mobit-diagnosis-recommendation.png" width="1448" height="1086" alt="あなたの診断結果。SMBCモビットがおすすめ。SMBCモビットとの相性は非常に高い" decoding="async" fetchpriority="high">
           </picture>
         </figure>`
+      : diagnosisHeroAsset
+        ? `<figure class="v4-diagnosis-summary__match-banner">
+            <picture>
+              <source type="image/webp" srcset="${diagnosisHeroAsset.srcset}" sizes="(max-width: 600px) calc(100vw - 42px), 448px">
+              <img src="${diagnosisHeroAsset.src}" width="1448" height="1086" alt="${diagnosisHeroAsset.alt}" decoding="async" fetchpriority="high">
+            </picture>
+          </figure>`
       : `<div class="v4-diagnosis-summary__unified-hero" role="img" aria-label="あなたの診断結果。${lender.name}がおすすめ。${lender.name}との相性は${matchLevel}">
-          <span>あなたの診断結果</span>
-          <strong><b>${lender.name}</b>がおすすめ！</strong>
-          <p><small>${lender.name}との相性</small><em class="${matchLevelClass.trim()}">${matchLevelIcon}${matchLevel}</em></p>
+          <span>あなたの</span>
+          <strong>診断結果</strong>
+          <p class="v4-diagnosis-summary__unified-pick"><b>${lender.name}</b>がおすすめ！</p>
+          <p class="v4-diagnosis-summary__unified-match"><small>${lender.name}<br>との相性は</small><em class="${matchLevelClass.trim()}">${matchLevelIcon}${matchLevel}！</em></p>
         </div>`;
     const dimensionIconMarkup = (kind) => {
-      const generatedIllustrations = lender.key === "mobit" ? {
-        ...(isFirstTimeUser ? { usage: "diagnosis-illustration-q1-v1.png" } : {}),
-        amount: "diagnosis-illustration-q2-v1.png",
-        ...(selectedPriorityKey() === "privacy" ? { priority: "diagnosis-illustration-q3-privacy-v1.png" } : {})
-      } : {};
+      const priorityKey = selectedPriorityKey();
+      const generatedIllustrationsByLender = {
+        mobit: {
+          usage: "diagnosis-illustration-q1-v1.png",
+          amount: "diagnosis-illustration-q2-v1.png",
+          priority: ({
+            speed: "diagnosis-illustration-q3-speed-mobit-v1.png",
+            approval_anxiety: "diagnosis-illustration-q3-approval-anxiety-mobit-v1.png",
+            privacy: "diagnosis-illustration-q3-privacy-v1.png",
+            cost: "diagnosis-illustration-q3-cost-mobit-v1.png"
+          })[priorityKey]
+        },
+        promise: {
+          usage: "diagnosis-illustration-q1-promise-v1.png",
+          amount: "diagnosis-illustration-q2-promise-v1.png",
+          priority: ({
+            speed: "diagnosis-illustration-q3-speed-promise-v1.png",
+            approval_anxiety: "diagnosis-illustration-q3-approval-anxiety-promise-v1.png",
+            privacy: "diagnosis-illustration-q3-promise-v1.png",
+            cost: "diagnosis-illustration-q3-cost-promise-v1.png"
+          })[priorityKey]
+        },
+        aiful: {
+          usage: "diagnosis-illustration-q1-red-v1.png",
+          amount: "diagnosis-illustration-q2-red-v1.png",
+          priority: ({
+            speed: "diagnosis-illustration-q3-speed-red-v1.png",
+            approval_anxiety: "diagnosis-illustration-q3-approval-anxiety-red-v1.png",
+            privacy: "diagnosis-illustration-q3-red-v1.png",
+            cost: "diagnosis-illustration-q3-cost-red-v1.png"
+          })[priorityKey]
+        },
+        acom: {
+          usage: "diagnosis-illustration-q1-red-v1.png",
+          amount: "diagnosis-illustration-q2-red-v1.png",
+          priority: ({
+            speed: "diagnosis-illustration-q3-speed-red-v1.png",
+            approval_anxiety: "diagnosis-illustration-q3-approval-anxiety-red-v1.png",
+            privacy: "diagnosis-illustration-q3-red-v1.png",
+            cost: "diagnosis-illustration-q3-cost-red-v1.png"
+          })[priorityKey]
+        }
+      };
+      const generatedIllustrations = generatedIllustrationsByLender[lender.key] || {};
       if (generatedIllustrations[kind]) {
         return `<span class="v4-diagnosis-summary__match-visual is-${kind} is-generated" aria-hidden="true"><img src="./assets/lenders/${generatedIllustrations[kind]}" width="320" height="320" alt="" loading="lazy" decoding="async"></span>`;
       }
@@ -313,9 +426,7 @@
       return `<span class="v4-diagnosis-summary__match-visual is-${kind}" aria-hidden="true">${icons[kind] || ""}</span>`;
     };
     const diagnosisCommentMarkup = (comment) => {
-      const brandMarkup = lender.key === "mobit"
-        ? comment.replaceAll("SMBCモビット", '<span class="v4-diagnosis-summary__brand-name">SMBCモビット</span>')
-        : comment;
+      const brandMarkup = comment.replaceAll(lender.name, `<span class="v4-diagnosis-summary__brand-name">${lender.name}</span>`);
       const trustMarkup = lender.key === "mobit"
         ? brandMarkup
           .replaceAll("WEB完結", '<span class="v4-diagnosis-summary__trust-keyword v4-diagnosis-summary__trust-keyword--nowrap">WEB完結</span>')
@@ -330,8 +441,7 @@
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
       <div class="v4-diagnosis-summary__match-comment"><p>${diagnosisCommentMarkup(dimension.comment)}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
     </div>`).join("");
-    const diagnosisCtaMarkup = lender.key === "mobit"
-      ? `<div class="v4-diagnosis-summary__hero-action v4-diagnosis-summary__hero-action--compact">
+    const diagnosisCtaMarkup = `<div class="v4-diagnosis-summary__hero-action v4-diagnosis-summary__hero-action--compact">
           <div class="v4-diagnosis-summary__compact-cta">
             <div class="v4-diagnosis-summary__compact-cue">
               <svg class="v4-diagnosis-summary__compact-icon" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
@@ -345,7 +455,7 @@
               <strong><span>診断結果から</span><span>あなたにおすすめ</span></strong>
             </div>
             <div class="v4-diagnosis-summary__compact-action">
-              <a class="v4-diagnosis-summary__compact-link" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener" aria-label="広告リンクを経由してSMBCモビット公式サイトへ移動します"><span>SMBCモビットを</span><span>チェック <b aria-hidden="true">›</b></span></a>
+              <a class="v4-diagnosis-summary__compact-link" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener" aria-label="広告リンクを経由して${lender.name}公式サイトへ移動します"><span>${lender.name}を</span><span>チェック <b aria-hidden="true">›</b></span></a>
               <small>公式サイトで詳細を確認</small>
             </div>
           </div>
@@ -355,14 +465,11 @@
             <small>あなたの回答に基づいた詳細な結果をご確認いただけます</small>
             <b class="v4-diagnosis-summary__details-rays is-right" aria-hidden="true"><span></span><span></span><span></span></b>
           </a>
-        </div>`
-      : `<div class="v4-diagnosis-summary__hero-action">
-          <a class="v4-more-reviews-dialog__cta v4-diagnosis-summary__hero-cta" href="${reviewsCtaHref(lender)}" target="_blank" rel="sponsored noopener">${lender.name}の詳細はこちら</a>
         </div>`;
     return `<section class="v4-diagnosis-summary" aria-label="あなたの診断結果">
       ${matchBannerMarkup}
       ${diagnosisCtaMarkup}
-      <div class="v4-diagnosis-summary__match"${lender.key === "mobit" ? ' id="v4-diagnosis-details"' : ""}>
+      <div class="v4-diagnosis-summary__match" id="v4-diagnosis-details">
         <div class="v4-diagnosis-summary__match-panel">
           <dl>${dimensionMarkup}</dl>
           <p class="v4-diagnosis-summary__score-note">※アンケート回答と当サイトの診断条件をもとにした相性の目安です。</p>
@@ -385,7 +492,7 @@
       </picture>
     </figure>`;
     return `<div class="v4-review-brand-banner" aria-label="${lender.name}を利用された方の口コミ">
-      <strong>${lender.name}</strong><span>を<br>利用された方の口コミ！</span>
+      <strong>${lender.name}</strong><span>を利用された方の口コミ！</span>
     </div>`;
   };
   const firstTimeMobitBannerMarkup = (lender) => {
@@ -397,8 +504,29 @@
       </picture>
     </figure>`;
   };
+  const recommendationImageByLender = {
+    promise: { file: "promise-recommendation-points", width: 1024, height: 1536 },
+    aiful: { file: "aiful-recommendation-points", width: 1024, height: 1536 },
+    acom: { file: "acom-recommendation-points", width: 1195, height: 1316 }
+  };
   const recommendationMarkup = (lender) => {
-    return firstTimeMobitBannerMarkup(lender);
+    const mobitBanner = firstTimeMobitBannerMarkup(lender);
+    if (mobitBanner) return mobitBanner;
+    const recommendationImage = recommendationImageByLender[lender.key];
+    if (recommendationImage) {
+      const accessiblePoints = lender.points.map(([title, text]) => `<li><strong>${title}</strong> ${text}</li>`).join("");
+      return `<figure class="v4-recommend-image" aria-label="${lender.name}の4つのおすすめポイント">
+        <picture>
+          <source type="image/webp" srcset="./assets/lenders/${recommendationImage.file}-480.webp 480w, ./assets/lenders/${recommendationImage.file}-768.webp 768w" sizes="(max-width: 600px) calc(100vw - 28px), 520px">
+          <img src="./assets/lenders/${recommendationImage.file}.png" width="${recommendationImage.width}" height="${recommendationImage.height}" alt="${lender.name}の4つのおすすめポイント" loading="lazy" decoding="async">
+        </picture>
+        <figcaption class="v4-sr-only"><ol>${accessiblePoints}</ol></figcaption>
+      </figure>`;
+    }
+    return `<section class="v4-recommend" aria-label="${lender.name}のおすすめポイント">
+      <h4 class="v4-recommend-title">${lender.name}のおすすめポイント</h4>
+      <ul class="v4-points">${lender.points.map(([title, text]) => `<li><strong>${title}</strong><span>${text}</span></li>`).join("")}</ul>
+    </section>`;
   };
   const cardLeadMarkup = (lender) => {
     return `<div class="v4-lender-titlebar">
@@ -408,7 +536,7 @@
     <p class="v4-lender-catch">${lender.catch}</p>`;
   };
   const productBannerMarkup = (lender) => {
-    if (lender.key === "promise") {
+    if (!lender.banner && lender.key === "promise") {
       const speed = lender.specs.find(([label]) => label === "融資時間")?.[1] || lender.catch;
       return `<a class="v4-lender-banner v4-lender-banner--brand" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${lender.name}公式サイトへ">
         <span class="v4-lender-banner-card__eyebrow">スマホでWEB完結</span>
@@ -581,13 +709,30 @@
   const countdownClockMarkup = '<svg class="v4-countdown__clock" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"></circle><path d="M8 4.5V8l2.5 1.5"></path></svg>';
   const countdownMarkup = () => `<div class="v4-countdown" data-v4-countdown aria-live="polite"><span>本日中に借りるなら</span><b>${countdownClockMarkup}残り <i data-v4-hours>00</i>時間<i data-v4-minutes>00</i>分<i data-v4-seconds>00</i>秒<i data-v4-centiseconds>00</i></b></div>`;
   const officialLpAccessibleLabel = (lender) => `広告リンクを経由して${lender.name}公式サイトへ移動します`;
-  const assuranceMarkup = (lender) => lender.key === "mobit" ? `<div class="v4-cta-assurance">
+  const assuranceCopy = {
+    mobit: ["申込はスマホでかんたん", "WEB完結申込なら原則、電話連絡・郵送物なし"],
+    promise: ["申込から契約までWEB完結", "WEB完結なら郵送物なし"],
+    aiful: ["申込はスマホでかんたん", "WEB完結・原則勤務先への電話連絡なし"],
+    acom: ["申込から契約までスマホで完結", "カードレスを選択可能・来店不要"]
+  };
+  const assuranceMarkup = (lender) => {
+    const copy = assuranceCopy[lender.key];
+    if (!copy) return "";
+    return `<div class="v4-cta-assurance">
     <svg viewBox="0 0 40 46" aria-hidden="true" focusable="false"><path d="M20 1 37 7v13c0 11-6.7 19.7-17 25C9.7 39.7 3 31 3 20V7L20 1Z"></path><path d="m12 22 5 5 11-12"></path></svg>
-    <p><strong>申込はスマホでかんたん</strong><small>WEB完結申込なら原則、電話連絡・郵送物なし</small></p>
-  </div>` : "";
-  const officialLpMarkup = (lender) => lender.key === "mobit"
-    ? `<p class="v4-cta-official"><span>SMBCモビット公式：</span><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">https://www.mobit.ne.jp/</a></p>`
-    : `<p class="v4-cta-official"><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">公式LPはこちら</a></p>`;
+    <p><strong>${copy[0]}</strong><small>${copy[1]}</small></p>
+  </div>`;
+  };
+  const officialLpDetails = {
+    mobit: ["SMBCモビット公式：", "https://www.mobit.ne.jp/"],
+    promise: ["プロミス公式：", "https://cyber.promise.co.jp/"],
+    aiful: ["アイフル公式：", "https://www.aiful.co.jp/"],
+    acom: ["アコム公式：", "https://www.acom.co.jp/"]
+  };
+  const officialLpMarkup = (lender) => {
+    const [label, url] = officialLpDetails[lender.key] || [`${lender.name}公式：`, "公式サイトを見る"];
+    return `<p class="v4-cta-official"><span>${label}</span><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">${url}</a></p>`;
+  };
 
   mount.innerHTML = `
     <section class="v4-result-cards" data-v4-result-theme="${rankedLenders[0].key}" aria-label="カードローン診断結果">
