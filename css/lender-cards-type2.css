@@ -1,0 +1,21 @@
+/* Type 2 keeps the approved result page intact while simplifying its first view. */
+body.v4-result-type2 .v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-banner {
+  aspect-ratio: 1448 / 750;
+  border-bottom: 2px solid #075f49;
+  border-radius: 0 0 9px 9px;
+}
+
+body.v4-result-type2 .v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-banner picture {
+  height: 100%;
+  overflow: hidden;
+}
+
+body.v4-result-type2 .v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__match-banner img {
+  height: auto;
+  object-fit: initial;
+  object-position: initial;
+}
+
+body.v4-result-type2 .v4-result-cards[data-v4-result-theme="mobit"] .v4-diagnosis-summary__hero-action--compact {
+  display: none;
+}
