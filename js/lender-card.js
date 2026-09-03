@@ -483,30 +483,47 @@
     // 注釈は文字列でも複数行の配列でも受け取り、小さな注記としてまとめて表示する。
     // 本文の ※N は同じブロック内の注釈へリンクさせ、どの番号がどの注記に対応するかを明示する。
     const noteScopeId = (num) => `v4-dnote-${lender.key}-${num}`;
-    const noteLines = (note) => (Array.isArray(note) ? note : [note]).filter((line) => line);
-    const definedNoteNumbers = (note) => new Set(noteLines(note)
-      .map((line) => (String(line).match(/^※(\d)/) || [])[1])
-      .filter(Boolean));
-    // 定義済みの番号だけをリンクにする。注記のない番号は素の文字のまま残し、誤リンクを作らない。
-    const linkNoteRefs = (text, defined) => String(text).replace(/※(\d)/g, (whole, num) => (defined.has(num)
-      ? `<sup class="v4-note-ref"><a href="#${noteScopeId(num)}">※${num}</a></sup>`
-      : whole));
-    const noteMarkup = (note) => {
-      const lines = noteLines(note);
-      if (!lines.length) return "";
-      return `<small class="v4-diagnosis-summary__match-note">${lines.map((line) => {
-        const num = (String(line).match(/^※(\d)/) || [])[1];
-        return num
-          ? `<span id="${noteScopeId(num)}" class="v4-note-def">${line}</span>`
-          : `<span>${line}</span>`;
-      }).join("")}</small>`;
+    // 診断カードは回答に対応する注記だけを出すため、承認文の番号（例：アコムの ※3）が単独で残ると
+    // ※1・※2 が抜けたように見える。そこで注記の文章は承認文のまま変えず、参照番号だけを
+    // カード内で1から振り直して連番にする。番号セットが完全な商品カード側は振り直さない。
+    const buildNotedComment = (bodyHtml, note) => {
+      const lines = (Array.isArray(note) ? note : [note]).filter(Boolean).map(String);
+      const numbered = new Map();
+      const unnumbered = [];
+      lines.forEach((line) => {
+        const parsed = line.match(/^※(\d)\s*(.*)$/);
+        if (parsed) numbered.set(parsed[1], parsed[2]);
+        else unnumbered.push(line.replace(/^※\s*/, ""));
+      });
+      // 本文に現れた順で採番する。注記のない番号はリンクにせず素の文字のまま残す。
+      const order = [];
+      String(bodyHtml).replace(/※(\d)/g, (whole, num) => {
+        if (numbered.has(num) && !order.includes(num)) order.push(num);
+        return whole;
+      });
+      const renumbered = new Map(order.map((num, index) => [num, String(index + 1)]));
+      const body = String(bodyHtml).replace(/※(\d)/g, (whole, num) => {
+        const next = renumbered.get(num);
+        return next
+          ? `<sup class="v4-note-ref"><a href="#${noteScopeId(next)}">※${next}</a></sup>`
+          : whole;
+      });
+      const items = order.map((num) => {
+        const next = renumbered.get(num);
+        return `<span id="${noteScopeId(next)}" class="v4-note-def">※${next} ${numbered.get(num)}</span>`;
+      });
+      // 本文から参照されていない注記は、番号を付けずに続けて表示する。
+      numbered.forEach((text, num) => { if (!renumbered.has(num)) unnumbered.push(text); });
+      const rest = unnumbered.map((text) => `<span>※${text}</span>`);
+      const all = items.concat(rest);
+      return `<p>${body}</p>${all.length ? `<small class="v4-diagnosis-summary__match-note">${all.join("")}</small>` : ""}`;
     };
     const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}" id="v4-diagnosis-${dimension.kind}">
       <dt><span class="v4-diagnosis-summary__match-eyebrow"><b>Q${index + 1}</b><i>${dimension.category}</i></span></dt>
       <dd class="v4-diagnosis-summary__level${dimension.level === "非常に高い" ? " is-very-high" : ""}" aria-label="${dimension.title}は${dimension.level}"><small class="v4-diagnosis-summary__level-label" aria-hidden="true">相性：</small><span aria-hidden="true">◎</span><strong>${dimension.level}</strong></dd>
       ${answerMarkup(dimension.labels)}
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch${catchLengthClass(dimension.summary)}">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
-      <div class="v4-diagnosis-summary__match-comment"><p>${linkNoteRefs(diagnosisCommentMarkup(dimension.comment), definedNoteNumbers(dimension.commentNote))}</p>${noteMarkup(dimension.commentNote)}</div>
+      <div class="v4-diagnosis-summary__match-comment">${buildNotedComment(diagnosisCommentMarkup(dimension.comment), dimension.commentNote)}</div>
     </div>`).join("");
     const diagnosisCtaMarkup = `<div class="v4-diagnosis-summary__hero-action v4-diagnosis-summary__hero-action--compact">
           <div class="v4-diagnosis-summary__compact-cta">
