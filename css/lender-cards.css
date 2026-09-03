@@ -2256,6 +2256,8 @@ body.experience .v4-result-cards[data-v4-result-theme="acom"] .v4-review-meta {
   .v4-diagnosis-summary__match-flame { animation: none; }
 }
 .v4-lender-note { margin: 0; padding: 0 14px 14px; color: #858585; font-size: 10px; line-height: 1.55; }
+/* Numbered disclaimers get their own line so each reference is easy to match. */
+.v4-lender-note .v4-note-def { display: block; }
 
 body.result-v2 .v3-result-lenders > .inner > .v3-result-lenders-title,
 body.result-v2 .v3-result-lenders > .inner > .v3-result-lender-list,
@@ -3054,6 +3056,31 @@ body.result-v2 .v4-result-cards {
   .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-visual.is-generated) {
     font-size: 18px;
   }
+}
+
+/* Disclaimer references: small superscript links that jump to the matching note. */
+.v4-note-ref {
+  font-size: .62em;
+  font-weight: 600;
+  line-height: 0;
+  vertical-align: super;
+  white-space: nowrap;
+}
+.v4-note-ref > a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  opacity: .75;
+}
+.v4-note-ref > a:hover,
+.v4-note-ref > a:focus-visible { opacity: 1; }
+.v4-note-ref > a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px; }
+
+/* Highlight the note briefly when its reference is followed. */
+.v4-note-def { scroll-margin-top: 96px; }
+.v4-note-def:target { background: #fff3b0; border-radius: 3px; box-shadow: 0 0 0 2px #fff3b0; }
+@media (prefers-reduced-motion: no-preference) {
+  .v4-note-def:target { transition: background .25s ease; }
 }
 
 /* Multi-line disclaimers (Acom's *1/*2) stay small and readable under the reason text. */

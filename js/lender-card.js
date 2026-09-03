@@ -31,11 +31,11 @@
     },
     {
       key: "acom", name: "アコム", group: "三菱UFJフィナンシャル・グループ", banner: "banner_acom-zaikaku100-red.jpg", width: 300, height: 250,
-      catch: "はじめてなら30日間金利0円", cta: "アコムの詳細はこちら",
-      specs: [["融資時間", "最短20分"], ["実質年率", "2.4％～17.9％"], ["利用限度額", "最大800万円"], ["無利息期間", "契約日の翌日から30日間"], ["利用方法", "振込・コンビニATM"]],
-      points: [["はじめてなら30日間金利0円", "アコムを初めて契約する方は、契約日の翌日から30日間金利0円です。"], ["融資まで最短20分", "Webから24時間申し込め、急ぎの借入にも対応しています。"], ["スマホで申込から契約まで完結", "カードレスを選択でき、来店せずに手続きを進められます。"], ["利用限度額は最大800万円", "希望額と返済計画を確認しながら検討できます。"]],
+      catch: "はじめてなら30日間金利0円※3", cta: "アコムの詳細はこちら",
+      specs: [["融資時間", "最短20分※1"], ["実質年率", "2.4％～17.9％"], ["利用限度額", "最大800万円"], ["無利息期間", "契約日の翌日から30日間※3"], ["利用方法", "振込※2・コンビニATM"]],
+      points: [["はじめてなら30日間金利0円※3", "アコムを初めて契約する方は、契約日の翌日から30日間金利0円です。"], ["融資まで最短20分※1", "Webから24時間申し込め、急ぎの借入にも対応しています。"], ["スマホで申込から契約まで完結", "カードレスを選択でき、来店せずに手続きを進められます。"], ["利用限度額は最大800万円", "希望額と返済計画を確認しながら検討できます。"]],
       reviewProfile: "職業：バイト<br>年齢：25歳", reviewIncome: "350万円", reviewRating: 5, reviewAmount: "100万～300万円未満", reviewTime: "1時間以内", review: "金利0円期間に魅力を感じ申し込みました。カードローンは初めてでしたが審査もスムーズでした。スマホで完結できるので電話連絡や郵送物もなく周りにバレずに借入でき本当に助かりました。", reviewImage: "review-acom-v2.png", reviewImageWidth: 213, reviewImageHeight: 196, reviewPosition: "acom", reviewImageAlt: "口コミ利用者",
-      note: "※アコムを初めて契約する方が無利息期間の対象です。※お申込時間や審査状況によりご希望に添えない場合があります。※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
+      note: "※1 お申込時間や審査によりご希望に添えない場合がございます。※2 金融機関・お申込時間帯によってはご利用いただけない場合がございます。※3 アコムでのご契約がはじめてのお客さまは契約日翌日から30日間無利息※サービス内容は公式サイトで最新情報をご確認ください。※一例であり、結果を保証するものではありません。"
     },
     {
       key: "promise", name: "プロミス", group: "SMBCコンシューマーファイナンス株式会社", banner: "banner_promise.jpg", width: 320, height: 250,
@@ -481,17 +481,32 @@
     // 長い診断キャッチだけ狭幅で字送りを詰め、二行の見え方を保つ。短いキャッチの表示は変えない。
     const catchLengthClass = (summary) => (String(summary).replace(/<[^>]*>/g, "").length >= 20 ? " is-long" : "");
     // 注釈は文字列でも複数行の配列でも受け取り、小さな注記としてまとめて表示する。
+    // 本文の ※N は同じブロック内の注釈へリンクさせ、どの番号がどの注記に対応するかを明示する。
+    const noteScopeId = (num) => `v4-dnote-${lender.key}-${num}`;
+    const noteLines = (note) => (Array.isArray(note) ? note : [note]).filter((line) => line);
+    const definedNoteNumbers = (note) => new Set(noteLines(note)
+      .map((line) => (String(line).match(/^※(\d)/) || [])[1])
+      .filter(Boolean));
+    // 定義済みの番号だけをリンクにする。注記のない番号は素の文字のまま残し、誤リンクを作らない。
+    const linkNoteRefs = (text, defined) => String(text).replace(/※(\d)/g, (whole, num) => (defined.has(num)
+      ? `<sup class="v4-note-ref"><a href="#${noteScopeId(num)}">※${num}</a></sup>`
+      : whole));
     const noteMarkup = (note) => {
-      const lines = (Array.isArray(note) ? note : [note]).filter((line) => line);
+      const lines = noteLines(note);
       if (!lines.length) return "";
-      return `<small class="v4-diagnosis-summary__match-note">${lines.map((line) => `<span>${line}</span>`).join("")}</small>`;
+      return `<small class="v4-diagnosis-summary__match-note">${lines.map((line) => {
+        const num = (String(line).match(/^※(\d)/) || [])[1];
+        return num
+          ? `<span id="${noteScopeId(num)}" class="v4-note-def">${line}</span>`
+          : `<span>${line}</span>`;
+      }).join("")}</small>`;
     };
     const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}" id="v4-diagnosis-${dimension.kind}">
       <dt><span class="v4-diagnosis-summary__match-eyebrow"><b>Q${index + 1}</b><i>${dimension.category}</i></span></dt>
       <dd class="v4-diagnosis-summary__level${dimension.level === "非常に高い" ? " is-very-high" : ""}" aria-label="${dimension.title}は${dimension.level}"><small class="v4-diagnosis-summary__level-label" aria-hidden="true">相性：</small><span aria-hidden="true">◎</span><strong>${dimension.level}</strong></dd>
       ${answerMarkup(dimension.labels)}
       <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch${catchLengthClass(dimension.summary)}">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
-      <div class="v4-diagnosis-summary__match-comment"><p>${diagnosisCommentMarkup(dimension.comment)}</p>${noteMarkup(dimension.commentNote)}</div>
+      <div class="v4-diagnosis-summary__match-comment"><p>${linkNoteRefs(diagnosisCommentMarkup(dimension.comment), definedNoteNumbers(dimension.commentNote))}</p>${noteMarkup(dimension.commentNote)}</div>
     </div>`).join("");
     const diagnosisCtaMarkup = `<div class="v4-diagnosis-summary__hero-action v4-diagnosis-summary__hero-action--compact">
           <div class="v4-diagnosis-summary__compact-cta">
@@ -531,9 +546,9 @@
   };
 
   const ringSpecLabels = new Set(["融資時間", "実質年率", "利用限度額", "無利息期間", "事前審査", "事前診断", "利用方法"]);
-  const specMarkup = (specs) => specs.map(([label, value]) => {
+  const specMarkup = (lender, specs) => specs.map(([label, value]) => {
     const ringClass = ringSpecLabels.has(label) ? " class=\"v4-spec-ring\"" : "";
-    return `<div${ringClass}><dt>${label}</dt><dd>${value}</dd></div>`;
+    return `<div${ringClass}><dt>${label}</dt><dd>${linkProductNoteRefs(lender, value)}</dd></div>`;
   }).join("");
   const isFirstTimeMobit = (lender) => isFirstTimeUser && lender.key === "mobit";
   const reviewTopBannerMarkup = (lender) => {
@@ -553,10 +568,35 @@
     aiful: { file: "aiful-recommendation-points", width: 1024, height: 1536 },
     acom: { file: "acom-recommendation-points", width: 1195, height: 1316 }
   };
+  // 商品カードの注釈。`※N` で始まる行を1件ずつ改行して表示し、番号にidを振る。
+  // 本文側（キャッチ・スペック・おすすめポイント）の ※N はこのidへリンクさせ、対応関係を明示する。
+  const productNoteId = (lender, num) => `v4-pnote-${lender.key}-${num}`;
+  const productNoteParts = (lender) => String(lender.note || "")
+    .split(/(?=※)/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const productNoteNumbers = (lender) => new Set(productNoteParts(lender)
+    .map((part) => (part.match(/^※(\d)/) || [])[1])
+    .filter(Boolean));
+  const productNoteMarkup = (lender) => productNoteParts(lender).map((part) => {
+    const num = (part.match(/^※(\d)/) || [])[1];
+    return num
+      ? `<span id="${productNoteId(lender, num)}" class="v4-note-def">${part}</span>`
+      : `<span>${part}</span>`;
+  }).join("");
+  // 注記が定義されている番号だけリンクにする。未定義の番号は素の文字のまま残す。
+  const linkProductNoteRefs = (lender, text) => {
+    const defined = productNoteNumbers(lender);
+    return String(text).replace(/※(\d)/g, (whole, num) => (defined.has(num)
+      ? `<sup class="v4-note-ref"><a href="#${productNoteId(lender, num)}">※${num}</a></sup>`
+      : whole));
+  };
   const recommendationMarkup = (lender) => {
     const recommendationImage = recommendationImageByLender[lender.key];
     if (recommendationImage) {
-      const accessiblePoints = lender.points.map(([title, text]) => `<li><strong>${title}</strong> ${text}</li>`).join("");
+      // 読み上げ専用の代替テキスト。不可視のリンクを増やさず、番号を言葉で示して注釈へ誘導する。
+      const srNoteRefs = (text) => String(text).replace(/※(\d)/g, (whole, num) => (productNoteNumbers(lender).has(num) ? `（注釈${num}参照）` : whole));
+      const accessiblePoints = lender.points.map(([title, text]) => `<li><strong>${srNoteRefs(title)}</strong> ${srNoteRefs(text)}</li>`).join("");
       const imageMarkup = recommendationImage.vector
         ? `<img src="./assets/lenders/${recommendationImage.file}" width="${recommendationImage.width}" height="${recommendationImage.height}" alt="${lender.name}の4つのおすすめポイント" loading="lazy" decoding="async">`
         : `<picture>
@@ -570,7 +610,7 @@
     }
     return `<section class="v4-recommend" aria-label="${lender.name}のおすすめポイント">
       <h4 class="v4-recommend-title">${lender.name}のおすすめポイント</h4>
-      <ul class="v4-points">${lender.points.map(([title, text]) => `<li><strong>${title}</strong><span>${text}</span></li>`).join("")}</ul>
+      <ul class="v4-points">${lender.points.map(([title, text]) => `<li><strong>${linkProductNoteRefs(lender, title)}</strong><span>${linkProductNoteRefs(lender, text)}</span></li>`).join("")}</ul>
     </section>`;
   };
   const cardLeadMarkup = (lender) => {
@@ -578,7 +618,7 @@
       <h3 class="v4-lender-name"><span class="v4-crown" aria-hidden="true">♛</span> <a href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.name}</a></h3>
       <p class="v4-lender-rank">診断結果 No.1</p>
     </div>
-    <p class="v4-lender-catch">${lender.catch}</p>`;
+    <p class="v4-lender-catch">${linkProductNoteRefs(lender, lender.catch)}</p>`;
   };
   const productBannerMarkup = (lender) => {
     if (!lender.banner && lender.key === "promise") {
@@ -790,7 +830,7 @@
             <div class="v4-lender-head">
               ${productBannerMarkup(lender)}
               <div class="v4-lender-summary">
-                <dl class="v4-specs">${specMarkup(lender.specs)}<div class="v4-conveni"><dt>利用コンビニ</dt><dd><span class="v4-conveni-logo-crop"><img src="./assets/lenders/convenience-store-logos-360.webp" width="360" height="87" alt="利用可能な提携コンビニATM：セブン-イレブン、ファミリーマート、ローソン、ミニストップ" loading="lazy" decoding="async"></span></dd></div></dl>
+                <dl class="v4-specs">${specMarkup(lender, lender.specs)}<div class="v4-conveni"><dt>利用コンビニ</dt><dd><span class="v4-conveni-logo-crop"><img src="./assets/lenders/convenience-store-logos-360.webp" width="360" height="87" alt="利用可能な提携コンビニATM：セブン-イレブン、ファミリーマート、ローソン、ミニストップ" loading="lazy" decoding="async"></span></dd></div></dl>
               </div>
             </div>
             <div class="v4-cta-wrap v4-cta-wrap--after-head">
@@ -816,7 +856,7 @@
                 ${officialLpMarkup(lender)}
               </div>
             </section>
-            <p class="v4-lender-note">【PR】Sponsored by ${lender.group}<br>${lender.note}</p>
+            <p class="v4-lender-note">【PR】Sponsored by ${lender.group}<br>${productNoteMarkup(lender)}</p>
           </article>`).join("")}
       </div>
       ${finalPickMarkup}
