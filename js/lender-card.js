@@ -435,7 +435,10 @@
       };
       const generatedIllustrations = generatedIllustrationsByLender[lender.key] || {};
       if (generatedIllustrations[kind]) {
-        return `<span class="v4-diagnosis-summary__match-visual is-${kind} is-generated" aria-hidden="true"><img src="./assets/lenders/${generatedIllustrations[kind]}" width="320" height="320" alt="" loading="lazy" decoding="async"></span>`;
+        // 実表示は最大86px。176pxのWebPを優先し、非対応環境だけ元のPNGへフォールバックする。
+        const illustration = generatedIllustrations[kind];
+        const webp = illustration.replace(/\.png$/, ".webp");
+        return `<span class="v4-diagnosis-summary__match-visual is-${kind} is-generated" aria-hidden="true"><picture><source type="image/webp" srcset="./assets/lenders/${webp}"><img src="./assets/lenders/${illustration}" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>`;
       }
       const icons = {
         usage: `<svg viewBox="0 0 72 72" role="presentation" focusable="false">

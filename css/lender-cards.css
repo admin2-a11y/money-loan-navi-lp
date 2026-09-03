@@ -3037,6 +3037,8 @@ body.result-v2 .v4-result-cards {
   height: clamp(76px, 22vw, 96px);
   opacity: 1;
 }
+/* <picture> must not introduce its own box around the illustration. */
+.v4-diagnosis-summary__match-visual.is-generated picture { display: contents; }
 .v4-diagnosis-summary__match-visual.is-generated img {
   display: block;
   width: 100%;
