@@ -3056,6 +3056,38 @@ body.result-v2 .v4-result-cards {
   }
 }
 
+/* Multi-line disclaimers (Acom's *1/*2) stay small and readable under the reason text. */
+.v4-diagnosis-summary__match-note { display: block; }
+.v4-diagnosis-summary__match-note > span { display: block; }
+.v4-diagnosis-summary__match-note > span + span { margin-top: 2px; }
+
+/* Longer approved catch copy keeps the two-line rhythm without changing the words. */
+@media (max-width: 767px) {
+  .v4-diagnosis-summary__match-catch.is-long {
+    font-size: .9em;
+    line-height: 1.34;
+    letter-spacing: -0.01em;
+  }
+}
+
+@media (max-width: 430px) {
+  .v4-diagnosis-summary__match-catch.is-long { font-size: .86em; }
+}
+
+/* Narrow the mini illustration first so the catch keeps its size lead over the reason text. */
+@media (max-width: 350px) {
+  .v4-result-cards .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-catch.is-long) {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 6px;
+  }
+  .v4-result-cards .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-catch.is-long) .v4-diagnosis-summary__match-visual,
+  .v4-result-cards .v4-diagnosis-summary__match-summary:has(.v4-diagnosis-summary__match-catch.is-long) .v4-diagnosis-summary__match-visual.is-generated {
+    width: 44px;
+    height: 44px;
+  }
+  .v4-diagnosis-summary__match-catch.is-long { font-size: .84em; letter-spacing: -0.02em; }
+}
+
 @media (min-width: 768px) {
   html body.beginner {
     zoom: 1 !important;

@@ -60,6 +60,8 @@
   const paramsFor = (lender, group, item) => {
     const params = new URLSearchParams({
       result_offer: lender.offer,
+      // カタログは result_offer と cq_used を意図的に組み合わせるため、回答からの再計算を無効化する。
+      force_offer: "1",
       cq_usage: "first_time",
       cq_used: "none",
       cq_amount: "30_50",

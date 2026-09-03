@@ -57,7 +57,25 @@
 
   const resultOfferMap = { sm: "mobit", pr: "promise", ac: "acom", ai: "aiful" };
   const resultParams = new URLSearchParams(window.location.search);
-  const selectedKey = resultOfferMap[resultParams.get("result_offer")] || "mobit";
+  // 利用済み会社(cq_used)が指定されている場合は、URLの result_offer よりアンケート回答からの再計算を優先する。
+  // 分岐は index.html / result*.html の calculateRecommendation と同じ「未利用優先 sm → pr → ai → ac、4社利用済みは sm」。
+  // result-gallery.html は result_offer と cq_used を意図的に組み合わせて全パターンを並べるため、force_offer=1 で従来動作へ固定する。
+  const offerFromAnswers = () => {
+    if (resultParams.get("force_offer") === "1") return "";
+    if (resultParams.get("cq_usage") === "first_time" || resultParams.get("param1") === "new") return "";
+    const used = new Set((resultParams.get("cq_used") || resultParams.get("param2") || "")
+      .split(",")
+      .map((value) => value.trim().toLowerCase())
+      .filter((value) => value && value !== "none"));
+    if (!used.size) return "";
+    const hasAny = (values) => values.some((value) => used.has(value));
+    if (!hasAny(["sm", "mobit", "smbc_mobit", "mobit_legacy"])) return "sm";
+    if (!hasAny(["pr", "promise"])) return "pr";
+    if (!hasAny(["ai", "aiful"])) return "ai";
+    if (!hasAny(["ac", "acom"])) return "ac";
+    return "sm";
+  };
+  const selectedKey = resultOfferMap[offerFromAnswers()] || resultOfferMap[resultParams.get("result_offer")] || "mobit";
   const pageThemeByLender = {
     mobit: { main: "#007a4d", dark: "#005d3d", soft: "#e5f2ec", line: "#3a936f", text: "#064a35" },
     promise: { main: "#004098", dark: "#002f73", soft: "#f3f7ff", line: "#b8cbea", text: "#17345f" },
@@ -143,24 +161,100 @@
   // explicitly asks to change the locked diagnosis wording.
   const lockedMobitDiagnosisCopy = Object.freeze({
     usage: Object.freeze({
-      firstTime: "SMBCモビットはスマホから借入までWEB完結。手続きがカンタンなので、カードローンがはじめてのあなたに最もオススメです。",
-      experiencedUnused: "まだSMBCモビットを申し込み･利用をしたことがないあなた。他社借入中でもスマホから借入までWEB完結できるSMBCモビットがおすすめ。",
+      firstTime: "SMBCモビットはスマホで借入までWEB完結。手続きがカンタンなので、カードローンがはじめてのあなたに最もオススメです。",
+      experiencedUnused: "カードローン利用経験ありのあなたには他社借入中でも申込可能なSMBCモビットがおすすめ。年齢・年収・他社借入額の3項目で事前診断でき、スマホで申込みから借入までWEB完結できます。",
       experiencedUsed: "すでにSMBCモビットを利用したことがあるあなたには、これまでの利用経験を踏まえて再度検討しやすいです。"
     }),
     amount: Object.freeze({
-      "1_10": "1～10万円程度の少額借入を希望しているあなたには、少額でも利用を検討しやすいSMBCモビットがおすすめです。",
-      "10_30": "10～30万円程度の借入を希望しているあなたには、急な出費などの資金ニーズにも利用を検討しやすいSMBCモビットがおすすめです。",
+      "1_10": "SMBCモビットは、あなたの希望する1～10万円程度の借入にもっとも強いサービスです。少額から申し込めるため、必要な分だけ借りたい方も検討しやすいのがポイントです。",
+      "10_30": "SMBCモビットは、あなたの希望する10～30万円程度の借入にもっとも強いサービスです。急な出費やまとまった支払いなど幅広いニーズに合わせて検討しやすいのがポイント。",
       "30_50": "SMBCモビットは、あなたの希望する30～50万円程度の借入にもっとも強いサービスです。まとまった資金が必要な場合にも検討しやすく、借入額の融通がききやすいのもポイント。",
-      over_50: "50万円以上の借入を希望しているあなたには、借入限度額は最大800万円のSMBCモビットがおすすめです。"
+      over_50: "SMBCモビットは、あなたの希望する50万円以上の借入にもっとも強いサービスです。借入限度額は最大800万円なのでまとまった資金が必要な場合に検討しやすいのがポイント。"
     }),
     priority: Object.freeze({
-      speed: "借入までのスピードを重視しているあなたには、スマホからWEBで手続きを進められ、最短15分で審査が完了するSMBCモビットがおすすめ。",
+      speed: "借入までのスピードを重視しているあなたには、スマホからWEBで手続きを進められ最短15分で審査が完了するSMBCモビットがおすすめ。",
       approval_anxiety: "審査への不安をできるだけ減らしたいあなたには、10秒簡易審査で事前確認できるSMBCモビットがおすすめです。",
       privacy: "SMBCモビットであれば、原則、電話連絡・郵送物なしなので周りにバレる心配はありません。",
-      cost: "毎月の返済負担を抑えながら返していきたいあなたには、借入残高に応じて月々1,000円から返済できるSMBCモビットがおすすめです。"
+      cost: "毎月の返済負担を抑えながら返していきたいあなたには月々1,000円から返済できるSMBCモビットがおすすめです。"
     }),
     repaymentNote: "※返済額は最終借入後残高等により異なります。",
     privacyNote: "※原則電話連絡なし。（WEB完結申込の場合）"
+  });
+
+  // APPROVED COPY: プロミス・アイフル・アコムの診断文言と注釈。クライアント承認済みのため、
+  // 明示的な文言変更依頼がない限り編集しない。
+  const approvedLenderCopy = Object.freeze({
+    promise: Object.freeze({
+      usage: Object.freeze({
+        firstTime: "プロミスはスマホから借入までWEB完結。手続きがカンタンなので、カードローンがはじめてのあなたに最もオススメです。",
+        experiencedUnused: "カードローン利用経験ありのあなたには他社借入中でも申込可能なプロミスがおすすめ。1秒パパっと診断により借り入れ可能かすぐチェックでき、スマホで申込みから借入までWEB完結できます。",
+        experiencedUsed: "これまでの利用経験を踏まえ、プロミスを再度比較・検討しやすい結果です。"
+      }),
+      amount: Object.freeze({
+        "1_10": "プロミスは、あなたの希望する1～10万円程度の借入にもっとも強いサービスです。少額から申し込めるため、必要な分だけ借りたい方も検討しやすいのがポイントです。",
+        "10_30": "プロミスは、あなたの希望する10～30万円程度の借入にもっとも強いサービスです。急な出費やまとまった支払いなど幅広いニーズに合わせて検討しやすいのがポイント。",
+        "30_50": "プロミスは、あなたの希望する30～50万円程度の借入にもっとも強いサービスです。まとまった資金が必要な場合にも検討しやすく、借入額の融通がききやすいのもポイント。",
+        over_50: "プロミスは、あなたの希望する50万円以上の借入にもっとも強いサービスです。借入限度額は最大800万円なのでまとまった資金が必要な場合に検討しやすいのがポイント。"
+      }),
+      priority: Object.freeze({
+        speed: "Webなら最短3分で融資可能なプロミスは、借入までのスピードを重視する方におすすめです。",
+        approval_anxiety: "1秒パパッと診断で申込前の目安を確認できるプロミスがおすすめです。",
+        privacy: "プロミスであれば、原則、電話連絡・郵送物なしなので周りにバレる心配はありません。",
+        cost: "はじめての方は初回借入の翌日から30日間無利息。短期間の利用も検討しやすいプロミスがおすすめです。"
+      }),
+      priorityNote: Object.freeze({
+        privacy: ["※Web・アプリで申込み、「郵送書類の受取で本人確認」を選択しない場合。審査状況により電話連絡が必要になる場合がありますが、お客さまの同意なく電話をすることは原則ありません。"]
+      })
+    }),
+    aiful: Object.freeze({
+      usage: Object.freeze({
+        firstTime: "アイフルはスマホから借入までWEB完結。手続きがカンタンなので、カードローンがはじめてのあなたに最もオススメです。",
+        experiencedUnused: "カードローン利用経験ありのあなたには他社借入中でも申込可能なアイフルがおすすめ。年齢・年収・他社借入額の3項目で1秒診断でき、スマホで申込みから借入までWEB完結できます。",
+        experiencedUsed: "これまでの利用経験を踏まえ、アイフルを再度比較・検討しやすい結果です。"
+      }),
+      amount: Object.freeze({
+        "1_10": "アイフルは、あなたの希望する1～10万円程度の借入にもっとも強いサービスです。少額から申し込めるため、必要な分だけ借りたい方も検討しやすいのがポイントです。",
+        "10_30": "アイフルは、あなたの希望する10～30万円程度の借入にもっとも強いサービスです。急な出費やまとまった支払いなど幅広いニーズに合わせて検討しやすいのがポイント。",
+        "30_50": "アイフルは、あなたの希望する30～50万円程度の借入にもっとも強いサービスです。まとまった資金が必要な場合にも検討しやすく、借入額の融通がききやすいのもポイント。",
+        over_50: "アイフルは、あなたの希望する50万円以上の借入にもっとも強いサービスです。借入限度額は最大800万円なのでまとまった資金が必要な場合に検討しやすいのがポイント。"
+      }),
+      priority: Object.freeze({
+        speed: "申込みから融資まで最短9分※1のアイフルは、借入までのスピードを重視する方におすすめです。",
+        approval_anxiety: "1秒診断で申込前の目安を確認できるアイフルがおすすめです。",
+        privacy: "アイフルは、原則、電話連絡・郵送物なしなので周りにバレる心配はありません。",
+        cost: "はじめての方なら最大30日間利息0円。短期間の利用も検討しやすいアイフルがおすすめです。"
+      }),
+      priorityNote: Object.freeze({
+        speed: ["※1 申込手続き完了時点から計測した最短時間であり、申込時間や審査状況などにより異なります。"],
+        privacy: ["※一部、電話でのやりとりや、本人確認方法などにより郵送物が発生する場合があります。"]
+      })
+    }),
+    acom: Object.freeze({
+      usage: Object.freeze({
+        firstTime: "スマホで申込から契約まで進められ、初回契約日の翌日から30日間金利0円、電話による勤務先への在籍確認100％なし、郵送物も原則ないから誰にもバレなくて安心！はじめての方にも検討しやすい候補です。",
+        experiencedUnused: "カードローン利用経験ありのあなたには他社借入中でも申込可能なアコムがおすすめ。年齢・年収・他社借入額の3項目で事前診断でき、スマホで申込みから借入までWEB完結できます。",
+        experiencedUsed: "これまでの利用経験を踏まえ、アコムを再度比較・検討しやすい結果です。"
+      }),
+      amount: Object.freeze({
+        "1_10": "アコムは、あなたの希望する1～10万円程度の借入にもっとも強いサービスです。少額から申し込めるため、必要な分だけ借りたい方も検討しやすいのがポイントです。",
+        "10_30": "アコムは、あなたの希望する10～30万円程度の借入にもっとも強いサービスです。急な出費やまとまった支払いなど幅広いニーズに合わせて検討しやすいのがポイント。",
+        "30_50": "アコムは、あなたの希望する30～50万円程度の借入にもっとも強いサービスです。まとまった資金が必要な場合にも検討しやすく、借入額の融通がききやすいのもポイント。",
+        over_50: "アコムは、あなたの希望する50万円以上の借入にもっとも強いサービスです。借入限度額は最大800万円なのでまとまった資金が必要な場合に検討しやすいのがポイント。"
+      }),
+      priority: Object.freeze({
+        speed: "審査結果が最短20分でわかる！※1 21時までに申し込めば当日中に口座に振込！土日祝も24時間申込可能※2",
+        approval_anxiety: "3秒スピード診断で申込前の目安を確認できるアコムがおすすめです。",
+        privacy: "アコムなら周りにバレずに借りられる！電話による勤務先への在籍確認100％なし、郵送物も原則ないから誰にもバレなくて安心！",
+        cost: "はじめて契約する方は契約日の翌日から30日間金利0円。※3　短期間の利用も検討しやすいアコムがおすすめです。"
+      }),
+      priorityNote: Object.freeze({
+        speed: [
+          "※1 お申込時間や審査によりご希望に添えない場合がございます。",
+          "※2 金融機関・お申込時間帯によってはご利用いただけない場合がございます。"
+        ],
+        cost: ["※3 アコムでのご契約がはじめてのお客さまは契約日翌日から30日間無利息"]
+      })
+    })
   });
 
   const diagnosisReasons = (lender) => {
@@ -172,11 +266,7 @@
     } else {
       const usedNames = selectedUsedLenderNames(usedValues);
       reasons.push({ label: "利用経験", text: "カードローンの利用経験あり", tagText: "利用経験あり" });
-      if (usedNames.length) {
-        usedNames.forEach((name) => reasons.push({ label: "利用先", text: `${name}を利用したことがある`, tagText: name }));
-      } else {
-        reasons.push({ label: "利用状況", text: "カードローンの利用経験あり", tagText: "利用経験あり" });
-      }
+      usedNames.forEach((name) => reasons.push({ label: "利用先", text: `${name}を利用したことがある`, tagText: name }));
     }
     const amount = amountReason[resultParams.get("cq_amount")];
     if (amount) reasons.push({ label: "希望金額", text: amount, tagText: amount.replace("の借入を希望している", "") });
@@ -190,79 +280,20 @@
     const hasUsedSelectedLender = hasUsedLender(lender, usedValues);
     const amountKey = resultParams.get("cq_amount");
     const priorityKey = selectedPriorityKey();
-    let usage;
+    // SMBCモビットは lockedMobitDiagnosisCopy、他3社は approvedLenderCopy を使う。どちらもクライアント承認済み。
+    const copy = lender.key === "mobit" ? lockedMobitDiagnosisCopy : approvedLenderCopy[lender.key];
+    const usageKey = isFirstTimeUser ? "firstTime" : hasUsedSelectedLender ? "experiencedUsed" : "experiencedUnused";
+    const usage = copy && copy.usage ? copy.usage[usageKey] || "" : "";
+    const amount = copy && copy.amount ? copy.amount[amountKey] || "" : "";
+    const priority = copy && copy.priority ? copy.priority[priorityKey] || "" : "";
+    let priorityNote = "";
     if (lender.key === "mobit") {
-      if (isFirstTimeUser) {
-        usage = lockedMobitDiagnosisCopy.usage.firstTime;
-      } else if (!hasUsedSelectedLender) {
-        usage = lockedMobitDiagnosisCopy.usage.experiencedUnused;
-      } else {
-        usage = lockedMobitDiagnosisCopy.usage.experiencedUsed;
-      }
-    } else if (isFirstTimeUser) {
-      const firstTimeCopy = {
-        acom: `スマホで申込から契約まで進められ、初回契約日の翌日から30日間金利0円の<strong>アコム</strong>は、はじめての方にも検討しやすい候補です。`,
-        promise: `プロミスはスマホから借入までWEB完結。手続きがカンタンなので、カードローンがはじめてのあなたに最もオススメです。`,
-        aiful: `アイフルはスマホから借入までWEB完結。手続きがカンタンなので、カードローンがはじめてのあなたに最もオススメです。`
-      };
-      usage = firstTimeCopy[lender.key] || `<strong>WEB</strong>で進めやすく、初めて借入を検討する方にも${lender.name}は候補になります。`;
-    } else if (!hasUsedSelectedLender) {
-      usage = `未利用のサービスとして比較に加えやすく、${lender.name}を新しい候補として検討できます。`;
-    } else {
-      usage = `これまでの利用経験を踏まえ、${lender.name}を再度比較・検討しやすい結果です。`;
+      if (priorityKey === "cost") priorityNote = lockedMobitDiagnosisCopy.repaymentNote;
+      else if (priorityKey === "privacy") priorityNote = lockedMobitDiagnosisCopy.privacyNote;
+    } else if (copy && copy.priorityNote) {
+      priorityNote = copy.priorityNote[priorityKey] || "";
     }
-    const amountRange = { "1_10": "1～10万円程度の少額借入", "10_30": "10～30万円程度の借入", "30_50": "30～50万円程度の借入", over_50: "50万円以上の借入" };
-    const focusedAmountCopy = {
-      promise: `プロミスは、あなたの希望する30～50万円程度の借入にもっとも強いサービスです。まとまった資金が必要な場合にも検討しやすく、借入額の融通がききやすいのもポイント。`,
-      aiful: `アイフルは、あなたの希望する30～50万円程度の借入にもっとも強いサービスです。まとまった資金が必要な場合にも検討しやすく、借入額の融通がききやすいのもポイント。`
-    };
-    const amount = lender.key === "mobit"
-      ? lockedMobitDiagnosisCopy.amount[amountKey]
-      : amountKey === "30_50" && focusedAmountCopy[lender.key]
-        ? focusedAmountCopy[lender.key]
-        : amountRange[amountKey] ? `<strong>${amountRange[amountKey]}</strong>の希望額に合わせて、${lender.name}を比較・検討できます。` : "";
-    const lenderPriorityComments = {
-      acom: {
-        speed: `融資まで最短20分。急ぎの借入を検討する方にも<strong>アコム</strong>は候補になります。`,
-        approval_anxiety: `3秒診断で借入可能かの目安を確認でき、申込前の不安を減らしたい方にも<strong>アコム</strong>は候補になります。`,
-        privacy: `スマホで申込から契約まで進められ、カードレスも選択できる<strong>アコム</strong>は、周囲への配慮を重視する方にも候補になります。`,
-        cost: `はじめて契約する方は契約日の翌日から30日間金利0円。短期間の利用も検討しやすい<strong>アコム</strong>がおすすめです。`
-      },
-      promise: {
-        speed: `Webなら最短3分で融資可能な<strong>プロミス</strong>は、借入までのスピードを重視する方におすすめです。`,
-        approval_anxiety: `1秒パパッと診断で申込前の目安を確認できる<strong>プロミス</strong>がおすすめです。`,
-        privacy: `プロミスであれば、原則、電話連絡・郵送物なしなので周りにバレる心配はありません。`,
-        cost: `はじめての方は初回借入の翌日から30日間無利息。短期間の利用も検討しやすい<strong>プロミス</strong>がおすすめです。`
-      },
-      aiful: {
-        speed: `申込みから融資まで最短9分※1の<strong>アイフル</strong>は、借入までのスピードを重視する方におすすめです。`,
-        approval_anxiety: `1秒診断で申込前の目安を確認できる<strong>アイフル</strong>がおすすめです。`,
-        privacy: `アイフルであれば、原則、電話連絡・郵送物なしなので周りにバレる心配はありません。`,
-        cost: `はじめての方なら最大30日間利息0円。短期間の利用も検討しやすい<strong>アイフル</strong>がおすすめです。`
-      }
-    };
-    const genericPriorityComments = lenderPriorityComments[lender.key] || {
-      speed: `<strong>WEB</strong>で手続きを進められ、スピードを重視する方にも${lender.name}は候補になります。`,
-      approval_anxiety: `事前診断や申込案内を確認でき、申込み前の不安を減らしたい方にも${lender.name}は候補になります。`,
-      privacy: `<strong>WEB</strong>で進められ、周囲への配慮を重視する方にも${lender.name}は候補になります。`,
-      cost: `返済計画を確認しながら、毎月の負担を抑えたい方にも${lender.name}は候補になります。`
-    };
-    return {
-      usage,
-      amount,
-      priority: (lender.key === "mobit" ? lockedMobitDiagnosisCopy.priority : genericPriorityComments)[priorityKey] || "",
-      priorityNote: lender.key === "mobit" && priorityKey === "cost"
-        ? lockedMobitDiagnosisCopy.repaymentNote
-        : lender.key === "mobit" && priorityKey === "privacy"
-          ? lockedMobitDiagnosisCopy.privacyNote
-        : lender.key === "promise" && priorityKey === "privacy"
-          ? "※Web・アプリで申込み、「郵送書類の受取で本人確認」を選択しない場合。審査状況により電話連絡が必要になる場合がありますが、お客さまの同意なく電話をすることは原則ありません。"
-        : lender.key === "aiful" && priorityKey === "privacy"
-          ? "※一部、電話でのやりとりや、本人確認方法などにより郵送物が発生する場合があります。"
-        : lender.key === "aiful" && priorityKey === "speed"
-          ? "※1 申込手続き完了時点から計測した最短時間であり、申込時間や審査状況などにより異なります。"
-          : ""
-    };
+    return { usage, amount, priority, priorityNote };
   };
   const diagnosisSummaries = (lender) => {
     const usedValues = selectedUsedValues();
@@ -447,12 +478,20 @@
         : brandMarkup;
       return trustMarkup.replaceAll("スマホから", '<span class="v4-diagnosis-summary__nowrap">スマホから</span>');
     };
+    // 長い診断キャッチだけ狭幅で字送りを詰め、二行の見え方を保つ。短いキャッチの表示は変えない。
+    const catchLengthClass = (summary) => (String(summary).replace(/<[^>]*>/g, "").length >= 20 ? " is-long" : "");
+    // 注釈は文字列でも複数行の配列でも受け取り、小さな注記としてまとめて表示する。
+    const noteMarkup = (note) => {
+      const lines = (Array.isArray(note) ? note : [note]).filter((line) => line);
+      if (!lines.length) return "";
+      return `<small class="v4-diagnosis-summary__match-note">${lines.map((line) => `<span>${line}</span>`).join("")}</small>`;
+    };
     const dimensionMarkup = dimensions.map((dimension, index) => `<div class="v4-diagnosis-summary__match-item is-${dimension.kind}" id="v4-diagnosis-${dimension.kind}">
       <dt><span class="v4-diagnosis-summary__match-eyebrow"><b>Q${index + 1}</b><i>${dimension.category}</i></span></dt>
       <dd class="v4-diagnosis-summary__level${dimension.level === "非常に高い" ? " is-very-high" : ""}" aria-label="${dimension.title}は${dimension.level}"><small class="v4-diagnosis-summary__level-label" aria-hidden="true">相性：</small><span aria-hidden="true">◎</span><strong>${dimension.level}</strong></dd>
       ${answerMarkup(dimension.labels)}
-      <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
-      <div class="v4-diagnosis-summary__match-comment"><p>${diagnosisCommentMarkup(dimension.comment)}</p>${dimension.commentNote ? `<small>${dimension.commentNote}</small>` : ""}</div>
+      <p class="v4-diagnosis-summary__match-summary"><span class="v4-diagnosis-summary__match-catch${catchLengthClass(dimension.summary)}">${dimension.summary}</span>${dimensionIconMarkup(dimension.kind)}</p>
+      <div class="v4-diagnosis-summary__match-comment"><p>${diagnosisCommentMarkup(dimension.comment)}</p>${noteMarkup(dimension.commentNote)}</div>
     </div>`).join("");
     const diagnosisCtaMarkup = `<div class="v4-diagnosis-summary__hero-action v4-diagnosis-summary__hero-action--compact">
           <div class="v4-diagnosis-summary__compact-cta">
