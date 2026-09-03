@@ -4496,20 +4496,21 @@ window.CQ_PAGE_CONFIG = {
 
         function calculateRecommendation(state) {
             var used = state.usedCompanies || [];
-            var hasLegacyMobit = used.indexOf('mobit_legacy') !== -1;
-            var hasSmbcMobit = used.indexOf('smbc_mobit') !== -1;
-            var hasMobit = hasLegacyMobit || hasSmbcMobit;
+            var hasMobit = used.indexOf('smbc_mobit') !== -1 || used.indexOf('mobit_legacy') !== -1 || used.indexOf('sm') !== -1;
             var hasPromise = used.indexOf('pr') !== -1;
+            var hasAiful = used.indexOf('ai') !== -1;
+            var hasAcom = used.indexOf('ac') !== -1;
             var offerId = 'sm';
 
-            if (state.usage === 'first_time') {
-                offerId = 'sm';
-            } else if (hasLegacyMobit && hasPromise && hasSmbcMobit) {
-                offerId = 'sm';
-            } else if (hasMobit && hasPromise) {
-                offerId = 'ai';
-            } else if (hasMobit) {
-                offerId = 'pr';
+            // 未利用の会社を sm -> pr -> ai -> ac の順で優先する。4社すべて利用済みの場合だけ sm へ戻し、再検討候補として扱う。
+            if (state.usage !== 'first_time' && hasMobit) {
+                if (!hasPromise) {
+                    offerId = 'pr';
+                } else if (!hasAiful) {
+                    offerId = 'ai';
+                } else if (!hasAcom) {
+                    offerId = 'ac';
+                }
             }
 
             return {
@@ -6446,20 +6447,21 @@ if (hasFunnel === "true") {
 
         function calculateRecommendation(state) {
             var used = state.usedCompanies || [];
-            var hasLegacyMobit = used.indexOf('mobit_legacy') !== -1;
-            var hasSmbcMobit = used.indexOf('smbc_mobit') !== -1;
-            var hasMobit = hasLegacyMobit || hasSmbcMobit;
+            var hasMobit = used.indexOf('smbc_mobit') !== -1 || used.indexOf('mobit_legacy') !== -1 || used.indexOf('sm') !== -1;
             var hasPromise = used.indexOf('pr') !== -1;
+            var hasAiful = used.indexOf('ai') !== -1;
+            var hasAcom = used.indexOf('ac') !== -1;
             var offerId = 'sm';
 
-            if (state.usage === 'first_time') {
-                offerId = 'sm';
-            } else if (hasLegacyMobit && hasPromise && hasSmbcMobit) {
-                offerId = 'sm';
-            } else if (hasMobit && hasPromise) {
-                offerId = 'ai';
-            } else if (hasMobit) {
-                offerId = 'pr';
+            // 未利用の会社を sm -> pr -> ai -> ac の順で優先する。4社すべて利用済みの場合だけ sm へ戻し、再検討候補として扱う。
+            if (state.usage !== 'first_time' && hasMobit) {
+                if (!hasPromise) {
+                    offerId = 'pr';
+                } else if (!hasAiful) {
+                    offerId = 'ai';
+                } else if (!hasAcom) {
+                    offerId = 'ac';
+                }
             }
 
             return {
