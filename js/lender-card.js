@@ -650,8 +650,16 @@
         <em>詳しくはこちら</em>
       </a>`;
     }
+    // 広告クリエイティブは寸法を変えずWebPを併置し、非対応環境には元のJPGを配信する。
+    const bannerWebp = lender.banner.replace(/\.(jpe?g|png)$/i, ".webp");
+    const bannerImg = bannerWebp === lender.banner
+      ? `<img src="./assets/lenders/${lender.banner}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">`
+      : `<picture>
+        <source type="image/webp" srcset="./assets/lenders/${bannerWebp}">
+        <img src="./assets/lenders/${lender.banner}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">
+      </picture>`;
     return `<a class="v4-lender-banner" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">
-      <img src="./assets/lenders/${lender.banner}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">
+      ${bannerImg}
     </a>`;
   };
   const reviewProfileMarkup = (lender) => {

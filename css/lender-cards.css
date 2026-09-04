@@ -986,6 +986,8 @@ body.beginner.result-v2 .v4-recommend-intro h2 { color: #102a43 !important; }
 }
 
 .v4-lender-banner { align-self: start; margin-top: 0; }
+/* <picture> must not add a box around the banner creative. */
+.v4-lender-banner picture { display: contents; }
 .v4-lender-banner img {
   display: block;
   width: 100%;
