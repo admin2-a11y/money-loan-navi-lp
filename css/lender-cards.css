@@ -1257,8 +1257,8 @@ body.beginner .v4-spec-ring dd {
 .v4-result-cards[data-v4-result-theme="aiful"] .v4-more-reviews-dialog__header { background: var(--v4-brand); }
 .v4-result-cards[data-v4-result-theme="promise"] .v4-more-reviews-dialog__header { color: #fff; }
 .v4-result-cards[data-v4-result-theme="promise"] .v4-more-reviews-dialog__header button { border-color: rgba(255, 255, 255, .65); background: rgba(255, 255, 255, .13); color: #fff; }
-.v4-result-cards[data-v4-result-theme="promise"] .v4-more-reviews__item h5,
-.v4-result-cards[data-v4-result-theme="aiful"] .v4-more-reviews__item h5 { color: #243129; }
+.v4-result-cards[data-v4-result-theme="promise"] .v4-more-reviews__profile,
+.v4-result-cards[data-v4-result-theme="aiful"] .v4-more-reviews__profile { color: #243129; }
 .v4-result-cards[data-v4-result-theme="promise"] .v4-more-reviews-dialog__cta,
 .v4-result-cards[data-v4-result-theme="aiful"] .v4-more-reviews-dialog__cta { background: var(--v4-brand); box-shadow: 0 5px 0 var(--v4-brand-dark); }
 
@@ -1828,7 +1828,7 @@ body.beginner .v4-spec-ring dd {
   background: #087154;
   color: #fff;
 }
-.v4-more-reviews-dialog__header h4 {
+.v4-more-reviews-dialog__header h3 {
   margin: 0;
   font-size: 18px;
   font-weight: 900;
@@ -1927,7 +1927,7 @@ body.beginner .v4-spec-ring dd {
   background: #fff;
   object-fit: cover;
 }
-.v4-more-reviews__item h5 {
+.v4-more-reviews__profile {
   margin: 7px 1px 0;
   color: #243129;
   font-size: 12.5px;
@@ -2028,14 +2028,14 @@ body.beginner .v4-spec-ring dd {
   .v4-more-reviews__panel > h4 { font-size: 15px; }
   .v4-more-reviews__item { grid-template-columns: 82px minmax(0, 1fr); gap: 9px; padding: 9px; }
   .v4-more-reviews__item img { width: 82px; height: 82px; }
-  .v4-more-reviews__item h5 { font-size: 11px; }
+  .v4-more-reviews__profile { font-size: 11px; }
   .v4-more-reviews__item p { font-size: 10.5px; line-height: 1.6; }
   .v4-more-reviews-trigger { min-height: 54px; padding: 9px 10px 9px 14px; font-size: 14px; }
   .v4-more-reviews-trigger i { width: 28px; height: 28px; font-size: 16px; }
   .v4-more-reviews-dialog { width: calc(100vw - 16px); max-width: calc(100vw - 16px); max-height: 92dvh; border-radius: 11px; }
   .v4-more-reviews-dialog__shell { max-height: 92dvh; }
   .v4-more-reviews-dialog__header { padding: 10px 11px; }
-  .v4-more-reviews-dialog__header h4 { font-size: 16px; }
+  .v4-more-reviews-dialog__header h3 { font-size: 16px; }
   .v4-more-reviews-dialog__header button { width: 44px; height: 44px; font-size: 22px; }
   .v4-more-reviews-dialog__body { padding: 9px; }
   .v4-more-reviews-dialog__floating-action { padding: 8px 9px 12px; }
@@ -2825,7 +2825,7 @@ body.result-v2 .v4-result-cards {
     padding: 11px;
   }
   .v4-more-reviews__item img { width: 92px; height: 92px; }
-  .v4-more-reviews__item h5 { font-size: 12.5px; line-height: 1.45; }
+  .v4-more-reviews__profile { font-size: 12.5px; line-height: 1.45; }
   .v4-more-reviews__rating { font-size: 10.5px; }
   .v4-more-reviews__rating > span { font-size: 13px; }
   .v4-more-reviews__facts { margin: 8px 0 0; }
@@ -2834,7 +2834,7 @@ body.result-v2 .v4-result-cards {
   .v4-more-reviews__facts dd { font-size: 11.5px; }
   .v4-more-reviews__content { padding: 10px 11px; }
   .v4-more-reviews__item p { font-size: 13px; font-weight: 550; line-height: 1.72; }
-  .v4-more-reviews-dialog__header h4 { font-size: 18px; }
+  .v4-more-reviews-dialog__header h3 { font-size: 18px; }
   .v4-more-reviews-dialog__cta { font-size: 16px; }
 }
 
@@ -2858,7 +2858,7 @@ body.result-v2 .v4-result-cards {
 
   .v4-more-reviews__item { grid-template-columns: 104px minmax(0, 1fr); gap: 14px; padding: 13px; }
   .v4-more-reviews__item img { width: 104px; height: 104px; }
-  .v4-more-reviews__item h5 { font-size: 13px; }
+  .v4-more-reviews__profile { font-size: 13px; }
   .v4-more-reviews__rating { font-size: 11px; }
   .v4-more-reviews__rating > span { font-size: 14px; }
   .v4-more-reviews__facts dt { font-size: 10px; }
@@ -2906,7 +2906,7 @@ body.result-v2 .v4-result-cards {
 
   .v4-more-reviews__item { grid-template-columns: 88px minmax(0, 1fr); gap: 9px; padding: 9px; }
   .v4-more-reviews__item img { width: 88px; height: 88px; }
-  .v4-more-reviews__item h5 { font-size: 11.5px; }
+  .v4-more-reviews__profile { font-size: 11.5px; }
   .v4-more-reviews__rating { gap: 3px; font-size: 9.5px; }
   .v4-more-reviews__rating > span { font-size: 11.5px; letter-spacing: 0; }
   .v4-more-reviews__facts { margin-top: 7px; }
@@ -2923,7 +2923,7 @@ body.result-v2 .v4-result-cards {
   gap: 11px;
 }
 .v4-more-reviews__item img { width: 100px; height: 100px; }
-.v4-more-reviews__item h5 {
+.v4-more-reviews__profile {
   color: #333;
   font-size: 11px;
   font-weight: 800;
@@ -3144,3 +3144,98 @@ body.result-v2 .v4-result-cards {
 .v4-result-cards .v4-diagnosis-summary__match { border-bottom: 0; }
 .v4-result-cards[data-v4-result-theme] .v4-diagnosis-summary__match-panel { border: 0; box-shadow: none; }
 .v4-result-cards .v4-diagnosis-summary__match-banner { border-bottom: 0; }
+
+/* Final delivery safeguards: readable controls, stable one-line compact CTA, and safe Japanese wrapping. */
+.v4-result-cards[data-v4-result-theme] {
+  --v4-cta: #cc4714;
+  --v4-cta-shadow: #96330d;
+}
+
+.v4-result-cards .v4-cta {
+  border-color: #a9360d;
+}
+
+.v4-diagnosis-summary__compact-link {
+  flex-wrap: nowrap;
+  border-color: #a9360d;
+  background: linear-gradient(180deg, #cc4714 0%, #c84212 100%);
+  box-shadow: 0 4px 0 #96330d;
+  white-space: nowrap;
+}
+
+.v4-diagnosis-summary__compact-link:active {
+  box-shadow: 0 1px 0 #96330d;
+}
+
+@keyframes v4-compact-cta-push {
+  0%, 28%, 100% { top: 0; box-shadow: 0 4px 0 #96330d; }
+  14% { top: 3px; box-shadow: 0 1px 0 #96330d; }
+}
+
+.v4-result-cards[data-v4-result-theme="mobit"] .v4-lender-rank {
+  color: #2b1600;
+}
+
+.v4-diagnosis-summary__match-comment p {
+  line-break: strict;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+@supports (word-break: auto-phrase) {
+  .v4-diagnosis-summary__match-comment p { word-break: auto-phrase; }
+}
+
+@media (max-width: 600px) {
+  .v4-diagnosis-summary__match-comment small {
+    font-size: 10.5px;
+    line-height: 1.55;
+  }
+
+  .v4-diagnosis-summary__score-note {
+    font-size: 10px;
+    line-height: 1.55;
+  }
+
+  .v4-review-avatar figcaption,
+  .v4-review-facts span {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 389px) {
+  .v4-diagnosis-summary__answer-tags > span,
+  .v4-specs dt {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 350px) {
+  .v4-diagnosis-summary__hero-action.v4-diagnosis-summary__hero-action--compact {
+    padding-inline: 0;
+  }
+
+  .v4-diagnosis-summary__compact-cta {
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 2px;
+    width: 100%;
+    padding-inline: 2px;
+  }
+
+  .v4-diagnosis-summary__compact-cue {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .v4-diagnosis-summary__compact-link {
+    gap: 0 .05em;
+    padding-inline: 0;
+    font-size: 13px;
+    letter-spacing: -.05em;
+  }
+
+  .v4-cta-official,
+  .v4-cta-sub-link {
+    font-size: 10.5px;
+  }
+}

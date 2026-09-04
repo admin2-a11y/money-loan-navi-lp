@@ -1,0 +1,110 @@
+.cq-exit-prevention[hidden] {
+  display: none !important;
+}
+
+.cq-exit-prevention {
+  position: fixed;
+  z-index: 12000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  padding: max(18px, env(safe-area-inset-top)) 14px max(18px, env(safe-area-inset-bottom));
+  background: rgba(2, 35, 26, 0.76);
+  backdrop-filter: blur(3px);
+}
+
+.cq-exit-prevention__dialog {
+  position: relative;
+  width: min(100%, 410px);
+  max-height: calc(100dvh - 36px);
+  padding: 46px 16px 18px;
+  overflow: auto;
+  border: 2px solid #087a55;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.34);
+  box-sizing: border-box;
+}
+
+.cq-exit-prevention__dialog:focus {
+  outline: none;
+}
+
+.cq-exit-prevention__close {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #eaf4ef;
+  color: #075f49;
+  font: 700 24px/1 sans-serif;
+  cursor: pointer;
+}
+
+.cq-exit-prevention__banner {
+  display: block;
+  width: min(100%, 360px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 9px;
+  box-shadow: 0 5px 16px rgba(3, 54, 39, 0.18);
+}
+
+.cq-exit-prevention__banner picture,
+.cq-exit-prevention__banner img {
+  display: block;
+  width: 100%;
+}
+
+.cq-exit-prevention__banner img {
+  height: auto;
+}
+
+.cq-exit-prevention__close:focus-visible,
+.cq-exit-prevention__banner:focus-visible {
+  outline: 3px solid #ffd633;
+  outline-offset: 3px;
+}
+
+body.cq-exit-prevention-open {
+  overflow: hidden !important;
+}
+
+.cq-exit-prevention__sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 374px) {
+  .cq-exit-prevention__dialog {
+    padding: 43px 11px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cq-exit-prevention:not([hidden]) .cq-exit-prevention__dialog {
+    animation: cq-exit-prevention-enter 180ms ease-out both;
+  }
+}
+
+@keyframes cq-exit-prevention-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}

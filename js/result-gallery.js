@@ -121,6 +121,33 @@
     inspect();
   });
 
+  const scopeClonedIds = (root, prefix) => {
+    const idMap = new Map();
+    const elementsWithIds = [root, ...root.querySelectorAll("[id]")].filter((element) => element.id);
+    elementsWithIds.forEach((element) => {
+      const previousId = element.id;
+      const scopedId = `${prefix}-${previousId}`;
+      idMap.set(previousId, scopedId);
+      element.id = scopedId;
+    });
+
+    const tokenAttributes = ["aria-labelledby", "aria-describedby", "aria-controls", "aria-owns"];
+    [root, ...root.querySelectorAll("*")].forEach((element) => {
+      tokenAttributes.forEach((attribute) => {
+        if (!element.hasAttribute(attribute)) return;
+        const mapped = element.getAttribute(attribute).split(/\s+/).map((token) => idMap.get(token) || token).join(" ");
+        element.setAttribute(attribute, mapped);
+      });
+      if (element.hasAttribute("for") && idMap.has(element.getAttribute("for"))) {
+        element.setAttribute("for", idMap.get(element.getAttribute("for")));
+      }
+      const href = element.getAttribute("href");
+      if (href && href.startsWith("#") && idMap.has(href.slice(1))) {
+        element.setAttribute("href", `#${idMap.get(href.slice(1))}`);
+      }
+    });
+  };
+
   let requestSerial = 0;
   const loadJob = (frame, job) => new Promise((resolve) => {
     let finished = false;
@@ -146,6 +173,7 @@
         shell.setAttribute("style", themeStyle(job.lender));
         shell.innerHTML = '<div class="v4-diagnosis-summary__match"><div class="v4-diagnosis-summary__match-panel"><dl></dl></div></div>';
         const clonedCard = source.cloneNode(true);
+        scopeClonedIds(clonedCard, `gallery-preview-${job.previewId}`);
         clonedCard.querySelectorAll("img").forEach((image) => { image.loading = "eager"; });
         shell.querySelector("dl").append(clonedCard);
         job.preview.replaceChildren(shell);
@@ -160,6 +188,7 @@
     sourceUrl.pathname = sourceUrl.pathname.replace(/result\.html$/, "result-gallery-source.html");
     sourceUrl.hash = "";
     requestSerial += 1;
+    job.previewId = requestSerial;
     sourceUrl.searchParams.set("gallery_preview", String(requestSerial));
     frame.src = sourceUrl.href;
   });

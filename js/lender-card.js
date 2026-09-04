@@ -22,7 +22,7 @@
 
   const lenders = [
     {
-      key: "mobit", name: "SMBCモビット", group: "三井住友カード株式会社", banner: "banner_mobit-300x250.jpg", width: 300, height: 250,
+      key: "mobit", name: "SMBCモビット", group: "三井住友カード株式会社", banner: "banner_mobit-300x250.jpg", bannerVersion: "20260904-001", width: 300, height: 250,
       catch: "10秒簡易審査ですぐ結果がわかる！", cta: "SMBCモビットの詳細はこちら",
       specs: [["融資時間", "最短15分"], ["実質年率", "3.0％～18.0％"], ["利用限度額", "最大800万円"], ["事前審査", "10秒簡易審査"], ["利用方法", "振込・コンビニATM"]],
       points: [["お申込みから最短15分で審査完了！", "お申し込みから最短15分で審査するから急な出費にも即対応！"], ["振込は最短3分", "ご契約後、最短3分で口座へ振り込まれる！"], ["原則電話連絡・郵送物なし", "面倒な電話連絡や郵送物はないから誰にもバレなくて安心！"], ["返済でVポイントが貯まる・使える", "返済の利息分でVポイントが貯まるからお得！"]],
@@ -57,17 +57,20 @@
 
   const resultOfferMap = { sm: "mobit", pr: "promise", ac: "acom", ai: "aiful" };
   const resultParams = new URLSearchParams(window.location.search);
+  const usageValue = String(resultParams.get("cq_usage") || resultParams.get("param1") || "").trim().toLowerCase();
+  const isFirstTimeUser = !["experienced", "existing", "no"].includes(usageValue);
+  const hasUsedSignal = resultParams.has("cq_used") || resultParams.has("param2");
   // 利用済み会社(cq_used)が指定されている場合は、URLの result_offer よりアンケート回答からの再計算を優先する。
   // 分岐は index.html / result*.html の calculateRecommendation と同じ「未利用優先 sm → pr → ai → ac、4社利用済みは sm」。
   // result-gallery.html は result_offer と cq_used を意図的に組み合わせて全パターンを並べるため、force_offer=1 で従来動作へ固定する。
   const offerFromAnswers = () => {
     if (resultParams.get("force_offer") === "1") return "";
-    if (resultParams.get("cq_usage") === "first_time" || resultParams.get("param1") === "new") return "";
+    if (!hasUsedSignal) return "";
+    if (isFirstTimeUser) return "sm";
     const used = new Set((resultParams.get("cq_used") || resultParams.get("param2") || "")
       .split(",")
       .map((value) => value.trim().toLowerCase())
       .filter((value) => value && value !== "none"));
-    if (!used.size) return "";
     const hasAny = (values) => values.some((value) => used.has(value));
     if (!hasAny(["sm", "mobit", "smbc_mobit", "mobit_legacy"])) return "sm";
     if (!hasAny(["pr", "promise"])) return "pr";
@@ -75,7 +78,16 @@
     if (!hasAny(["ac", "acom"])) return "ac";
     return "sm";
   };
-  const selectedKey = resultOfferMap[offerFromAnswers()] || resultOfferMap[resultParams.get("result_offer")] || "mobit";
+  const answerOffer = offerFromAnswers();
+  const requestedOffer = resultOfferMap[resultParams.get("result_offer")] ? resultParams.get("result_offer") : "sm";
+  const selectedOffer = answerOffer || requestedOffer;
+  if (answerOffer && resultParams.get("result_offer") !== answerOffer && window.history && window.history.replaceState) {
+    const normalizedUrl = new URL(window.location.href);
+    normalizedUrl.searchParams.set("result_offer", answerOffer);
+    window.history.replaceState(window.history.state, document.title, normalizedUrl.toString());
+    resultParams.set("result_offer", answerOffer);
+  }
+  const selectedKey = resultOfferMap[selectedOffer] || "mobit";
   const pageThemeByLender = {
     mobit: { main: "#007a4d", dark: "#005d3d", soft: "#e5f2ec", line: "#3a936f", text: "#064a35" },
     promise: { main: "#004098", dark: "#002f73", soft: "#f3f7ff", line: "#b8cbea", text: "#17345f" },
@@ -95,7 +107,6 @@
   applySelectedPageTheme();
   document.addEventListener("DOMContentLoaded", applySelectedPageTheme);
   window.addEventListener("pageshow", applySelectedPageTheme);
-  const isFirstTimeUser = resultParams.get("cq_usage") === "first_time" || resultParams.get("param1") === "new";
   const lendersByKey = new Map(lenders.map((lender) => [lender.key, lender]));
   const rankedLenders = [lendersByKey.get(selectedKey)].filter(Boolean);
 
@@ -575,7 +586,7 @@
     if (isFirstTimeMobit(lender)) return `<figure class="v4-first-time-mobit-top-banner">
       <picture>
         <source type="image/webp" srcset="./assets/lenders/mobit-reviews-banner-480.webp 480w, ./assets/lenders/mobit-reviews-banner-768.webp 768w" sizes="(max-width: 600px) calc(100vw - 16px), 488px">
-        <img src="./assets/lenders/mobit-reviews-banner-768.png" width="768" height="257" alt="SMBCモビットをはじめて利用された方の口コミ" decoding="async">
+        <img src="./assets/lenders/mobit-reviews-banner-768.png" width="768" height="257" alt="SMBCモビットをはじめて利用された方の口コミ" loading="lazy" decoding="async" fetchpriority="low">
       </picture>
     </figure>`;
     return `<div class="v4-review-brand-banner" aria-label="${lender.name}を利用された方の口コミ">
@@ -629,13 +640,13 @@
       </figure>`;
     }
     return `<section class="v4-recommend" aria-label="${lender.name}のおすすめポイント">
-      <h4 class="v4-recommend-title">${lender.name}のおすすめポイント</h4>
+      <h3 class="v4-recommend-title">${lender.name}のおすすめポイント</h3>
       <ul class="v4-points">${lender.points.map(([title, text]) => `<li><strong>${linkProductNoteRefs(lender, title)}</strong><span>${linkProductNoteRefs(lender, text)}</span></li>`).join("")}</ul>
     </section>`;
   };
   const cardLeadMarkup = (lender) => {
     return `<div class="v4-lender-titlebar">
-      <h3 class="v4-lender-name"><span class="v4-crown" aria-hidden="true">♛</span> <a href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.name}</a></h3>
+      <h2 class="v4-lender-name"><span class="v4-crown" aria-hidden="true">♛</span> <a href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">${lender.name}</a></h2>
       <p class="v4-lender-rank">診断結果 No.1</p>
     </div>
     <p class="v4-lender-catch">${linkProductNoteRefs(lender, lender.catch)}</p>`;
@@ -652,11 +663,12 @@
     }
     // 広告クリエイティブは寸法を変えずWebPを併置し、非対応環境には元のJPGを配信する。
     const bannerWebp = lender.banner.replace(/\.(jpe?g|png)$/i, ".webp");
+    const bannerVersion = lender.bannerVersion ? `?v=${encodeURIComponent(lender.bannerVersion)}` : "";
     const bannerImg = bannerWebp === lender.banner
-      ? `<img src="./assets/lenders/${lender.banner}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">`
+      ? `<img src="./assets/lenders/${lender.banner}${bannerVersion}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">`
       : `<picture>
-        <source type="image/webp" srcset="./assets/lenders/${bannerWebp}">
-        <img src="./assets/lenders/${lender.banner}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">
+        <source type="image/webp" srcset="./assets/lenders/${bannerWebp}${bannerVersion}">
+        <img src="./assets/lenders/${lender.banner}${bannerVersion}" width="${lender.width}" height="${lender.height}" alt="${lender.name}公式サイトへ" loading="lazy">
       </picture>`;
     return `<a class="v4-lender-banner" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener">
       ${bannerImg}
@@ -670,9 +682,9 @@
   const reviewImageMarkup = (lender) => {
     const alt = lender.reviewImageAlt || "口コミ利用者";
     if (lender.reviewImage) {
-      return `<img src="./assets/lenders/${lender.reviewImage}" width="${lender.reviewImageWidth}" height="${lender.reviewImageHeight}" alt="${alt}" loading="eager" decoding="async" fetchpriority="high" data-v4-review-primary-image>`;
+      return `<img src="./assets/lenders/${lender.reviewImage}" width="${lender.reviewImageWidth}" height="${lender.reviewImageHeight}" alt="${alt}" loading="lazy" decoding="async" fetchpriority="low" data-v4-review-primary-image>`;
     }
-    return `<img src="./assets/lenders/reviews/mobikuchi1-160.webp" width="160" height="160" alt="${alt}" loading="eager" decoding="async" fetchpriority="high" data-v4-review-primary-image>`;
+    return `<img src="./assets/lenders/reviews/mobikuchi1-160.webp" width="160" height="160" alt="${alt}" loading="lazy" decoding="async" fetchpriority="low" data-v4-review-primary-image>`;
   };
   const mobitAdditionalReviews = [
     { profile: "35歳・会社員・男性", image: "mobikuchi1-160.webp", text: "急な帰省や予定外の買い物が重なった月に、必要な分だけ借りました。申し込みから借入までがスムーズで、予定していた支払いにも十分間に合いました。返済時にVポイントを活用できるので、普段の支払いとまとめて管理しやすいです。" },
@@ -712,10 +724,27 @@
     { profile: "男性・42歳・会社員（管理職）・年収610万", image: "mobikuchi7-160.webp", text: "母の検査が続き、付き添いの交通費や薬代を立て替えることが増えました。家計からすぐ出すには少し大きく、ボーナス前までのつなぎとしてアイフルを利用しました。申し込み前に返済額の目安を見られたので、翌月から無理なく返す計画を立てられました。" },
     { profile: "男性・28歳・フリーランス（デザイナー）・年収350万", image: "mobikuchi5-160.webp", text: "デザインの納品前日にノートパソコンの画面が映らなくなり、修理では間に合わず中古の代替機を買うことにしました。入金予定は翌週だったので、つなぎとしてアイフルに申し込みました。夜の8時でもスマホから手続き、入金できたおかげで、翌朝には作業環境を用意できて納期にも間に合いました。" }
   ];
+  const acomReviewImages = [
+    "mobikuchi4-160.webp", "mobikuchi6-160.webp", "mobikuchi1-160.webp", "mobikuchi8-160.webp",
+    "mobikuchi9-160.webp", "mobikuchi7-160.webp", "mobikuchi5-160.webp", "mobikuchi3-160.webp",
+    "mobikuchi10-160.webp", "mobikuchi2-160.webp", "mobikuchi11-160.webp"
+  ];
+  const configuredAcomReviews = window.CQ_PAGE_CONFIG
+    && window.CQ_PAGE_CONFIG.resultEnhancements
+    && window.CQ_PAGE_CONFIG.resultEnhancements.reviewUsageData
+    && window.CQ_PAGE_CONFIG.resultEnhancements.reviewUsageData[isFirstTimeUser ? "first_time" : "experienced"]
+    && window.CQ_PAGE_CONFIG.resultEnhancements.reviewUsageData[isFirstTimeUser ? "first_time" : "experienced"].ac
+    && window.CQ_PAGE_CONFIG.resultEnhancements.reviewUsageData[isFirstTimeUser ? "first_time" : "experienced"].ac.reviews;
+  const acomAdditionalReviews = Array.isArray(configuredAcomReviews) ? configuredAcomReviews.map((review, index) => ({
+    profile: review.user,
+    image: acomReviewImages[index % acomReviewImages.length],
+    text: review.text
+  })) : [];
   const additionalReviewsByLender = {
     mobit: mobitAdditionalReviews,
     promise: promiseAdditionalReviews,
-    aiful: aifulAdditionalReviews
+    aiful: aifulAdditionalReviews,
+    acom: acomAdditionalReviews
   };
   const additionalReviewDetailsByLender = {
     mobit: [
@@ -763,34 +792,40 @@
     const gender = parts.find((part) => /^(男性|女性)$/.test(part)) || "";
     const income = parts.find((part) => /^年収/.test(part)) || "";
     const occupation = parts.filter((part) => part !== age && part !== gender && part !== income).join("・");
+    const occupationMarkup = occupation ? `<span>職業：${occupation}</span>` : "";
+    const ageMarkup = age ? `<span>年齢：${age}</span>` : "";
+    const genderMarkup = gender ? `<span>性別：${gender}</span>` : "";
     const incomeMarkup = income ? `<span>年収：${income.replace(/^年収[:：]?/, "")}</span>` : "";
-    return `<h5 class="v4-more-reviews__profile" aria-label="${profile}">
-          <span>職業：${occupation}</span>
-          <span>年齢：${age}</span>
-          <span>性別：${gender}</span>
+    return `<div class="v4-more-reviews__profile" aria-label="${profile}">
+          ${occupationMarkup}
+          ${ageMarkup}
+          ${genderMarkup}
           ${incomeMarkup}
-        </h5>`;
+        </div>`;
   };
   const personOnlyReviewImage = (image) => image.replace(/-160\.webp$/, "-person-v2.png");
   const additionalReviewsMarkup = (lender) => {
     const reviews = additionalReviewsByLender[lender.key];
-    if (!reviews) return "";
+    if (!reviews || !reviews.length) return "";
     const reviewDetails = additionalReviewDetailsByLender[lender.key] || [];
     const dialogId = `v4-${lender.key}-reviews-dialog`;
     const titleId = `v4-${lender.key}-reviews-title`;
     const items = reviews.map((review, index) => {
-      const detail = reviewDetails[index] || { amount: "10万円", time: "1時間以内", rating: 4 };
-      const amountLabel = detail.amount.endsWith("未満") ? detail.amount : `${detail.amount}未満`;
-      const ratingWidth = `${detail.rating / 5 * 100}%`;
+      const detail = reviewDetails[index];
+      const detailMarkup = detail ? (() => {
+        const amountLabel = detail.amount.endsWith("未満") ? detail.amount : `${detail.amount}未満`;
+        const ratingWidth = `${detail.rating / 5 * 100}%`;
+        return `<span class="v4-more-reviews__rating" aria-label="5点満点中${detail.rating}点"><span aria-hidden="true" style="--v4-review-rating-width:${ratingWidth}">★★★★★</span><b>${detail.rating}</b></span>
+        <dl class="v4-more-reviews__facts">
+          <div><dt>借入額：</dt><dd>${amountLabel}</dd></div>
+          <div><dt>借入までの時間：</dt><dd>${detail.time}</dd></div>
+        </dl>`;
+      })() : "";
       return `<article class="v4-more-reviews__item">
       <div class="v4-more-reviews__person">
         <img src="./assets/lenders/reviews/${personOnlyReviewImage(review.image)}" width="160" height="160" alt="${review.profile}のイメージイラスト" loading="lazy" decoding="async" fetchpriority="low">
         ${additionalReviewProfileMarkup(review.profile)}
-        <span class="v4-more-reviews__rating" aria-label="5点満点中${detail.rating}点"><span aria-hidden="true" style="--v4-review-rating-width:${ratingWidth}">★★★★★</span><b>${detail.rating}</b></span>
-        <dl class="v4-more-reviews__facts">
-          <div><dt>借入額：</dt><dd>${amountLabel}</dd></div>
-          <div><dt>借入までの時間：</dt><dd>${detail.time}</dd></div>
-        </dl>
+        ${detailMarkup}
       </div>
       <div class="v4-more-reviews__content">
         <p>${review.text}</p>
@@ -802,7 +837,7 @@
       <dialog class="v4-more-reviews-dialog" id="${dialogId}" aria-labelledby="${titleId}">
         <div class="v4-more-reviews-dialog__shell">
           <header class="v4-more-reviews-dialog__header">
-            <h4 id="${titleId}">${lender.name}利用者の声</h4>
+            <h3 id="${titleId}">${lender.name}利用者の声</h3>
             <button type="button" data-v4-reviews-close aria-label="口コミを閉じる">×</button>
           </header>
           <div class="v4-more-reviews-dialog__body">
@@ -848,7 +883,7 @@
     return `<p class="v4-cta-official"><span>${label}</span><a class="v4-cta-sub-link" href="${redirectHref(lender.key)}" target="_blank" rel="sponsored noopener" aria-label="${officialLpAccessibleLabel(lender)}" title="${officialLpAccessibleLabel(lender)}">${url}</a></p>`;
   };
 
-  mount.innerHTML = `
+  const fullCardMarkup = `
     <section class="v4-result-cards" data-v4-result-theme="${rankedLenders[0].key}" aria-label="カードローン診断結果">
       ${diagnosisSummaryMarkup(rankedLenders[0])}
       <div class="v4-lender-list">
@@ -890,6 +925,30 @@
       ${finalPickMarkup}
     </section>`;
 
+  const criticalRoot = mount.querySelector(':scope > .v4-result-cards[data-v4-critical]');
+  if (criticalRoot) {
+    const template = document.createElement('template');
+    template.innerHTML = fullCardMarkup.trim();
+    const fullRoot = template.content.firstElementChild;
+    const generatedSummary = fullRoot && fullRoot.querySelector(':scope > .v4-diagnosis-summary');
+    const criticalDetails = criticalRoot.querySelector('[data-v4-critical-details]');
+    const generatedDetails = generatedSummary && generatedSummary.querySelector('#v4-diagnosis-details');
+    if (criticalDetails && generatedDetails) criticalDetails.replaceWith(generatedDetails);
+    if (generatedSummary) generatedSummary.remove();
+    if (fullRoot) {
+      Array.from(fullRoot.childNodes).forEach((node) => criticalRoot.appendChild(node));
+      criticalRoot.removeAttribute('data-v4-critical');
+    }
+  } else {
+    mount.innerHTML = fullCardMarkup;
+  }
+
+  const resultShell = mount.closest('#cq-result-page');
+  if (resultShell) {
+    resultShell.removeAttribute('data-cq-pending');
+    resultShell.setAttribute('data-cq-ready', 'true');
+  }
+
   mount.querySelectorAll("[data-v4-review-primary-image]").forEach((image) => {
     image.addEventListener("error", () => {
       if (image.dataset.v4FallbackApplied === "true") return;
@@ -902,7 +961,8 @@
   });
 
   const diagnosisDetailsJump = mount.querySelector(".v4-diagnosis-summary__details-jump");
-  if (diagnosisDetailsJump) {
+  if (diagnosisDetailsJump && diagnosisDetailsJump.dataset.v4JumpBound !== 'true') {
+    diagnosisDetailsJump.dataset.v4JumpBound = 'true';
     diagnosisDetailsJump.addEventListener("click", (event) => {
       const target = mount.querySelector(diagnosisDetailsJump.hash);
       if (!target) return;
@@ -1060,4 +1120,9 @@
       link.removeAttribute("target");
     }
   });
+  const resultPage = document.querySelector("#cq-result-page");
+  if (resultPage) {
+    resultPage.removeAttribute("data-cq-pending");
+    resultPage.setAttribute("data-cq-ready", "true");
+  }
 })();

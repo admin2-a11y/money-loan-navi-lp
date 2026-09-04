@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><link href="data:," rel="icon" /><meta charset="UTF-8" /><title>運営者情報｜マネーローンナビ</title><meta content="noindex,nofollow,noarchive" name="robots" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><script>window.addEventListener('load', function() {
+<!DOCTYPE html><html lang="ja"><head><link href="data:," rel="icon" /><meta charset="UTF-8" /><title>運営者情報｜マネーローンナビ</title><meta content="index,follow" name="robots" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta name="referrer" content="strict-origin-when-cross-origin" /><script src="./js/privacy-consent.js"></script><script>window.addEventListener('load', function() {
   if (window.location.host.match(/sb-preview.*.squadbeyond.com/)) return
   document.oncopy = function() { return false; };
   document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
@@ -836,22 +836,21 @@ window.IntersectionObserverEntry = IntersectionObserverEntry;
   var scroll = new SmoothScroll('a[href*="#"]', {
     speed:1000
   });
-});</script><!-- Meta Pixel Code -->
+});</script><!-- Meta Pixel Code (analytics consent required) -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1717363732527950');
-fbq('track', 'PageView');
+window.CQConsent.runWhenGranted(function() {
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1717363732527950');
+  fbq('track', 'PageView');
+});
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1717363732527950&ev=PageView&noscript=1"
-/></noscript>
 <!-- End Meta Pixel Code --><script>
 
 (function(self, undefined) {Object.defineProperty(Array.prototype,"values",{value:Array.prototype[Symbol.iterator],enumerable:!1,writable:!1});})('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});</script><script>/*! URI.js v1.19.2 http://medialize.github.io/URI.js/ */
@@ -958,8 +957,11 @@ function generateArticleUrl(articleUid) {
   const currentHost = currentUrl.host;
   const newPath = '/articles/' + articleUid;
   const newUrl = new URL(newPath, 'https://' + currentHost);
+  const allowedTrackingParams = new Set(["gclid", "dclid", "fbclid", "msclkid", "ttclid"]);
   currentUrl.searchParams.forEach((value, key) => {
-    newUrl.searchParams.set(key, value);
+    if (/^utm_(source|medium|campaign|term|content)$/.test(key) || allowedTrackingParams.has(key)) {
+      newUrl.searchParams.set(key, value);
+    }
   });
   return newUrl.toString();
 }
@@ -1146,6 +1148,11 @@ window.sb_article_url = generateArticleUrl(articleUid);</script><script>document
       currentPageUri.removeQuery('sbrd'); // For egg cart
       currentPageUri.removeQuery('sb_tu_id');
       currentPageUri.removeQuery('step_uid');
+      [
+        'cq_usage', 'cq_used', 'cq_amount', 'cq_priority', 'cq_diag_id', 'cq_t',
+        'cq_return_url', 'result_offer', 'force_offer', 'item',
+        'param1', 'param2', 'param3', 'param5'
+      ].forEach(function(name) { currentPageUri.removeQuery(name); });
       const currentPageQueries = currentPageUri.query(true);
 
       const aspSession = JSON.parse(document.querySelector('.js-asp-session').dataset.value)
@@ -1395,21 +1402,25 @@ window.sb_article_url = generateArticleUrl(articleUid);</script><script>document
     }
   }
 
-  let heatmap = new Heatmap();
-  heatmap.assignIndexAttribute();
-  heatmap.assignCursorPointer();
-  heatmap.assignParameterToLink();
-  heatmap.renderArrivalImage();
-  heatmap.renderScrollImages();
-  heatmap.renderClickImage();
-  heatmap.sendFbParams();
-  heatmap.fetchWidgetList();
-  heatmap.renderVisibleWidget();
-})();</script><script>const storageValue = JSON.stringify({ article_uid: "ebsoudw_W_uDoKvrEQ", visitor_uid: window.sb_visitor_id });
-sessionStorage.setItem('sb_global_id', window.sb_global_id);
-sessionStorage.setItem("sb_bp_tP_eibLFLoIJObNvQ", storageValue);
-localStorage.setItem('sb_global_id', window.sb_global_id);
-localStorage.setItem("sb_bp_tP_eibLFLoIJObNvQ", storageValue);</script><script>let hasFunnel = document.querySelector('.js-has-funnel').dataset.value
+  window.CQConsent.runWhenGranted(function() {
+    let heatmap = new Heatmap();
+    heatmap.assignIndexAttribute();
+    heatmap.assignCursorPointer();
+    heatmap.assignParameterToLink();
+    heatmap.renderArrivalImage();
+    heatmap.renderScrollImages();
+    heatmap.renderClickImage();
+    heatmap.sendFbParams();
+    heatmap.fetchWidgetList();
+    heatmap.renderVisibleWidget();
+  });
+})();</script><script>window.CQConsent.runWhenGranted(function() {
+  const storageValue = JSON.stringify({ article_uid: "ebsoudw_W_uDoKvrEQ", visitor_uid: window.sb_visitor_id });
+  sessionStorage.setItem('sb_global_id', window.sb_global_id);
+  sessionStorage.setItem("sb_bp_tP_eibLFLoIJObNvQ", storageValue);
+  localStorage.setItem('sb_global_id', window.sb_global_id);
+  localStorage.setItem("sb_bp_tP_eibLFLoIJObNvQ", storageValue);
+});</script><script>let hasFunnel = document.querySelector('.js-has-funnel').dataset.value
 if (hasFunnel === "true") {
   let sbUrl = new URL(location.href);
   let sbParams = new URLSearchParams(sbUrl.search);

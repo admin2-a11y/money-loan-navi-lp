@@ -1,5 +1,16 @@
 [data-recent-lender-card]{margin:0 0 24px}
+[data-recent-lender-card]:empty{min-height:100svh}
+[data-recent-lender-card]:not(:empty){min-height:0}
 [data-recent-lender-card] .v4-result-cards{width:100%;max-width:none;margin:0;padding:0}
+[data-recent-lender-card] .v4-result-cards[data-v4-critical]{min-height:100svh}
+[data-v4-critical-details]:empty{display:none}
+.v4-first-view-skeleton{display:grid;gap:12px;padding:16px 14px 24px}
+.v4-first-view-skeleton__card{min-height:112px;padding:16px;border:1px solid color-mix(in srgb,var(--cq-offer-line,#bed8cb) 58%,white);border-radius:12px;background:color-mix(in srgb,var(--cq-offer-soft,#edf7f2) 44%,white);box-shadow:0 2px 8px rgba(8,52,40,.05)}
+.v4-first-view-skeleton__line{height:12px;border-radius:999px;background:color-mix(in srgb,var(--cq-offer-line,#bed8cb) 32%,white)}
+.v4-first-view-skeleton__line+ .v4-first-view-skeleton__line{margin-top:12px}
+.v4-first-view-skeleton__line.is-title{width:58%;height:17px;background:color-mix(in srgb,var(--cq-offer,#087a55) 28%,white)}
+.v4-first-view-skeleton__line.is-short{width:74%}
+@supports not (color:color-mix(in srgb,white,black)){.v4-first-view-skeleton__card{border-color:#d7e7df;background:#f7faf8}.v4-first-view-skeleton__line{background:#e7eeea}.v4-first-view-skeleton__line.is-title{background:#d9e8e1}}
 [data-recent-lender-card] .v4-lender-list{display:block}
 [data-recent-lender-card] .v4-lender-card{margin:0}
 [data-recent-lender-card] .v4-lender-name{margin:0}
